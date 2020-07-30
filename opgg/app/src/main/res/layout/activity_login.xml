@@ -6,10 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
+    android:layout_margin="20dp"
     tools:context=".MainActivity">
 
 
@@ -44,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:textColor="#D4D7DB"
+        android:textColor="#C6CAD6"
         android:textSize="15dp"
         android:inputType="textPersonName"
         android:text="이메일 주소" />
@@ -55,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:textColor="#D4D7DB"
+        android:textColor="#C6CAD6"
         android:textSize="15dp"
         android:inputType="textPersonName"
         android:text="비밀번호" />
@@ -74,7 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="60dp"
-            android:background="@drawable/button_view"/>
+            android:background="@drawable/login_button_view"/>
 
     </RelativeLayout>
 
@@ -93,6 +90,7 @@
         android:gravity="center_horizontal"
         android:textColor="#4183C4"
         android:layout_marginTop="10dp"
-        android:text="회원가입하기"/>
+        android:textAllCaps="false"
+        android:text="@string/tv_add_join" />
 
 </LinearLayout>
