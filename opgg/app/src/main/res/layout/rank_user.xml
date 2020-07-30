@@ -13,6 +13,7 @@
 
         <!--순위-->
         <TextView
+            android:id="@+id/tv_rank_ranking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -22,7 +23,7 @@
         <!--유저 이미지-->
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/img_pro1"
+            android:id="@+id/iv_rank_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/lolchamp"
@@ -32,6 +33,7 @@
             android:layout_gravity="center_vertical"/>
         <!--소환사명-->
         <TextView
+            android:id="@+id/tv_rank_nickname"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="포식 베이가 "
@@ -42,6 +44,7 @@
             />
         <!--티어-->
         <TextView
+            android:id="@+id/tv_rank_tier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C1"
@@ -51,6 +54,7 @@
 
         <!--점수-->
         <TextView
+            android:id="@+id/tv_rank_lp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1,560"
