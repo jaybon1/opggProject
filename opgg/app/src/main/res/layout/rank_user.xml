@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:orientation="horizontal">
+
+
+        <!--순위-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="1"
+            android:textSize="30sp" />
+
+        <!--유저 이미지-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_pro1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/lolchamp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"/>
+        <!--소환사명-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="포식 베이가 "
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            />
+        <!--티어-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C1"
+            android:background="@android:color/holo_orange_light"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="150dp"/>
+
+        <!--점수-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1,560"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#E8F5FB"/>
+
+</LinearLayout>
+
+
+
+
+
+
