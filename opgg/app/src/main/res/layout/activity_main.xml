@@ -1,52 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_margin="20dp"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F7F7F9"
     tools:context=".MainActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/search_toolbar" />
-
-    <ImageView
-        android:id="@+id/iv_search_logo"
-        android:layout_marginTop="60dp"
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_above="@+id/bottom_nav_search"
         android:layout_width="match_parent"
-        android:layout_height="87dp"
-        app:srcCompat="@drawable/lol_logo" />
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_marginTop="30dp"
-        android:background="@drawable/search_searchbar_view"
+
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_search"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="70dp"
+        android:background="@android:color/white"
+        app:menu="@menu/bottom_nav_items" />
 
-        <EditText
-            android:layout_marginStart="20dp"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dp"
-            android:hint="소환사 검색"
-            android:background="@android:color/transparent"
-            android:textColor="#9FA6AC" />
-
-        <ImageView
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:id="@+id/imageView6"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/ic_search_search_icon" />
-
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

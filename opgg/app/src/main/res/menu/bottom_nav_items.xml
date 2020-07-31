@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_nav_search_button"
+        android:title="검색"
+        android:icon="@drawable/ic_search_barsearch_icon"/>
+    <item
+        android:id="@+id/bottom_nav_community_button"
+        android:title="커뮤니티"
+        android:icon="@drawable/ic_search_community_icon"/>
+    <item
+        android:id="@+id/bottom_nav_ranking_button"
+        android:title="랭킹"
+        android:icon="@drawable/ic_search_ranking_icon"/>
+
+</menu>

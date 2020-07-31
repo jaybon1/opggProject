@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_margin="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F7F7F9"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/search_toolbar" />
+
+    <ImageView
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        app:srcCompat="@drawable/lol_logo" />
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:background="@drawable/search_searchbar_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <EditText
+            android:id="@+id/et_search_input"
+            android:layout_marginStart="20dp"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:hint="소환사 검색"
+            android:textColorHint="#9FA6AC"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/iv_search_button"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_search_search_icon" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
