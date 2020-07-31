@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="120dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_info_profile"
@@ -28,26 +28,42 @@
             android:id="@+id/tv_info_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="165dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="184dp"
             android:text="포식 베이가"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_ranking"
+            android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.64" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_ranking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="레더 랭킹 600,000 위"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_info_nickname"
-            app:layout_constraintStart_toStartOf="@+id/tv_info_nickname" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv_info_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_nickname" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="86dp"
+            android:layout_height="40dp"
+            android:background="@drawable/radius_button"
+            android:text="전적갱신"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_ranking"
+            app:layout_constraintStart_toStartOf="@+id/tv_ranking"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ranking" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#97A0A7"/>
 
 
 
@@ -153,14 +169,19 @@
         </LinearLayout>
 
 
+
     </LinearLayout>
 
 
 </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+
+            <include layout="@layout/info_detail_winning_rate" />
+            <include layout="@layout/info_detail_winning_rate" />
+            <include layout="@layout/info_detail_winning_rate" />
+
+
+
 
 </LinearLayout>
