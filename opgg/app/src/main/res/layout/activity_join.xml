@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context=".JoinActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+    <ImageView
+        android:id="@+id/iv_join_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/ic_back" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        android:text="회원가입"
+        />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_join_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:ems="10"
+        android:textColor="#C6CAD6"
+        android:textSize="15dp"
+        android:inputType="textPersonName"
+        android:text="이메일 주소" />
+
+    <EditText
+        android:id="@+id/et_join_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:textColor="#C6CAD6"
+        android:textSize="15dp"
+        android:inputType="textPersonName"
+        android:text="닉네임" />
+
+    <EditText
+        android:id="@+id/et_join_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:textColor="#C6CAD6"
+        android:textSize="15dp"
+        android:inputType="textPersonName"
+        android:text="비밀번호" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:textSize="15dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:text="가입하기"
+        android:background="@drawable/join_button_view"/>
+
+</LinearLayout>
