@@ -9,24 +9,36 @@
     android:layout_margin="20dp"
     tools:context=".CommunityActivity">
 
+    <include layout="@layout/community_toolbar"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginBottom="50dp">
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:srcCompat="@drawable/ic_search_gray" />
+        <ImageView
+            android:id="@+id/btn_search_gray"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/btn_edit_mint"
+            app:srcCompat="@drawable/ic_search_gray" />
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:srcCompat="@drawable/ic_edit_mint" />
+        <ImageView
+            android:id="@+id/btn_edit_mint"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/ic_edit_mint" />
 
     </RelativeLayout>
+
+        <include layout="@layout/activity_community_item" />
+        <include layout="@layout/activity_community_item" />
+        <include layout="@layout/activity_community_item" />
+        <include layout="@layout/activity_community_item" />
+
+
 
 
 </LinearLayout>
