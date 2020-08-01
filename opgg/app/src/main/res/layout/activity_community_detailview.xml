@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context=".CommunityDetailview">
+
+    <include layout="@layout/community_toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c1c1c1"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_marginLeft="10dp"
+            android:text="이것이 테스트용 게시글인가?" />
+
+        <TextView
+            android:id="@+id/btn_free_board"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:text="자유" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="47dp"
+            android:layout_marginLeft="45dp"
+            android:text="|" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="55dp"
+            android:text="8 시간 전" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="47dp"
+            android:layout_marginLeft="125dp"
+            android:text="|" />
+
+        <TextView
+            android:id="@+id/btn_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="165dp"
+            android:text="존잘남유팀장" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="10dp"
+            android:text="조회 35,785" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="77dp"
+            android:layout_marginLeft="100dp"
+            android:text="|" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="110dp"
+            android:text="댓글 75" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="77dp"
+            android:layout_marginLeft="170dp"
+            android:text="|" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="180dp"
+            android:text="추천 997" />
+
+        <ImageView
+            android:id="@+id/btn_lol_tier"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="135dp"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@drawable/lol_tier" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c1c1c1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:textSize="25dp"
+        android:text="이것은 테스트용 게시글이라고 하는 것이다." />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c1c1c1"/>
+
+    <RelativeLayout
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="80dp">
+
+    <Button
+        android:id="@+id/btn_viewcount"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/viewcount_button_view"
+        android:text="907" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        app:srcCompat="@drawable/ic_up_gray" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="170dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="댓글" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="175dp"
+            android:layout_marginLeft="65dp"
+            android:textSize="17dp"
+            android:text="총 26개" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c1c1c1"/>
+
+</LinearLayout>
