@@ -143,7 +143,7 @@
         android:layout_width="110dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="80dp">
+        android:layout_marginLeft="120dp">
 
     <Button
         android:id="@+id/btn_viewcount"
@@ -163,12 +163,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="130dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="70dp"
             android:layout_marginLeft="20dp"
             android:textColor="#000000"
             android:textSize="20dp"
@@ -178,10 +178,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="175dp"
+            android:layout_marginTop="75dp"
             android:layout_marginLeft="65dp"
             android:textSize="17dp"
-            android:text="총 26개" />
+            android:text="총 77개" />
     </RelativeLayout>
 
     <View
@@ -189,4 +189,111 @@
         android:layout_height="1dp"
         android:background="#c1c1c1"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/btn_count_up"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/ic_up_gray" />
+
+        <ImageView
+            android:id="@+id/btn_count_down"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="70dp"
+            app:srcCompat="@drawable/ic_down_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:layout_marginLeft="3dp"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:text="147" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            app:srcCompat="@drawable/lol_tier" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="77dp"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:text="이병이병근" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="162dp"
+            android:textSize="25dp"
+            android:text="|" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="172dp"
+            android:textSize="18dp"
+            android:text="7시간 전" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="55dp"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:text="테스트용 댓글 입니다." />
+
+        <TextView
+            android:id="@+id/tv_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="55dp"
+            android:textSize="15dp"
+            android:text="신고" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="180dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/tv_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="답글 쓰기"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/lol_reply" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 </LinearLayout>
