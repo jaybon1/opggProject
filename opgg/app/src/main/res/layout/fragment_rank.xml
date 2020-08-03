@@ -24,7 +24,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/rank_text"
-            android:text="  소환사명"
+            android:hint="소환사명"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

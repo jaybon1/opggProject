@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.bottom_nav_search_button:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
                         break;
+                    case R.id.bottom_nav_community_button:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CommunityFragment()).commit();
+                        break;
                     case R.id.bottom_nav_ranking_button:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RankFragment()).commit();
                         break;

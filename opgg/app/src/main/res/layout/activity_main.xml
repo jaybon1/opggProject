@@ -23,6 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@android:color/white"
-        app:menu="@menu/bottom_nav_items" />
+        app:menu="@menu/nav_items" />
 
 </RelativeLayout>

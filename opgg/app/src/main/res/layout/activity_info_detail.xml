@@ -6,7 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activityInfoDetail">
+    tools:context=".InfoDetailActivity">
+
+    <ImageView
+        android:id="@+id/iv_info_detail_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/ic_back" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -119,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="24승 15패"
                 android:layout_marginLeft="10dp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -169,20 +176,12 @@
 
         </LinearLayout>
 
-
-
     </LinearLayout>
-
 
 </LinearLayout>
 
-
-
             <include layout="@layout/info_detail_winning_rate" />
             <include layout="@layout/info_detail_winning_rate" />
             <include layout="@layout/info_detail_winning_rate" />
-
-
-
-
+    
 </LinearLayout>

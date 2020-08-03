@@ -10,10 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CommunityDetailview"></activity>
-        <activity android:name=".CommunityItemActivity" />
-        <activity android:name=".CommunityActivity" />
         <activity android:name=".JoinActivity" />
-        <activity android:name=".activityInfoDetail" />
+        <activity android:name=".InfoDetailActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
