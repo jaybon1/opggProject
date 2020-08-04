@@ -13,12 +13,12 @@
         android:layout_height="40dp"
         android:background="#5383E9">
 
-    <ImageView
-        android:id="@+id/iv_info_detail_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="#5383E9"
-        app:srcCompat="@drawable/ic_back_white" />
+        <ImageView
+            android:id="@+id/iv_info_detail_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#5383E9"
+            app:srcCompat="@drawable/ic_back_white" />
 
     </RelativeLayout>
 
@@ -117,7 +117,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/lol_scoreB" />
+            app:srcCompat="@drawable/lol_score_b" />
 
         <TextView
             android:layout_width="match_parent"
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="76dp"
-            app:srcCompat="@drawable/lol_baronB" />
+            app:srcCompat="@drawable/lol_baron_b" />
 
         <TextView
             android:layout_width="match_parent"
@@ -179,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/lol_dragonB" />
+            app:srcCompat="@drawable/lol_dragon_b" />
 
         <TextView
             android:layout_width="match_parent"
@@ -194,7 +194,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/lol_towerB" />
+            app:srcCompat="@drawable/lol_tower_b" />
 
         <TextView
             android:layout_width="match_parent"
@@ -212,11 +212,11 @@
         android:layout_height="250dp"
         android:orientation="vertical">
 
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
 
     </LinearLayout>
 
@@ -250,7 +250,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/lol_scoreR" />
+            app:srcCompat="@drawable/lol_score_r" />
 
         <TextView
             android:layout_width="match_parent"
@@ -297,7 +297,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="76dp"
-            app:srcCompat="@drawable/lol_baronR" />
+            app:srcCompat="@drawable/lol_baron_r" />
 
         <TextView
             android:layout_width="match_parent"
@@ -312,7 +312,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/lol_dragonR" />
+            app:srcCompat="@drawable/lol_dragon_r" />
 
         <TextView
             android:layout_width="match_parent"
@@ -327,7 +327,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/lol_towerR" />
+            app:srcCompat="@drawable/lol_tower_r" />
 
         <TextView
             android:layout_width="match_parent"
@@ -345,11 +345,11 @@
         android:layout_height="250dp"
         android:orientation="vertical">
 
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
-        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
+        <include layout="@layout/result_info_item"/>
 
     </LinearLayout>
 
