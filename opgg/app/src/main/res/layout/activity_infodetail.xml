@@ -207,13 +207,18 @@
     </LinearLayout>
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="250dp"
+        android:orientation="vertical">
 
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
 
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -335,13 +340,17 @@
     </LinearLayout>
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginBottom="40dp">
+        android:orientation="vertical">
 
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
+        <include layout="@layout/activity_info_item"/>
 
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
