@@ -31,10 +31,10 @@
 
         <ImageView
             android:id="@+id/iv_rank_search"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:background="#4DA2FF"
             android:src="@drawable/ic_search_white"
             app:layout_constraintEnd_toEndOf="parent"
