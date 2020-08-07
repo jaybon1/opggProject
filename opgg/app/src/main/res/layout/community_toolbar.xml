@@ -15,15 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#2b2b2b"
         android:text="커뮤니티" />
 
     <ImageView
         android:id="@+id/iv_community_toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginLeft="340dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
         app:srcCompat="@drawable/ic_notes" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/img_logo_opgg" />
 
 </RelativeLayout>

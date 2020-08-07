@@ -26,15 +26,26 @@
         <include layout="@layout/community_toolbar" />
 
         <RelativeLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_community_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:textSize="20sp"
+                android:textColor="#2b2b2b"
+                android:text="전체" />
 
             <ImageView
                 android:id="@+id/btn_community_search"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@id/btn_community_write"
                 app:srcCompat="@drawable/ic_search_gray" />
 
@@ -42,10 +53,18 @@
                 android:id="@+id/btn_community_write"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
                 app:srcCompat="@drawable/ic_edit_mint" />
 
         </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/opGray"/>
+
 
         <include layout="@layout/community_item" />
 
