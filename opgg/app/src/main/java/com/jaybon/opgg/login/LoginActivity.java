@@ -1,8 +1,10 @@
-package com.jaybon.opgg;
+package com.jaybon.opgg.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.jaybon.opgg.R;
 
 public class LoginActivity extends AppCompatActivity {
 

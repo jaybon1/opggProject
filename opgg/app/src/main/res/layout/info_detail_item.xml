@@ -11,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="90dp"
         android:orientation="vertical"
-        android:background="@android:color/holo_red_light">
+        android:background="#E84057">
 
         <TextView
             android:id="@+id/tv_win_or_lose"
@@ -40,8 +40,8 @@
 
         <ImageView
             android:id="@+id/iv_spell1"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/lolchamp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="@+id/guideline7" />
@@ -49,17 +49,17 @@
 
         <ImageView
             android:id="@+id/iv_info_spell2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginBottom="5dp"
             android:src="@drawable/lolchamp"
             app:layout_constraintBottom_toTopOf="@+id/iv_spell1"
             app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
         <ImageView
             android:id="@+id/iv_info_runes1"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginStart="4dp"
             android:src="@drawable/lolchamp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -67,9 +67,9 @@
 
         <ImageView
             android:id="@+id/iv_info_runes2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginBottom="5dp"
             android:src="@drawable/lolchamp"
             app:layout_constraintBottom_toTopOf="@+id/iv_info_runes1"
             app:layout_constraintEnd_toEndOf="@+id/iv_info_runes1"
@@ -174,13 +174,12 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_info_user_profile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/lolchamp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -296,13 +295,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="27dp" />
+            app:layout_constraintGuide_begin="30dp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:background="#97A0A7"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

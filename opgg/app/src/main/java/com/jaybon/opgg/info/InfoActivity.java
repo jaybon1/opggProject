@@ -1,14 +1,16 @@
-package com.jaybon.opgg;
+package com.jaybon.opgg.info;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class InfoDetailActivity extends AppCompatActivity {
+import com.jaybon.opgg.R;
+
+public class InfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info_detail);
+        setContentView(R.layout.activity_info);
     }
 }

@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="#F7F7F9">
+    tools:context=".rank.RankFragment">
 
     <include layout="@layout/rank_toolbar"/>
 
@@ -17,81 +16,79 @@
         android:orientation="vertical">
 
 
-        <EditText
-            android:id="@+id/et_rank"
-            android:layout_width="300dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/rank_text"
-            android:hint="소환사명"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--        <EditText-->
+<!--            android:id="@+id/et_rank"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginStart="40dp"-->
+<!--            android:layout_marginTop="28dp"-->
+<!--            android:background="@drawable/rank_text"-->
+<!--            android:hint="소환사명"-->
+<!--            android:textSize="13sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <ImageView
-            android:id="@+id/iv_rank_search"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="29dp"
-            android:background="#4DA2FF"
-            android:src="@drawable/ic_search_white"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/search_searchbar_view"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.342"
-            app:layout_constraintStart_toEndOf="@+id/et_rank"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.272">
+
+            <EditText
+                android:id="@+id/et_search_input"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="5dp"
+                android:background="@android:color/transparent"
+                android:hint="소환사 검색"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:maxLength="20"
+                android:textColor="@android:color/black"
+                android:textColorHint="#9FA6AC" />
+
+            <ImageView
+                android:id="@+id/iv_search_button"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                app:srcCompat="@drawable/ic_search_search_icon" />
+
+
+        </RelativeLayout>
 
         <TextView
 
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:text="소환사의 협곡에 총 "
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_rank"
-            app:layout_constraintVertical_bias="0.48" />
-
-        <TextView
-
-            android:id="@+id/tv_rank_person"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="~~"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView2"
-            app:layout_constraintHorizontal_bias="0.53"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/et_rank"
-            app:layout_constraintVertical_bias="0.48" />
-
-        <TextView
-
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:text="명의 소환사가 있습니다. "
-            android:textSize="15sp"
+            android:text="소환사의 협곡에 총 ~ 명의 소환사가 있습니다."
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_rank"
-            app:layout_constraintVertical_bias="0.48" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@android:color/black"/>
+        android:background="@color/opGray"/>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="30dp">
 
@@ -99,32 +96,43 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center|center_horizontal"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
             android:text="#"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="192dp"
             android:text="소환사"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_marginLeft="40dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="36dp"
             android:text="티어/LP"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_marginLeft="200dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@android:color/black"/>
+        android:background="@color/opGray"/>
 
     <LinearLayout
         android:layout_width="match_parent"

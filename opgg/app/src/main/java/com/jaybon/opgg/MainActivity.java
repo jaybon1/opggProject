@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jaybon.opgg.community.CommunityFragment;
+import com.jaybon.opgg.rank.RankFragment;
+import com.jaybon.opgg.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 

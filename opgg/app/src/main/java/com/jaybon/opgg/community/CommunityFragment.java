@@ -1,15 +1,25 @@
-package com.jaybon.opgg;
+package com.jaybon.opgg.community;
 
 import android.os.Bundle;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
+
+import com.jaybon.opgg.R;
+import com.jaybon.opgg.adapter.CommunityAdapter;
+import com.jaybon.opgg.dao.dto.CommunityDto;
+import com.jaybon.opgg.dao.model.Post;
+
+import java.sql.Timestamp;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +27,8 @@ import android.widget.ImageView;
  * create an instance of this fragment.
  */
 public class CommunityFragment extends Fragment {
+
+    private static final String TAG = "CommunityFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +41,7 @@ public class CommunityFragment extends Fragment {
 
     private ImageView ivCommunityToolbar;
     private DrawerLayout drawerLayoutCommunity;
+    private RecyclerView rvCommunity;
 
     public CommunityFragment() {
         // Required empty public constructor
@@ -76,6 +89,45 @@ public class CommunityFragment extends Fragment {
                 drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
             }
         });
+
+        rvCommunity = rootView.findViewById(R.id.rv_community);
+
+        CommunityAdapter adapter = new CommunityAdapter();
+
+        Post post = Post.builder()
+                .like(123)
+                .title("테스트 제목입니다.")
+                .createDate(Timestamp.valueOf("2020-08-01 23:59:59"))
+                .build();
+
+        CommunityDto communityDto = CommunityDto.builder()
+                .post(post)
+                .nickname("테스트유저")
+                .replyCount(21)
+                .type(1)
+                .build();
+
+        CommunityDto communityDto1 = CommunityDto.builder()
+                .page(1)
+                .type(0)
+                .build();
+
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto);
+        adapter.addContent(communityDto1);
+
+        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        rvCommunity.setLayoutManager(layoutManager1);
+        rvCommunity.setAdapter(adapter);
 
         // Inflate the layout for this fragment
         return rootView;

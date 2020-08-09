@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp"
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".search.SearchFragment"
     android:orientation="vertical"
-    android:background="#F7F7F9"
-    tools:context=".MainActivity">
+    android:background="#F7F7F9">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp">
 
     <include
         android:id="@+id/include"
@@ -45,7 +50,7 @@
             android:background="@android:color/transparent"
             android:hint="소환사 검색"
             android:inputType="textMultiLine|textNoSuggestions"
-            android:maxLength="10"
+            android:maxLength="20"
             android:textColor="@android:color/black"
             android:textColorHint="#9FA6AC" />
 
@@ -61,3 +66,5 @@
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

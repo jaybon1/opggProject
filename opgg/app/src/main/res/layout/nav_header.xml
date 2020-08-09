@@ -12,8 +12,10 @@
 
         <ImageView
             android:id="@+id/iv_nav_header"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             app:srcCompat="@drawable/ic_close" />
 
@@ -22,7 +24,7 @@
 
     <Button
         android:id="@+id/btn_nav_header"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/nav_login_button_view"

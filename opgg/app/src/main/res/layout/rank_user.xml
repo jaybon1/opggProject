@@ -1,74 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="68dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:orientation="horizontal">
-
-
         <!--순위-->
-        <TextView
-            android:id="@+id/tv_rank_ranking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="1"
-            android:textSize="30sp" />
 
-        <!--유저 이미지-->
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/iv_rank_profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/lolchamp"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical"/>
-        <!--소환사명-->
-        <TextView
-            android:id="@+id/tv_rank_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="포식 베이가 "
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            />
-        <!--티어-->
-        <TextView
-            android:id="@+id/tv_rank_tier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="C1"
-            android:background="@android:color/holo_orange_light"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="150dp"/>
+    <!--유저 이미지-->
+    <!--소환사명-->
+    <!--티어-->
 
-        <!--점수-->
-        <TextView
-            android:id="@+id/tv_rank_lp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1,560"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"/>
+    <!--점수-->
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_rank_ranking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:text="1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_rank_profile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/lolchamp"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_rank_nickname"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_rank_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="포식 베이가 "
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_rank_tier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="12dp"
+        android:background="@android:color/holo_orange_light"
+        android:text="C1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_rank_lp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_rank_lp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="28dp"
+        android:text="1,560"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#E8F5FB"/>
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/opGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".CommunityFragment">
+    tools:context=".community.CommunityFragment">
 
 
     <com.google.android.material.navigation.NavigationView
@@ -43,16 +43,16 @@
 
             <ImageView
                 android:id="@+id/btn_community_search"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@id/btn_community_write"
                 app:srcCompat="@drawable/ic_search_gray" />
 
             <ImageView
                 android:id="@+id/btn_community_write"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
                 app:srcCompat="@drawable/ic_edit_mint" />
@@ -65,14 +65,10 @@
             android:layout_height="10dp"
             android:background="@color/opGray"/>
 
-
-        <include layout="@layout/community_item" />
-
-        <include layout="@layout/community_item" />
-
-        <include layout="@layout/community_item" />
-
-        <include layout="@layout/community_item" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_community"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

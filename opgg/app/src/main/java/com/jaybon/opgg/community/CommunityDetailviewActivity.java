@@ -1,10 +1,12 @@
-package com.jaybon.opgg;
+package com.jaybon.opgg.community;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class CommunityDetailview extends AppCompatActivity {
+import com.jaybon.opgg.R;
+
+public class CommunityDetailviewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

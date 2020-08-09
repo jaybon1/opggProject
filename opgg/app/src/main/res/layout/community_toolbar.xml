@@ -21,10 +21,10 @@
 
     <ImageView
         android:id="@+id/iv_community_toolbar"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginRight="20dp"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
         app:srcCompat="@drawable/ic_notes" />
 
     <ImageView

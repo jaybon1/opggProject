@@ -9,11 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".CommunityDetailview" />
-        <activity android:name=".JoinActivity" />
-        <activity android:name=".InfoDetailActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".info.ResultActivity"/>
+        <activity android:name=".community.CommunityDetailviewActivity" />
+        <activity android:name=".join.JoinActivity" />
+        <activity android:name=".info.InfoActivity" />
+        <activity android:name=".login.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
