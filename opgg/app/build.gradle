@@ -20,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // 데이터바인딩
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -33,11 +38,21 @@ dependencies {
 
     // 구글머터리얼
     implementation 'com.google.android.material:material:1.1.0-alpha06'
+
     // 서클 이미지
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //롬복
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    // 글라이드
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // 레트로핏
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    // 레트로핏 - gson컨버터
+    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.3.0'
 
 }

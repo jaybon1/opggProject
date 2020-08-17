@@ -44,7 +44,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
+        // type 0 = header / 2 = footer
         if(viewType == 1)
         {
             View view = inflater.inflate(R.layout.community_item, parent, false);
