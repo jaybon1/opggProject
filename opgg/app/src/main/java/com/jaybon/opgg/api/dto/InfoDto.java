@@ -1,10 +1,6 @@
 package com.jaybon.opgg.api.dto;
 
-import com.jaybon.opgg.api.model.Entry;
-import com.jaybon.opgg.api.model.MatchSpec;
-import com.jaybon.opgg.api.model.Summoner;
-
-import java.util.List;
+import com.merakianalytics.orianna.types.core.summoner.Summoner;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +14,13 @@ import lombok.NoArgsConstructor;
 public class InfoDto {
 
     private int type;
-    private Summoner summoner;
-    private List<Entry> entries;
+    private int summonerLevel;
+    private String summonerName;
+//    private Summoner summoner;
+    private long profileIcon;
+    private String rankSolo;
+    private String rankFlex;
+    private int radderRank;
     private String queueType;
     private String gameDate;
     private long gameCreation;

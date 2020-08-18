@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Matchlist {
+public class MatchListModel {
 
     private List<Match> matches;
     private long startIndex;

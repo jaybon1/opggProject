@@ -2,9 +2,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
@@ -88,8 +86,7 @@
                 android:id="@+id/iv_info_item_profile_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/lolchamp"
-                app:getProfile="@{infoDto.summoner.profileIconId}"
+                app:getProfile="@{String.valueOf(infoDto.profileIcon)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toStartOf="@+id/guideline7"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -99,7 +96,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginBottom="5dp"
-                app:getSpell="@{infoDto.spell1}"
+                app:getSpell="@{String.valueOf(infoDto.spell1)}"
                 app:layout_constraintBottom_toTopOf="@+id/iv_info_item_spell2"
                 app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
@@ -107,7 +104,7 @@
                 android:id="@+id/iv_info_item_spell2"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                app:getSpell="@{infoDto.spell2}"
+                app:getSpell="@{String.valueOf(infoDto.spell2)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
@@ -116,7 +113,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginBottom="5dp"
-                app:getPerk="@{infoDto.perk1}"
+                app:getPerk="@{String.valueOf(infoDto.perk1)}"
                 app:layout_constraintBottom_toTopOf="@+id/iv_info_item_perk2"
                 app:layout_constraintEnd_toEndOf="@+id/iv_info_item_perk2"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -128,7 +125,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="4dp"
-                app:getPerk="@{infoDto.perk2}"
+                app:getPerk="@{String.valueOf(infoDto.perk2)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_spell2" />
 
@@ -206,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="@{infoDto.killConcerned}"
+                android:text="@{String.valueOf(infoDto.killConcerned)}"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline9"
                 app:layout_constraintTop_toTopOf="@+id/textView9" />
@@ -225,7 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:text="@{infoDto.gameDate}"
+                android:text="@{String.valueOf(infoDto.gameDate)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="@+id/guideline9" />
 
@@ -234,7 +231,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
-                app:getItem="@{infoDto.item1}"
+                app:getItem="@{String.valueOf(infoDto.item1)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -245,7 +242,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-                app:getItem="@{infoDto.item2}"
+                app:getItem="@{String.valueOf(infoDto.item2)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item1"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -257,7 +254,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-                app:getItem="@{infoDto.item3}"
+                app:getItem="@{String.valueOf(infoDto.item3)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item2"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -268,7 +265,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-                app:getItem="@{infoDto.item4}"
+                app:getItem="@{String.valueOf(infoDto.item4)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item3"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -279,7 +276,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-                app:getItem="@{infoDto.item5}"
+                app:getItem="@{String.valueOf(infoDto.item5)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item4"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -290,7 +287,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-                app:getItem="@{infoDto.item6}"
+                app:getItem="@{String.valueOf(infoDto.item6)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item5"
                 app:layout_constraintTop_toTopOf="@+id/guideline"

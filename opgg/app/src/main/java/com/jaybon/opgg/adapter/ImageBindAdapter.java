@@ -5,7 +5,6 @@ import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
-import com.jaybon.opgg.api.model.Summoner;
 
 // 이미지 바인딩을 위한함수
 
@@ -17,53 +16,63 @@ public class ImageBindAdapter {
     }
 
     @BindingAdapter({"getProfile"})
-    public static void getProfile(ImageView imageView, long profileId) {
-        Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/profileicon/"+profileId+".png").into(imageView);
+    public static void getProfile(ImageView imageView, String profileId) {
+        if(profileId != null || !profileId.equals("")){
+            Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/profileicon/"+profileId+".png").into(imageView);
+        }
     }
 
     @BindingAdapter({"getItem"})
-    public static void getItem(ImageView imageView, long itemId) {
-        Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/item/"+itemId+".png").into(imageView);
+    public static void getItem(ImageView imageView, String itemId) {
+        if(itemId != null || !itemId.equals("")) {
+            Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/item/" + itemId + ".png").into(imageView);
+        }
     }
 
     @BindingAdapter({"getPerk"})
-    public static void getPerk(ImageView imageView, long perkId) {
-        Glide.with(imageView.getContext()).load("https://opgg-static.akamaized.net/images/lol/perkStyle/"+perkId+".png").into(imageView);
+    public static void getPerk(ImageView imageView, String perkId) {
+        if(perkId != null || !perkId.equals("")) {
+            Glide.with(imageView.getContext()).load("https://opgg-static.akamaized.net/images/lol/perkStyle/" + perkId + ".png").into(imageView);
+        }
     }
 
 
     @BindingAdapter({"getSpell"})
-    public static void getSpell(ImageView imageView, long spellId) {
+    public static void getSpell(ImageView imageView, String spellId) {
+
+        if(spellId == null || spellId.equals("")){
+            return;
+        }
 
         String spellName = null;
 
-        if (spellId == 21){
+        if (spellId.equals("21")){
             spellName = "SummonerBarrier";
-        } else if (spellId == 1){
+        } else if (spellId.equals("1")){
             spellName = "SummonerBoost";
-        } else if (spellId == 14){
+        } else if (spellId.equals("14")){
             spellName = "SummonerDot";
-        } else if (spellId == 3){
+        } else if (spellId.equals("3")){
             spellName = "SummonerExhaust";
-        } else if (spellId == 4){
+        } else if (spellId.equals("4")){
             spellName = "SummonerFlash";
-        } else if (spellId == 6){
+        } else if (spellId.equals("6")){
             spellName = "SummonerHaste";
-        } else if (spellId == 7){
+        } else if (spellId.equals("7")){
             spellName = "SummonerHeal";
-        } else if (spellId == 13){
+        } else if (spellId.equals("13")){
             spellName = "SummonerMana";
-        } else if (spellId == 30){
+        } else if (spellId.equals("30")){
             spellName = "SummonerPoroRecall";
-        } else if (spellId == 31){
+        } else if (spellId.equals("31")){
             spellName = "SummonerPoroThrow";
-        } else if (spellId == 11){
+        } else if (spellId.equals("11")){
             spellName = "SummonerSmite";
-        } else if (spellId == 39){
+        } else if (spellId.equals("39")){
             spellName = "SummonerSnowURFSnowball_Mark";
-        } else if (spellId == 32){
+        } else if (spellId.equals("32")){
             spellName = "SummonerSnowball";
-        } else if (spellId == 12){
+        } else if (spellId.equals("12")){
             spellName = "SummonerTeleport";
         }
 

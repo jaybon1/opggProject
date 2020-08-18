@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MatchSpec {
+public class MatchModel {
 
     public long gameId;
     public String platformId;

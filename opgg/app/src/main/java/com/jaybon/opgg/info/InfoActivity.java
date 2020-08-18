@@ -1,24 +1,24 @@
 package com.jaybon.opgg.info;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.icu.text.IDNA;
-import android.os.Bundle;
-import android.util.Log;
-
+import com.jaybon.opgg.Callback.MyCallback;
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.adapter.InfoAdapter;
 import com.jaybon.opgg.api.dto.InfoDto;
-import com.jaybon.opgg.api.model.Summoner;
-import com.jaybon.opgg.network.InfoService;
+import com.jaybon.opgg.network.Riot;
+import com.merakianalytics.orianna.Orianna;
+import com.merakianalytics.orianna.types.common.Region;
+import com.merakianalytics.orianna.types.core.summoner.Summoner;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -27,6 +27,10 @@ public class InfoActivity extends AppCompatActivity {
     private InfoAdapter adapter;
 
     private RecyclerView recyclerView;
+
+    private List<InfoDto> infoDtos;
+
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,39 +42,56 @@ public class InfoActivity extends AppCompatActivity {
         adapter = new InfoAdapter();
         recyclerView.setAdapter(adapter);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://kr.api.riotgames.com/lol/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        InfoService service = retrofit.create(InfoService.class);
+//        private int type;
+//        private Summoner summoner;
+//        private String queueType;
+//        private String gameDate;
+//        private long gameCreation;
+//        private long gameDuration;
+//        private long spell1;
+//        private long spell2;
+//        private long perk1;
+//        private long perk2;
+//        private long kills;
+//        private long deaths;
+//        private long assists;
+//        private String killConcerned;
+//        private long item1;
+//        private long item2;
+//        private long item3;
+//        private long item4;
+//        private long item5;
+//        private long item6;
+//        private long accessory;
 
-        Call<Summoner> call = service.getSummonerByName("포식베이가");
-        call.enqueue(new Callback<Summoner>() {
-            @Override
-            public void onResponse(Call<Summoner> call, Response<Summoner> response) {
+        infoDtos = new ArrayList<>();
 
-                if (!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: 응답 불량");
-                    return;
+
+        synchronized (this){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // 오리아나
+                    Orianna.setRiotAPIKey(Riot.apikey);
+                    Orianna.setDefaultRegion(Region.KOREA);
+
+                    Summoner summoner = Orianna.summonerNamed("hide on bush").get();
+
+                    // 헤더
+                    InfoDto infoDto = InfoDto.builder()
+                            .type(0)
+//                        .summoner(summoner)
+                            .summonerLevel(summoner.getLevel())
+                            .summonerName(summoner.getName())
+                            .build();
+
+                    infoDtos.add(infoDto);
+                    adapter.addContents(infoDtos);
+
                 }
-
-                Summoner summoner = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<Summoner> call, Throwable t) {
-
-                Log.d(TAG, "onFailure: " + t.getMessage());
-
-            }
-        });
-
-
-
-
-//        adapter.addContents();
-
-
+            }).start();
+        }
+        Log.d(TAG, "onCreate: 노티파이");
     }
 }

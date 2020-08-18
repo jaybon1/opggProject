@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Summoner {
+public class SummonerModel {
 
     private String id;
     private String accountId;

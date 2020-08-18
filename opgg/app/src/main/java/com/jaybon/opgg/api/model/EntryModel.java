@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Entry {
+public class EntryModel {
 
     private String leagueId;
     private String queueType;

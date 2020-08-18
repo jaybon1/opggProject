@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.api.dto.InfoDto;
+import com.jaybon.opgg.databinding.InfoHeaderBinding;
 import com.jaybon.opgg.databinding.InfoItemBinding;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void addContents(List<InfoDto> infoDtos){
+        Log.d(TAG, "addContents: 호출됨");
         this.infoDtos = infoDtos;
     }
 
@@ -43,16 +45,22 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        InfoItemBinding infoItemBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()),R.layout.info_item,parent,false
-        );
-
         // type 0 = header / 2 = footer
         if(viewType == 1)
         {
+
+            InfoItemBinding infoItemBinding = DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.getContext()),R.layout.info_item,parent,false
+            );
             return new MyViewHolder(infoItemBinding);
+
         } else {
-            return new HeaderViewHolder(infoItemBinding);
+
+            InfoHeaderBinding infoHeaderBinding = DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.getContext()),R.layout.info_header,parent,false
+            );
+            return new HeaderViewHolder(infoHeaderBinding);
+
         }
     }
 
@@ -62,7 +70,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(holder instanceof MyViewHolder) {
             ((MyViewHolder) holder).infoItemBinding.setInfoDto(infoDto);
         } else {
-            ((HeaderViewHolder) holder).infoItemBinding.setInfoDto(infoDto);
+            ((HeaderViewHolder) holder).infoHeaderBinding.setInfoDto(infoDto);
         }
     }
 
@@ -137,17 +145,16 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class HeaderViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
 
         // 규칙1 (xml이 들고있는 뷰)
-        private InfoItemBinding infoItemBinding;
+        private InfoHeaderBinding infoHeaderBinding;
 
-        public HeaderViewHolder(@NonNull InfoItemBinding infoItemBinding) {
-            super(infoItemBinding.getRoot());
-            this.infoItemBinding = infoItemBinding;
+        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding) {
+            super(infoHeaderBinding.getRoot());
+            this.infoHeaderBinding = infoHeaderBinding;
         }
 
         // 규칙3
         public void setContent(InfoDto communityDto) {
         }
-
     }
 }
 

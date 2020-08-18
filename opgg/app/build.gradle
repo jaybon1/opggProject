@@ -1,12 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    // 오리아나 컴파일 옵션
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // 오리아나 라이브러리 최소 sdk버전은 26
     compileSdkVersion 29
     buildToolsVersion "30.0.0"
 
     defaultConfig {
         applicationId "com.jaybon.opgg"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -54,5 +62,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     // 레트로핏 - gson컨버터
     implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.3.0'
+
+    // 오리아나
+    implementation "com.merakianalytics.orianna:orianna-android:4.0.0-rc7"
 
 }
