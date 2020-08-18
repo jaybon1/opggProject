@@ -157,7 +157,3 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 }
-
-
-
-
