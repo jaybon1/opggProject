@@ -1,4 +1,4 @@
-package com.jaybon.opgg.api.model;
+package com.jaybon.opgg.api.dto.attr;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,17 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EntryModel {
-
-    private String leagueId;
+public class EntryDto {
     private String queueType;
     private String tier;
     private int rank;
-    private String summonerId;
-    private String summonerName;
     private int leaguePoints;
     private int wins;
     private int losses;
-
-
 }

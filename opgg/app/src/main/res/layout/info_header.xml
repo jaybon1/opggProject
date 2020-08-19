@@ -26,7 +26,6 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/lolchamp"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +40,6 @@
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="72dp"
                 android:background="@drawable/radius_button_black_white"
-                android:text="@{String.valueOf(infoDto.summonerLevel)}"
                 android:textColor="#FFFFFF"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +52,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:hint="소환사 이름"
-                android:text="@{infoDto.summonerName}"
                 android:textSize="25sp"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_header_profile"
                 app:layout_constraintTop_toTopOf="parent" />

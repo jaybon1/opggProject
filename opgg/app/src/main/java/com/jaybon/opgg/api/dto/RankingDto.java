@@ -1,10 +1,5 @@
 package com.jaybon.opgg.api.dto;
 
-import com.jaybon.opgg.api.dto.attr.EntryDto;
-import com.jaybon.opgg.api.dto.attr.MatchDto;
-
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InfoDto {
+public class RankingDto {
 
     private int type;
 
@@ -23,8 +18,11 @@ public class InfoDto {
     private int summonoerLevel;
     private int profileIconId;
 
-    private List<EntryDto> entryDtos;
-
-    private List<MatchDto> matchDtos;
+    //RankingModel
+    private String tier;
+    private int tierRank;
+    private int lp;
+    private String win;
+    private String lose;
 
 }

@@ -1,11 +1,6 @@
 package com.jaybon.opgg.network;
 
 
-import com.jaybon.opgg.api.model.EntryModel;
-import com.jaybon.opgg.api.model.MatchModel;
-import com.jaybon.opgg.api.model.MatchListModel;
-import com.jaybon.opgg.api.model.SummonerModel;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
