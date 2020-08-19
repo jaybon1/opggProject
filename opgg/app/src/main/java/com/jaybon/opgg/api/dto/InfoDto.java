@@ -16,7 +16,6 @@ public class InfoDto {
     private int type;
     private int summonerLevel;
     private String summonerName;
-//    private Summoner summoner;
     private long profileIcon;
     private String rankSolo;
     private String rankFlex;

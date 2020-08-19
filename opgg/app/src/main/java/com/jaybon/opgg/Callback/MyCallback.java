@@ -1,4 +1,4 @@
-package com.jaybon.opgg.Callback;
+package com.jaybon.opgg.callback;
 
 import com.jaybon.opgg.api.dto.InfoDto;
 

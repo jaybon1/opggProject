@@ -1,5 +1,6 @@
 package com.jaybon.opgg.info;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -8,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaybon.opgg.Callback.MyCallback;
+import com.jaybon.opgg.InfoAsyncTask;
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.adapter.InfoAdapter;
 import com.jaybon.opgg.api.dto.InfoDto;
@@ -19,6 +20,7 @@ import com.merakianalytics.orianna.types.core.summoner.Summoner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -67,31 +69,17 @@ public class InfoActivity extends AppCompatActivity {
 
         infoDtos = new ArrayList<>();
 
+        InfoAsyncTask asyncTask = new InfoAsyncTask();
 
-        synchronized (this){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // 오리아나
-                    Orianna.setRiotAPIKey(Riot.apikey);
-                    Orianna.setDefaultRegion(Region.KOREA);
-
-                    Summoner summoner = Orianna.summonerNamed("hide on bush").get();
-
-                    // 헤더
-                    InfoDto infoDto = InfoDto.builder()
-                            .type(0)
-//                        .summoner(summoner)
-                            .summonerLevel(summoner.getLevel())
-                            .summonerName(summoner.getName())
-                            .build();
-
-                    infoDtos.add(infoDto);
-                    adapter.addContents(infoDtos);
-
-                }
-            }).start();
+        InfoDto infoDto = null;
+        try {
+            infoDto = asyncTask.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        infoDtos.add(infoDto);
+        adapter.addContents(infoDtos);
+
         Log.d(TAG, "onCreate: 노티파이");
     }
 }
