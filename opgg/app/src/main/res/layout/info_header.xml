@@ -28,6 +28,8 @@
                 android:layout_marginStart="16dp"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="1dp"
+                android:src="@drawable/champ_view"
+                app:getProfile="@{String.valueOf(infoDto.profileIconId)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,6 +42,7 @@
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="72dp"
                 android:background="@drawable/radius_button_black_white"
+                android:text="@{String.valueOf(infoDto.summonoerLevel)}"
                 android:textColor="#FFFFFF"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +55,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:hint="소환사 이름"
+                android:text="@{infoDto.name}"
                 android:textSize="25sp"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_header_profile"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -105,12 +109,13 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
                     android:src="@drawable/diamond_v"
+                    app:getTierIcon="@{String.valueOf(infoDto.entryDtos.get(0).tierRankId)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
                 <TextView
-                    android:id="@+id/tv_info_header_solo_rank"
+                    android:id="@+id/tv_info_header_solo_queue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -122,33 +127,85 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_info_header_solo_tier_lank"
+                    android:id="@+id/tv_info_header_solo_tier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Diamond 5"
+                    android:hint="Nodata"
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(0).tier)}"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/iv_info_header_solo_rank_img"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_rank" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_queue" />
+
+                <TextView
+                    android:id="@+id/tv_info_header_solo_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:hint=""
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(0).rank)}"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_solo_tier"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_queue" />
 
                 <TextView
                     android:id="@+id/tv_info_header_solo_lp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="10 LP"
+                    android:hint="0"
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(0).leaguePoints)}"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/iv_info_header_solo_rank_img"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_tier_lank" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_tier" />
 
                 <TextView
-                    android:id="@+id/tv_info_header_solo_win_lose"
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:hint="0"
+                    android:text="LP"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_solo_lp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_tier" />
+
+                <TextView
+                    android:id="@+id/tv_info_header_solo_win"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="24승 15패"
+                    android:hint="0"
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(0).wins)}"
                     app:layout_constraintStart_toEndOf="@+id/iv_info_header_solo_rank_img"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_lp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="승"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_solo_win"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_lp" />
+
+                <TextView
+                    android:id="@+id/tv_info_header_solo_lose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:hint="0"
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(0).losses)}"
+                    app:layout_constraintStart_toEndOf="@+id/textView7"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_lp" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="패"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_solo_lose"
                     app:layout_constraintTop_toBottomOf="@+id/tv_info_header_solo_lp" />
 
 
@@ -164,12 +221,12 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
-                    android:src="@drawable/diamond_v"
+                    app:getTierIcon="@{String.valueOf(infoDto.entryDtos.get(1).tierRankId)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_info_header_flex_rank"
+                    android:id="@+id/tv_info_header_flex_queue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -181,34 +238,85 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_info_header_flex_tier_lank"
+                    android:id="@+id/tv_info_header_flex_tier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Silver 5"
+                    android:hint="Nodata"
+                    android:text="@{infoDto.entryDtos.get(1).tier}"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/iv_info_header_flex_rank_img"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_rank" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_queue" />
+
+                <TextView
+                    android:id="@+id/tv_info_header_flex_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@{infoDto.entryDtos.get(1).rank}"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_flex_tier"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_queue" />
+
 
                 <TextView
                     android:id="@+id/tv_info_header_flex_lp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="10 LP"
+                    android:hint="0"
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(1).leaguePoints)}"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/iv_info_header_flex_rank_img"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_tier_lank" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_tier" />
 
                 <TextView
-                    android:id="@+id/tv_info_header_flex_win_lose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="LP"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_flex_lp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_tier" />
+
+                <TextView
+                    android:id="@+id/tv_info_header_flex_win"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="24승 15패"
+                    android:hint="0"
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(1).wins)}"
                     app:layout_constraintStart_toEndOf="@+id/iv_info_header_flex_rank_img"
                     app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_lp" />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="승"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_flex_win"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_lp" />
+
+                <TextView
+                    android:id="@+id/tv_info_header_flex_lose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:hint="0"
+                    android:text="@{String.valueOf(infoDto.entryDtos.get(1).losses)}"
+                    app:layout_constraintStart_toEndOf="@+id/textView32"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_lp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="패"
+                    app:layout_constraintStart_toEndOf="@+id/tv_info_header_flex_lose"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info_header_flex_lp" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

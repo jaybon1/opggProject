@@ -1,5 +1,6 @@
 package com.jaybon.opgg.adapter;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -10,28 +11,42 @@ import com.bumptech.glide.Glide;
 
 public class ImageBindAdapter {
 
+    private static final String TAG = "ImageBindAdapter";
+
     @BindingAdapter({"getImg"})
     public static void getImg(ImageView imageView, String imgURI) {
         Glide.with(imageView.getContext()).load(imgURI).into(imageView);
     }
 
+    @BindingAdapter({"getTierIcon"})
+    public static void getTierIcon(ImageView imageView, String tierRankId) {
+
+        Log.d(TAG, "getTierIcon: "+tierRankId);
+
+        if(tierRankId != null && !tierRankId.equals("") && !tierRankId.equals("null")){
+            Glide.with(imageView.getContext()).load("https://opgg-static.akamaized.net/images/medals/"+tierRankId+".png").into(imageView);
+        } else {
+            Glide.with(imageView.getContext()).load("https://opgg-static.akamaized.net/images/medals/default.png").into(imageView);
+        }
+    }
+
     @BindingAdapter({"getProfile"})
     public static void getProfile(ImageView imageView, String profileId) {
-        if(profileId != null || !profileId.equals("")){
+        if(profileId != null && !profileId.equals("") && !profileId.equals("null")){
             Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/profileicon/"+profileId+".png").into(imageView);
         }
     }
 
     @BindingAdapter({"getItem"})
     public static void getItem(ImageView imageView, String itemId) {
-        if(itemId != null || !itemId.equals("")) {
+        if(itemId != null && !itemId.equals("")&& !itemId.equals("null")) {
             Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/item/" + itemId + ".png").into(imageView);
         }
     }
 
     @BindingAdapter({"getPerk"})
     public static void getPerk(ImageView imageView, String perkId) {
-        if(perkId != null || !perkId.equals("")) {
+        if(perkId != null && !perkId.equals("")&& !perkId.equals("null")) {
             Glide.with(imageView.getContext()).load("https://opgg-static.akamaized.net/images/lol/perkStyle/" + perkId + ".png").into(imageView);
         }
     }
@@ -40,7 +55,7 @@ public class ImageBindAdapter {
     @BindingAdapter({"getSpell"})
     public static void getSpell(ImageView imageView, String spellId) {
 
-        if(spellId == null || spellId.equals("")){
+        if(spellId == null || spellId.equals("") || spellId.equals("null")){
             return;
         }
 

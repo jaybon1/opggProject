@@ -14,6 +14,7 @@ import com.jaybon.opgg.api.dto.InfoDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -41,14 +42,13 @@ public class InfoActivity extends AppCompatActivity {
         infoDtos = new ArrayList<>();
 
         InfoAsyncTask asyncTask = new InfoAsyncTask("hide on bush");
-
-        InfoDto infoDto = null;
         try {
-            infoDto = asyncTask.execute().get();
-        } catch (Exception e) {
+            infoDtos = asyncTask.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
         adapter.addContents(infoDtos);
 

@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 public class EntryDto {
     private String queueType;
     private String tier;
-    private int rank;
+    private String rank;
     private int leaguePoints;
     private int wins;
     private int losses;
+
+    private String tierRankId;
 }

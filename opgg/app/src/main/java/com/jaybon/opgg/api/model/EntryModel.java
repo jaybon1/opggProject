@@ -14,7 +14,7 @@ public class EntryModel {
     private String leagueId;
     private String queueType;
     private String tier;
-    private int rank;
+    private String rank;
     private String summonerId;
     private String summonerName;
     private int leaguePoints;
