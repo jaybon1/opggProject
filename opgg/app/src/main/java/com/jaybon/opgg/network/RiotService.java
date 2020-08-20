@@ -1,6 +1,7 @@
 package com.jaybon.opgg.network;
 
 
+import com.jaybon.opgg.api.Riot;
 import com.jaybon.opgg.api.apimodel.ApiEntry;
 import com.jaybon.opgg.api.apimodel.ApiMatch;
 import com.jaybon.opgg.api.apimodel.ApiMatchEntry;

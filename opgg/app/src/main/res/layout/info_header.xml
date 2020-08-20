@@ -107,7 +107,7 @@
                     android:id="@+id/iv_info_header_solo_rank_img"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:src="@drawable/diamond_v"
                     app:getTierIcon="@{String.valueOf(infoDto.entryModels.get(0).tierRankId)}"
                     app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +220,7 @@
                     android:id="@+id/iv_info_header_flex_rank_img"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     app:getTierIcon="@{String.valueOf(infoDto.entryModels.get(1).tierRankId)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -321,6 +321,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#97A0A7" />
 
     </LinearLayout>
 

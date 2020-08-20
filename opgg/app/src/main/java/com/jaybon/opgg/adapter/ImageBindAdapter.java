@@ -22,7 +22,7 @@ public class ImageBindAdapter {
     public static void getChampImg(ImageView imageView, String champId) {
 
         if(champId != null && !champId.equals("") && !champId.equals("null")){
-            Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png").into(imageView);
+            Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/"+champId+".png").into(imageView);
         } else {
             Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png").into(imageView);
         }
@@ -49,6 +49,8 @@ public class ImageBindAdapter {
     public static void getItem(ImageView imageView, String itemId) {
         if(itemId != null && !itemId.equals("")&& !itemId.equals("null")) {
             Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/item/" + itemId + ".png").into(imageView);
+        }else {
+
         }
     }
 

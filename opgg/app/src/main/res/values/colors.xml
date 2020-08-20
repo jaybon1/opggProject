@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="opGray">#EAEEF1</color>
+    <color name="itemBack">#E1E1E1</color>
     <color name="win">#5383E9</color>
     <color name="lose">#E84057</color>
 </resources>

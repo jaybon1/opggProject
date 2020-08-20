@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="승패"
+                android:hint="X"
                 android:text="@{infoDto.matchSummonerModel.win ? XmlSupport.win : XmlSupport.lose}"
                 android:layout_marginTop="20dp" />
 
@@ -37,6 +37,7 @@
                 android:id="@+id/tv_info_item_game_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="00:00"
                 android:text="@{XmlSupport.getDuration(infoDto.matchSummonerModel.gameDuration)}"
                 android:gravity="center" />
 
@@ -89,22 +90,26 @@
                 android:id="@+id/iv_info_item_profile_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                
+                android:src="@color/itemBack"
+                app:getChampImg="@{String.valueOf(XmlSupport.getChampName(infoDto.matchSummonerModel.championId))}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toStartOf="@+id/guideline7"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_info_item_spell1"
+                android:src="@color/itemBack"
+                app:getSpell="@{String.valueOf(infoDto.matchSummonerModel.spell1Id)}"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginBottom="5dp"
-
                 app:layout_constraintBottom_toTopOf="@+id/iv_info_item_spell2"
                 app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
             <ImageView
                 android:id="@+id/iv_info_item_spell2"
+                android:src="@color/itemBack"
+                app:getSpell="@{String.valueOf(infoDto.matchSummonerModel.spell2Id)}"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
 
@@ -116,7 +121,8 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginBottom="5dp"
-
+                android:src="@color/itemBack"
+                app:getPerk="@{String.valueOf(infoDto.matchSummonerModel.perkPrimaryStyle)}"
                 app:layout_constraintBottom_toTopOf="@+id/iv_info_item_perk2"
                 app:layout_constraintEnd_toEndOf="@+id/iv_info_item_perk2"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -128,7 +134,8 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="4dp"
-
+                android:src="@color/itemBack"
+                app:getPerk="@{String.valueOf(infoDto.matchSummonerModel.perkSubStyle)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_spell2" />
 
@@ -138,7 +145,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-
+                android:hint="0"
+                android:text="@{String.valueOf(infoDto.matchSummonerModel.kills)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -159,7 +167,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-
+                android:hint="0"
+                android:text="@{String.valueOf(infoDto.matchSummonerModel.deaths)}"
                 android:textColor="@android:color/holo_red_light"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -180,7 +189,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-
+                android:hint="0"
+                android:text="@{String.valueOf(infoDto.matchSummonerModel.assists)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
                 app:layout_constraintEnd_toStartOf="@+id/guideline9"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -193,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="킬관여"
-                android:textSize="10sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toStartOf="@+id/tv_info_item_kill_concerned"
                 app:layout_constraintHorizontal_bias="0.8"
@@ -206,8 +216,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-
-                android:textSize="10sp"
+                android:text="50%"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline9"
                 app:layout_constraintTop_toTopOf="@+id/textView9" />
 
@@ -215,49 +225,67 @@
                 android:id="@+id/tv_info_item_rank_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="솔랭"
-                android:textSize="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_info_item_game_date"
-                app:layout_constraintEnd_toEndOf="@+id/tv_info_item_game_date" />
+                android:layout_marginEnd="13dp"
+                android:hint="큐"
+                android:text="@{infoDto.matchSummonerModel.queueId == 420 ? XmlSupport.solo : XmlSupport.flex}"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_info_item_game_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-
+                android:layout_marginEnd="13sp"
+                android:hint="day"
+                android:text="@{XmlSupport.getCreation(infoDto.matchSummonerModel.gameCreation)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
-                app:layout_constraintStart_toStartOf="@+id/guideline9" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_info_item_item1"
+                android:id="@+id/iv_info_item_item0"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
-
+                android:src="@color/itemBack"
+                app:getItem="@{String.valueOf(infoDto.matchSummonerModel.item0)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
                 app:layout_constraintVertical_bias="0.533" />
 
             <ImageView
+                android:id="@+id/iv_info_item_item1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="3dp"
+                android:src="@color/itemBack"
+                app:getItem="@{String.valueOf(infoDto.matchSummonerModel.item1)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_info_item_item0"
+                app:layout_constraintTop_toTopOf="@+id/guideline"
+                app:layout_constraintVertical_bias="0.533" />
+
+
+            <ImageView
                 android:id="@+id/iv_info_item_item2"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-
+                android:src="@color/itemBack"
+                app:getItem="@{String.valueOf(infoDto.matchSummonerModel.item2)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item1"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
                 app:layout_constraintVertical_bias="0.533" />
-
 
             <ImageView
                 android:id="@+id/iv_info_item_item3"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-
+                android:src="@color/itemBack"
+                app:getItem="@{String.valueOf(infoDto.matchSummonerModel.item3)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item2"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -268,7 +296,8 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-
+                android:src="@color/itemBack"
+                app:getItem="@{String.valueOf(infoDto.matchSummonerModel.item4)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item3"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -279,20 +308,10 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-
+                android:src="@color/itemBack"
+                app:getItem="@{String.valueOf(infoDto.matchSummonerModel.item5)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_info_item_item4"
-                app:layout_constraintTop_toTopOf="@+id/guideline"
-                app:layout_constraintVertical_bias="0.533" />
-
-            <ImageView
-                android:id="@+id/iv_info_item_item6"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="3dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_info_item_item5"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
                 app:layout_constraintVertical_bias="0.533" />
 
@@ -302,9 +321,10 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="3dp"
-                android:src="@drawable/lolchamp"
+                android:src="@color/itemBack"
+                app:getItem="@{String.valueOf(infoDto.matchSummonerModel.item6)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_info_item_item6"
+                app:layout_constraintStart_toEndOf="@+id/iv_info_item_item5"
                 app:layout_constraintTop_toTopOf="@+id/guideline"
                 app:layout_constraintVertical_bias="0.533" />
 

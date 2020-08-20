@@ -168,72 +168,80 @@ public class InfoAsyncTask extends AsyncTask<String, List<InfoDto>, List<InfoDto
             e.printStackTrace();
         }
 
-        // 매치 정보
-        final Call<ApiMatch> call3 = service.getMatchSpecByMatchId(apiMatchEntry.getMatches().get(0).getGameId());
+//        for(int i=0; i<apiMatchEntry.getMatches().size(); i++){
+        for (int i = 0; i < 10; i++) {
+            // 매치 정보
+            final Call<ApiMatch> call3 = service.getMatchSpecByMatchId(apiMatchEntry.getMatches().get(i).getGameId());
 
-//        MatchSummonerModel matchSummonerModel = MatchSummonerModel.builder().build();
+            ApiMatch apiMatch = ApiMatch.builder().build();
 
-        ApiMatch apiMatch = ApiMatch.builder().build();
+            try {
+                apiMatch = call3.execute().body();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        try {
-            apiMatch = call3.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            int playerNum = 1;
 
-        int playerNum = 1;
+            for (ParticipantIdentity participantIdentity : apiMatch.getParticipantIdentities()) {
+                if (participantIdentity.getPlayer().getSummonerName().equals(apiSummoner.getName())) {
+                    Log.d(TAG, "doInBackground: " + participantIdentity.getPlayer().getSummonerName() + " 의 번호는 " + participantIdentity.getParticipantId());
+                    playerNum = (int) participantIdentity.getParticipantId() - 1;
+                }
+            }
 
-        for (ParticipantIdentity participantIdentity : apiMatch.getParticipantIdentities()){
-            if(participantIdentity.getPlayer().getSummonerName().equals(apiSummoner.getName())){
-                playerNum = (int) participantIdentity.getParticipantId();
+            // 참가자 정보
+            Player player = apiMatch.getParticipantIdentities().get(playerNum).getPlayer();
+
+            // 참가자 게임정보
+            Participant participant = apiMatch.getParticipants().get(playerNum);
+
+            MatchSummonerModel matchSummonerModel = MatchSummonerModel.builder()
+                    .queueId(apiMatch.getQueueId())
+                    .gameId(apiMatch.getGameId())
+                    .teamId(participant.getTeamId())
+                    .participantId(participant.getParticipantId())
+                    .gameCreation(apiMatch.getGameCreation())
+                    .gameDuration(apiMatch.getGameDuration())
+                    .summonerName(player.getSummonerName())
+                    .win(participant.getStats().isWin())
+                    .championId(participant.getChampionId())
+                    .champLevel(participant.getStats().getChampLevel())
+                    .item0(participant.getStats().getItem0())
+                    .item1(participant.getStats().getItem1())
+                    .item2(participant.getStats().getItem2())
+                    .item3(participant.getStats().getItem3())
+                    .item4(participant.getStats().getItem4())
+                    .item5(participant.getStats().getItem5())
+                    .item6(participant.getStats().getItem6())
+                    .kills(participant.getStats().getKills())
+                    .deaths(participant.getStats().getDeaths())
+                    .assists(participant.getStats().getAssists())
+                    .goldEarned(participant.getStats().getGoldEarned())
+                    .perkPrimaryStyle(participant.getStats().getPerkPrimaryStyle())
+                    .perkSubStyle(participant.getStats().getPerkSubStyle())
+                    .sightWardsBoughtInGame(participant.getStats().getSightWardsBoughtInGame())
+                    .wardsPlaced(participant.getStats().getWardsPlaced())
+                    .wardsKilled(participant.getStats().getWardsKilled())
+                    .spell1Id(participant.getSpell1Id())
+                    .spell2Id(participant.getSpell2Id())
+                    .totalMinionsKilled(participant.getStats().getTotalMinionsKilled())
+                    .totalDamageDealtToChampions(participant.getStats().getTotalDamageDealtToChampions())
+                    .build();
+
+            InfoDto infoDto = InfoDto.builder()
+                    .type(1)
+                    .matchSummonerModel(matchSummonerModel)
+                    .build();
+
+            infoDtos.add(infoDto);
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-
-        // 참가자 정보
-        Player player = apiMatch.getParticipantIdentities().get(playerNum).getPlayer();
-
-        // 참가자 게임정보
-        Participant participant = apiMatch.getParticipants().get(playerNum);
-
-        MatchSummonerModel matchSummonerModel = MatchSummonerModel.builder()
-                .gameId(apiMatch.getGameId())
-                .teamId(participant.getTeamId())
-                .participantId(participant.getParticipantId())
-                .gameCreation(apiMatch.getGameCreation())
-                .gameDuration(apiMatch.getGameDuration())
-                .summonerName(player.getSummonerName())
-                .win(participant.getStats().isWin())
-                .championId(participant.getChampionId())
-                .champLevel(participant.getStats().getChampLevel())
-                .item0(participant.getStats().getItem0())
-                .item1(participant.getStats().getItem1())
-                .item2(participant.getStats().getItem2())
-                .item3(participant.getStats().getItem3())
-                .item4(participant.getStats().getItem4())
-                .item5(participant.getStats().getItem5())
-                .item6(participant.getStats().getItem6())
-                .kills(participant.getStats().getKills())
-                .deaths(participant.getStats().getDeaths())
-                .assists(participant.getStats().getAssists())
-                .goldEarned(participant.getStats().getGoldEarned())
-                .perkPrimaryStyle(participant.getStats().getPerkPrimaryStyle())
-                .perkSubStyle(participant.getStats().getPerkSubStyle())
-                .sightWardsBoughtInGame(participant.getStats().getSightWardsBoughtInGame())
-                .wardsPlaced(participant.getStats().getWardsPlaced())
-                .wardsKilled(participant.getStats().getWardsKilled())
-                .spell1Id(participant.getSpell1Id())
-                .spell2Id(participant.getSpell2Id())
-                .totalMinionsKilled(participant.getStats().getTotalMinionsKilled())
-                .totalDamageDealtToChampions(participant.getStats().getTotalDamageDealtToChampions())
-                .build();
-
-        InfoDto infoDto = InfoDto.builder()
-                .type(1)
-                .matchSummonerModel(matchSummonerModel)
-                .build();
-
-        infoDtos.add(infoDto);
-
         return infoDtos;
     }
 }
