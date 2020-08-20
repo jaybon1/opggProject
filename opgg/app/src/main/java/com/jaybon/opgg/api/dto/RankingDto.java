@@ -1,5 +1,8 @@
 package com.jaybon.opgg.api.dto;
 
+import com.jaybon.opgg.api.model.RankingModel;
+import com.jaybon.opgg.api.model.SummonerModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,16 +16,8 @@ public class RankingDto {
 
     private int type;
 
-    // SummonoerModel
-    private String name;
-    private int summonoerLevel;
-    private int profileIconId;
+    private SummonerModel summonerModel;
 
-    //RankingModel
-    private String tier;
-    private int tierRank;
-    private int lp;
-    private String win;
-    private String lose;
+    private RankingModel rankingModel;
 
 }

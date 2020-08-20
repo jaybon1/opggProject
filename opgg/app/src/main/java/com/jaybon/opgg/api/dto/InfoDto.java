@@ -1,7 +1,8 @@
 package com.jaybon.opgg.api.dto;
 
-import com.jaybon.opgg.api.dto.attr.EntryDto;
-import com.jaybon.opgg.api.dto.attr.MatchDto;
+import com.jaybon.opgg.api.model.EntryModel;
+import com.jaybon.opgg.api.model.MatchSummonerModel;
+import com.jaybon.opgg.api.model.SummonerModel;
 
 import java.util.List;
 
@@ -18,13 +19,9 @@ public class InfoDto {
 
     private int type;
 
-    // SummonoerModel
-    private String name;
-    private int summonoerLevel;
-    private int profileIconId;
+    private SummonerModel summonerModel;
 
-    private List<EntryDto> entryDtos;
+    private List<EntryModel> entryModels;
 
-    private List<MatchDto> matchDtos;
-
+    private MatchSummonerModel matchSummonerModel;
 }

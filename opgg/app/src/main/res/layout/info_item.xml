@@ -6,6 +6,8 @@
 
 
     <data>
+        <import type="androidx.databinding.adapters.Converters" />
+        <import type="com.jaybon.opgg.api.XmlSupport" />
         <variable
             name="infoDto"
             type="com.jaybon.opgg.api.dto.InfoDto" />
@@ -19,23 +21,24 @@
             android:id="@+id/layout_info_item_win_or_lose"
             android:layout_width="50dp"
             android:layout_height="90dp"
-            android:background="#E84057"
+            android:background="@{infoDto.matchSummonerModel.win ? Converters.convertColorToDrawable(@color/win) : Converters.convertColorToDrawable(@color/lose)}"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_info_item_win_or_lose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="패" />
+                android:hint="승패"
+                android:text="@{infoDto.matchSummonerModel.win ? XmlSupport.win : XmlSupport.lose}"
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:id="@+id/tv_info_item_game_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="19:25" />
+                android:text="@{XmlSupport.getDuration(infoDto.matchSummonerModel.gameDuration)}"
+                android:gravity="center" />
 
         </LinearLayout>
 
@@ -86,6 +89,7 @@
                 android:id="@+id/iv_info_item_profile_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toStartOf="@+id/guideline7"
                 app:layout_constraintStart_toStartOf="parent" />

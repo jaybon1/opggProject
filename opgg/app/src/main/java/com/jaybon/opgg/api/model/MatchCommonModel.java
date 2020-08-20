@@ -14,9 +14,9 @@ public class MatchCommonModel {
     private long gameId;
     private String platformId;
     private long gameCreation;
-    private int gameDuration;
-    private int mapId;
-    private int seasonId;
+    private long gameDuration;
+    private long mapId;
+    private long seasonId;
     private String gameMode;
 
 }

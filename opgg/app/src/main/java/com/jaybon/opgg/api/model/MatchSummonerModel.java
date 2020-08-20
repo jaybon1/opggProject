@@ -11,32 +11,36 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MatchSummonerModel {
 
-    private String summonerName;
     private long gameId;
-    private int participantId;
-    private int teamId;
-    private int championId;
-    private int spell1Id;
-    private int spell2Id;
+
+    private long gameCreation;
+    private long gameDuration;
+
+    private String summonerName;
+    private long participantId;
+    private long teamId;
+    private long championId;
+    private long spell1Id;
+    private long spell2Id;
     private boolean win;
-    private int item0;
-    private int item1;
-    private int item2;
-    private int item3;
-    private int item4;
-    private int item5;
-    private int item6;
-    private int kills;
-    private int deaths;
-    private int assists;
-    private int totalDamageDealtToChampions;
-    private int goldEarned;
-    private int totalMinionsKilled;
-    private int champLevel;
-    private int sightWardsBoughtInGame;
-    private int wardsPlaced;
-    private int wardsKilled;
-    private int perkPrimaryStyle;
-    private int perkSubStyle;
+    private long item0;
+    private long item1;
+    private long item2;
+    private long item3;
+    private long item4;
+    private long item5;
+    private long item6;
+    private long kills;
+    private long deaths;
+    private long assists;
+    private long totalDamageDealtToChampions;
+    private long goldEarned;
+    private long totalMinionsKilled;
+    private long champLevel;
+    private long sightWardsBoughtInGame;
+    private long wardsPlaced;
+    private long wardsKilled;
+    private long perkPrimaryStyle;
+    private long perkSubStyle;
 
 }

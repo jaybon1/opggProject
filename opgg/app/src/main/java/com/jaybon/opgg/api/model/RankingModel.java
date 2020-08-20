@@ -13,8 +13,8 @@ public class RankingModel {
 
     private String summonerName;
     private String tier;
-    private int tierRank;
-    private int lp;
+    private long tierRank;
+    private long lp;
     private String win;
     private String lose;
     private String queueType;

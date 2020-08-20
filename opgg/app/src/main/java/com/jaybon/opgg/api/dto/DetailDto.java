@@ -1,7 +1,8 @@
 package com.jaybon.opgg.api.dto;
 
-import com.jaybon.opgg.api.dto.attr.MatchSummonerDto;
-import com.jaybon.opgg.api.dto.attr.MatchTeamDto;
+import com.jaybon.opgg.api.model.MatchCommonModel;
+import com.jaybon.opgg.api.model.MatchSummonerModel;
+import com.jaybon.opgg.api.model.MatchTeamModel;
 
 import java.util.List;
 
@@ -15,13 +16,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DetailDto {
-    //entryModel
-    private String tier;
-    private int tierRank;
 
-    //MachteamModel
-    private List<MatchTeamDto> matchTeamDtos;
+    private MatchCommonModel matchCommonModel;
 
-    //MatchSummonerModel
-    private List<MatchSummonerDto> matchSummonerDtos;
+    private List<MatchTeamModel> matchTeamModels;
+
+    private List<MatchSummonerModel> winSummonerModels;
+
+    private List<MatchSummonerModel> loseSummonerModels;
+
 }

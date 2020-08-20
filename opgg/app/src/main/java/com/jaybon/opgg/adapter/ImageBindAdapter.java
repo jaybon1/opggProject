@@ -18,10 +18,18 @@ public class ImageBindAdapter {
         Glide.with(imageView.getContext()).load(imgURI).into(imageView);
     }
 
+    @BindingAdapter({"getChampImg"})
+    public static void getChampImg(ImageView imageView, String champId) {
+
+        if(champId != null && !champId.equals("") && !champId.equals("null")){
+            Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png").into(imageView);
+        } else {
+            Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png").into(imageView);
+        }
+    }
+
     @BindingAdapter({"getTierIcon"})
     public static void getTierIcon(ImageView imageView, String tierRankId) {
-
-        Log.d(TAG, "getTierIcon: "+tierRankId);
 
         if(tierRankId != null && !tierRankId.equals("") && !tierRankId.equals("null")){
             Glide.with(imageView.getContext()).load("https://opgg-static.akamaized.net/images/medals/"+tierRankId+".png").into(imageView);

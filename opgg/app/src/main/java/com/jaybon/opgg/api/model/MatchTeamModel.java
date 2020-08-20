@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class MatchTeamModel {
+
     private long gameId;
-    private int teamId;
+
+    private long teamId;
     private String win;
-    private int towerKills;
-    private int baronKills;
-    private int dragonkils;
+    private long towerKills;
+    private long baronKills;
+    private long dragonkils;
 }

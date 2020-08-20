@@ -1,15 +1,19 @@
-package com.jaybon.opgg.api.model;
+package com.jaybon.opgg.api.apimodel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+// https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/IGw6-Lj3urVwyovvU0I1HjVLQBHgBwvuw2c1tsLLPZ5DqA?api_key=RGAPI-8f2ab161-b201-4d25-a846-17abf656e8e7
+
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EntryModel {
+public class ApiEntry {
 
     private String leagueId;
     private String queueType;
@@ -20,7 +24,9 @@ public class EntryModel {
     private long leaguePoints;
     private long wins;
     private long losses;
+    private boolean veteran;
+    private boolean inactive;
+    private boolean freshBlood;
+    private boolean hotStreak;
 
-    // 티어와 랭크 합친것
-    private String tierRankId;
 }
