@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MatchTeamModel {
 
+    private int id;
+
     private long gameId;
 
     private long teamId;

@@ -54,13 +54,25 @@
             android:textColor="@android:color/black"
             android:textColorHint="#9FA6AC" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/iv_search_button"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            app:srcCompat="@drawable/ic_search_search_icon" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_search_search_icon"/>
+
+<!--        android:background="@drawable/iv_background"-->
+
+        <!--        <ImageView-->
+<!--            android:id="@+id/iv_search_button"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:background="@drawable/iv_background"-->
+<!--            app:srcCompat="@drawable/ic_search_search_icon" />-->
 
 
     </RelativeLayout>

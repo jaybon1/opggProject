@@ -11,12 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RankingModel {
 
+    private int id;
+    private String summonerId;
     private String summonerName;
     private String tier;
-    private long tierRank;
-    private long lp;
-    private String win;
-    private String lose;
-    private String queueType;
+    private String rank;
+    private long leaguepoints;
+    private long win;
+    private long lose;
 
 }

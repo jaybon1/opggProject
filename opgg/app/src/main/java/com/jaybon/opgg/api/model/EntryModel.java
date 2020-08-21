@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class EntryModel {
 
+    private int id;
+
     private String leagueId;
     private String queueType;
     private String tier;

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jaybon.opgg.community.CommunityFragment;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main_Activity";
     private BottomNavigationView bottomNavSearch;
+    private long backBtnTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,4 +52,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        long curTime = System.currentTimeMillis();
+        long gapTime = curTime - backBtnTime;
+
+        if(gapTime >= 0 && gapTime <=2000) {
+            super.onBackPressed();
+        } else {
+            backBtnTime = curTime;
+            Toast.makeText(this,"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

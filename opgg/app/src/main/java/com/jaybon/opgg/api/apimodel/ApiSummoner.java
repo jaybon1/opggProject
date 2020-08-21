@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ApiSummoner {
 
+
     private String id;
     private String accountId;
     private String puuid;

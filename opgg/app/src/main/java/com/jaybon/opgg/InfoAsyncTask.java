@@ -1,8 +1,10 @@
 package com.jaybon.opgg;
 
+import android.content.Context;
 import android.icu.text.IDNA;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jaybon.opgg.api.apimodel.ApiEntry;
@@ -31,14 +33,23 @@ public class InfoAsyncTask extends AsyncTask<String, List<InfoDto>, List<InfoDto
     private static final String TAG = "InfoAsyncTask";
 
     String name;
+    Context context;
 
-    public InfoAsyncTask(String name) {
+    public InfoAsyncTask(String name, Context context) {
         this.name = name;
+        this.context = context;
+    }
+
+    @Override
+    protected void onProgressUpdate(List<InfoDto>... values) {
+        super.onProgressUpdate(values);
+        Toast.makeText(context, "로딩중", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected List<InfoDto> doInBackground(String... strings) {
 
+        // 여기들어가기 직전에 프로그레바를 돌려
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://kr.api.riotgames.com/lol/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -50,8 +61,9 @@ public class InfoAsyncTask extends AsyncTask<String, List<InfoDto>, List<InfoDto
 
         List<InfoDto> infoDtos = new ArrayList<>();
 
+
         // 유저정보
-        final Call<ApiSummoner> call = service.getSummonerByName("hideonbush");
+        final Call<ApiSummoner> call = service.getSummonerByName(name);
 
         ApiSummoner apiSummoner = ApiSummoner.builder().build();
 
@@ -61,9 +73,14 @@ public class InfoAsyncTask extends AsyncTask<String, List<InfoDto>, List<InfoDto
             e.printStackTrace();
         }
 
+        // 소환사가 없을 경우 빈 리스트 리턴
+        if(apiSummoner == null){
+            return infoDtos;
+        }
+
         SummonerModel summonerModel = SummonerModel.builder()
                 .summonerLevel(apiSummoner.getSummonerLevel())
-                .id(apiSummoner.getId())
+                .summonerId(apiSummoner.getId())
                 .accountId(apiSummoner.getAccountId())
                 .profileIconId(apiSummoner.getProfileIconId())
                 .name(apiSummoner.getName())
@@ -81,6 +98,16 @@ public class InfoAsyncTask extends AsyncTask<String, List<InfoDto>, List<InfoDto
             apiEntries = call1.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if(apiEntries.size() == 0){
+
+            InfoDto infoDtoHeader = InfoDto.builder()
+                    .type(0)
+                    .summonerModel(summonerModel)
+                    .build();
+            infoDtos.add(infoDtoHeader);
+            return infoDtos;
         }
 
         if (apiEntries.get(0).getQueueType().equals("RANKED_SOLO_5x5")) {
@@ -168,8 +195,10 @@ public class InfoAsyncTask extends AsyncTask<String, List<InfoDto>, List<InfoDto
             e.printStackTrace();
         }
 
+
+
 //        for(int i=0; i<apiMatchEntry.getMatches().size(); i++){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             // 매치 정보
             final Call<ApiMatch> call3 = service.getMatchSpecByMatchId(apiMatchEntry.getMatches().get(i).getGameId());
 

@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MatchCommonModel {
 
+    private int id;
+
     private long gameId;
     private String platformId;
     private long gameCreation;

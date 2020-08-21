@@ -1,5 +1,8 @@
 package com.jaybon.opgg.api.model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SummonerModel {
 
-    private String id;
+    private int id;
+    private String summonerId;
     private String accountId;
     private String puuid;
     private String name;

@@ -1,11 +1,13 @@
 package com.jaybon.opgg.adapter;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+import com.jaybon.opgg.R;
 
 // 이미지 바인딩을 위한함수
 
@@ -24,7 +26,7 @@ public class ImageBindAdapter {
         if(champId != null && !champId.equals("") && !champId.equals("null")){
             Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/"+champId+".png").into(imageView);
         } else {
-            Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/Shyvana.png").into(imageView);
+            imageView.setImageResource(R.color.opGray);
         }
     }
 
@@ -42,22 +44,29 @@ public class ImageBindAdapter {
     public static void getProfile(ImageView imageView, String profileId) {
         if(profileId != null && !profileId.equals("") && !profileId.equals("null")){
             Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/profileicon/"+profileId+".png").into(imageView);
+        } else {
+            imageView.setImageResource(R.color.itemBack);
         }
     }
 
     @BindingAdapter({"getItem"})
     public static void getItem(ImageView imageView, String itemId) {
-        if(itemId != null && !itemId.equals("")&& !itemId.equals("null")) {
-            Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/item/" + itemId + ".png").into(imageView);
-        }else {
 
+        if(itemId.equals("0")){
+            imageView.setImageResource(R.color.itemBack);
+            return;
+        } else if(itemId != null && !itemId.equals("")&& !itemId.equals("null")) {
+            Glide.with(imageView.getContext()).load("http://ddragon.leagueoflegends.com/cdn/10.16.1/img/item/" + itemId + ".png").into(imageView);
         }
     }
 
     @BindingAdapter({"getPerk"})
     public static void getPerk(ImageView imageView, String perkId) {
+
         if(perkId != null && !perkId.equals("")&& !perkId.equals("null")) {
             Glide.with(imageView.getContext()).load("https://opgg-static.akamaized.net/images/lol/perkStyle/" + perkId + ".png").into(imageView);
+        } else {
+            imageView.setImageResource(R.color.itemBack);
         }
     }
 

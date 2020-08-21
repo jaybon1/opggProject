@@ -5,52 +5,38 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.info.InfoActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.w3c.dom.Text;
+
 public class SearchFragment extends Fragment {
 
     private static final String TAG = "SearchFragment";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private ImageView ivSearchButton;
 
+    private TextView etSearchInput;
+
+    private boolean enterKeyDown;
+    private boolean enterKeyUp;
+
     public SearchFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,29 +44,71 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_search, container, false);
+        enterKeyDown = false;
+        enterKeyUp = false;
+
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
+
+        etSearchInput = rootView.findViewById(R.id.et_search_input);
+
+        // 엔터로 검색
+        etSearchInput.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.d(TAG, "onKey: " + keyCode);
+                if (keyCode == event.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP && !enterKeyUp) {
+                    Log.d(TAG, "onKey: 엔터키업");
+                    enterKeyUp = true;
+                    // 액티비티 이동
+                    moveToNext();
+                    return true;
+                } else if (keyCode == event.KEYCODE_ENTER) {
+                    Log.d(TAG, "onKey: 엔터키다운");
+                    enterKeyDown = true;
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        etSearchInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enterKeyUp = false;
+            }
+        });
 
         ivSearchButton = rootView.findViewById(R.id.iv_search_button);
-
+        // 터치로 검색
         ivSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InfoActivity.class);
-                startActivity(intent);
+                // 액티비티 이동
+                moveToNext();
             }
         });
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    private void moveToNext() {
+        if (etSearchInput.getText().toString() == null || etSearchInput.getText().toString().equals("")) {
+//            Toast.makeText(getContext(), "소환사 이름을 입력하세요", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getContext(), "소환사 이름을 입력하세요", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, -600);
+            toast.show();
+            return;
+        }
+        Intent intent = new Intent(getActivity(), InfoActivity.class);
+        intent.putExtra("summonerName", etSearchInput.getText().toString());
+        startActivity(intent);
     }
 }

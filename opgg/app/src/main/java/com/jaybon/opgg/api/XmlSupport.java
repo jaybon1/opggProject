@@ -24,7 +24,7 @@ public class XmlSupport {
         long minutes = duration / 60;
         long seconds = duration % 60;
 
-        return minutes + ":" + seconds;
+        return String.format("%02d:%02d",minutes,seconds);
     }
 
     // 롱 시간을 날짜로 변경

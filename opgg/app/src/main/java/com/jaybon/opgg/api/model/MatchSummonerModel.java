@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MatchSummonerModel {
 
+    private int id;
+
     private long gameId;
     private long queueId;
 
