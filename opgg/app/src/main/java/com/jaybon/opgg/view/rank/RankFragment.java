@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RankFragment extends Fragment {
+
+    private static final String TAG = "RankFragment";
 
     // 리사이클러뷰 어댑터
     private RankAdapter adapter;
@@ -57,21 +60,6 @@ public class RankFragment extends Fragment {
         // 리스트 초기화
         rankingDtos = new ArrayList<>();
 
-        // 뷰모델 초기화
-        rankViewModel = ViewModelProviders.of(this).get(RankViewModel.class);
-
-        // 뷰모델 구독
-        rankViewModel.subscribe().observe(this, new Observer<List<RankingDto>>() {
-            @Override
-            public void onChanged(List<RankingDto> rankingDtos) {
-                adapter.addContents(rankingDtos);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-        // 뷰모델 데이터 초기화
-        rankViewModel.initLiveData(1);
-
         // 액티비티와 프래그먼트는 바인딩 방식이 다름 (확인)
         fragmentRankBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_rank,container,false);
 
@@ -85,8 +73,26 @@ public class RankFragment extends Fragment {
         // 리사이클러뷰 데이터 초기화
         adapter.addContents(rankingDtos);
 
+        // 뷰모델 초기화
+        rankViewModel = ViewModelProviders.of(this).get(RankViewModel.class);
 
+        // 뷰모델 구독
+        rankViewModel.subscribe().observe(this, new Observer<List<RankingDto>>() {
+            @Override
+            public void onChanged(List<RankingDto> rankingDtos) {
 
+                // 뷰가 변경되면 리사이클러뷰 어댑어테 데이터 새로 담기
+                adapter.addContents(rankingDtos);
+                adapter.notifyDataSetChanged();
+
+                // 로딩 화면 없애기
+                fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+
+            }
+        });
+
+        // 뷰모델 데이터 초기화
+        rankViewModel.initLiveData(1);
 
 
 

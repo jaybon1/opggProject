@@ -46,27 +46,6 @@ public class InfoActivity extends AppCompatActivity {
         // 바인딩 연결
         activityInfoBinding = DataBindingUtil.setContentView(this,R.layout.activity_info);
 
-        // 로딩화면 없애기
-        activityInfoBinding.pgLoading.setVisibility(View.GONE);
-
-        // 뷰모델생성
-        infoViewModel = ViewModelProviders.of(this).get(InfoViewModel.class);
-
-        // 뷰모델 구독
-        infoViewModel.subscribe().observe(this, new Observer<List<InfoDto>>() {
-            @Override
-            public void onChanged(List<InfoDto> infoDtos) {
-
-                Log.d(TAG, "onChanged: "+infoDtos.get(1).getType());
-
-                adapter.addContents(infoDtos);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-        // 뷰모델 데이터 초기화
-        infoViewModel.initLiveData(getIntent().getStringExtra("summonerName"));
-
         // 뒤로가기 버튼
         activityInfoBinding.ivInfoDetailBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +63,26 @@ public class InfoActivity extends AppCompatActivity {
 
         // 리사이클러뷰 데이터 초기화
         adapter.addContents(infoDtos);
+
+        // 뷰모델생성
+        infoViewModel = ViewModelProviders.of(this).get(InfoViewModel.class);
+
+        // 뷰모델 구독
+        infoViewModel.subscribe().observe(this, new Observer<List<InfoDto>>() {
+            @Override
+            public void onChanged(List<InfoDto> infoDtos) {
+
+                // 뷰가 변경되면 리사이클러뷰 어댑어테 데이터 새로 담기
+                adapter.addContents(infoDtos);
+                adapter.notifyDataSetChanged();
+
+                // 로딩화면 없애기
+                activityInfoBinding.pgInfoLoading.setVisibility(View.GONE);
+            }
+        });
+
+        // 뷰모델 데이터 초기화
+        infoViewModel.initLiveData(getIntent().getStringExtra("summonerName"));
 
     }
 }

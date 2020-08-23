@@ -19,7 +19,7 @@
         tools:context=".view.info.InfoActivity">
 
         <ProgressBar
-            android:id="@+id/pg_loading"
+            android:id="@+id/pg_info_loading"
             style="?android:attr/progressBarStyle"
             android:layout_width="50dp"
             android:layout_height="match_parent"
