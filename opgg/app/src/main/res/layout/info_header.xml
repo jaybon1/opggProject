@@ -8,7 +8,7 @@
     <data>
         <variable
             name="infoDto"
-            type="com.jaybon.opgg.api.dto.InfoDto" />
+            type="com.jaybon.opgg.model.dto.InfoDto" />
     </data>
 
     <LinearLayout

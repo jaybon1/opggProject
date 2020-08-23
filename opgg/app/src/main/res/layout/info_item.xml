@@ -7,10 +7,10 @@
 
     <data>
         <import type="androidx.databinding.adapters.Converters" />
-        <import type="com.jaybon.opgg.api.XmlSupport" />
+        <import type="com.jaybon.opgg.view.adapter.XmlAdapter" />
         <variable
             name="infoDto"
-            type="com.jaybon.opgg.api.dto.InfoDto" />
+            type="com.jaybon.opgg.model.dto.InfoDto" />
     </data>
 
     <RelativeLayout
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="X"
-                android:text="@{infoDto.matchSummonerModel.win ? XmlSupport.win : XmlSupport.lose}"
+                android:text="@{infoDto.matchSummonerModel.win ? XmlAdapter.win : XmlAdapter.lose}"
                 android:layout_marginTop="20dp" />
 
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="00:00"
-                android:text="@{XmlSupport.getDuration(infoDto.matchSummonerModel.gameDuration)}"
+                android:text="@{XmlAdapter.getDuration(infoDto.matchSummonerModel.gameDuration)}"
                 android:gravity="center" />
 
         </LinearLayout>
@@ -90,7 +90,7 @@
                 android:id="@+id/iv_info_item_profile_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:getChampImg="@{String.valueOf(XmlSupport.getChampName(infoDto.matchSummonerModel.championId))}"
+                app:getChampImg="@{String.valueOf(XmlAdapter.getChampName(infoDto.matchSummonerModel.championId))}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toStartOf="@+id/guideline7"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -222,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="13dp"
                 android:hint="큐"
-                android:text="@{infoDto.matchSummonerModel.queueId == 420 ? XmlSupport.solo : XmlSupport.flex}"
+                android:text="@{infoDto.matchSummonerModel.queueId == 420 ? XmlAdapter.solo : XmlAdapter.flex}"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -233,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="13sp"
                 android:hint="day"
-                android:text="@{XmlSupport.getCreation(infoDto.matchSummonerModel.gameCreation)}"
+                android:text="@{XmlAdapter.getCreation(infoDto.matchSummonerModel.gameCreation)}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent" />
 

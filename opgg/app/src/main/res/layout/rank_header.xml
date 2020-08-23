@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="rankingDto"
+            type="com.jaybon.opgg.model.dto.RankingDto" />
+    </data>
+
+    <!--데이터바인딩시 무조건 하나의 레이아웃 안에 모든게 감싸져있어야한다 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/search_searchbar_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.272">
+
+                <EditText
+                    android:id="@+id/et_search_input"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@android:color/transparent"
+                    android:hint="소환사 검색"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:maxLength="20"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#9FA6AC" />
+
+                <ImageView
+                    android:id="@+id/iv_search_button"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_search_search_icon" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_rank_user_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="소환사의 협곡에 총"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_rank_usercount"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+            <TextView
+
+                android:id="@+id/tv_rank_usercount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="1"
+                android:text="@{String.valueOf(rankingDto.allUser)}"
+                android:textColor="@color/win"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+            <TextView
+
+                android:id="@+id/tv_rank_user_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="명의 소환사가 있습니다."
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_rank_usercount"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/opGray" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
+                android:text="#"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="220dp"
+                android:text="소환사"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="36dp"
+                android:text="티어/LP"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
