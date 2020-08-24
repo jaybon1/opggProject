@@ -18,6 +18,22 @@ public class XmlAdapter {
     public static String win = "승";
     public static String lose = "패";
 
+    // 평점 계산
+    public static String getGrade (long kill, long death, long assist) {
+
+        if(death == 0){
+            return "Perfect 평점";
+        }
+
+        double killDouble = (double) kill;
+        double deathDouble = (double) death;
+        double assistDouble = (double) assist;
+
+        double grade = (killDouble + assistDouble) / deathDouble;
+
+        return String.format("%.2f : 1 평점",grade);
+    }
+
     // 숫자 시간을 분과 초로 변경
     public static String getDuration(long duration) {
 

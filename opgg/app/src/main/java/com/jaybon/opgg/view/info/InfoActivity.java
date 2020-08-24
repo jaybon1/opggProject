@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.ActivityInfoBinding;
 import com.jaybon.opgg.model.dto.InfoDto;
-import com.jaybon.opgg.model.dto.RespListDto;
+import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.InfoAdapter;
 import com.jaybon.opgg.viewmodel.info.InfoViewModel;
 
@@ -68,12 +68,12 @@ public class InfoActivity extends AppCompatActivity {
         infoViewModel = ViewModelProviders.of(this).get(InfoViewModel.class);
 
         // 뷰모델 구독
-        infoViewModel.subscribe().observe(this, new Observer<RespListDto<InfoDto>>() {
+        infoViewModel.subscribe().observe(this, new Observer<RespDto<List<InfoDto>>>() {
             @Override
-            public void onChanged(RespListDto<InfoDto> respListDto) {
+            public void onChanged(RespDto<List<InfoDto>> respDto) {
 
                 // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
-                adapter.addContents(respListDto.getData());
+                adapter.addContents(respDto.getData());
                 adapter.notifyDataSetChanged();
 
                 // 로딩화면 없애기

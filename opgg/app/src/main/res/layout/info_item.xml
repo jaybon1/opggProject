@@ -31,6 +31,8 @@
                 android:gravity="center"
                 android:hint="X"
                 android:text="@{infoDto.matchSummonerModel.win ? XmlAdapter.win : XmlAdapter.lose}"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
                 android:layout_marginTop="20dp" />
 
             <TextView
@@ -39,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:hint="00:00"
                 android:text="@{XmlAdapter.getDuration(infoDto.matchSummonerModel.gameDuration)}"
+                android:textColor="@android:color/white"
                 android:gravity="center" />
 
         </LinearLayout>
@@ -193,28 +196,28 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/tv_info_item_grade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="킬관여"
+                android:layout_marginStart="5dp"
+                android:hint="g"
+                android:text="@{XmlAdapter.getGrade(infoDto.matchSummonerModel.kills,infoDto.matchSummonerModel.deaths,infoDto.matchSummonerModel.assists)}"
                 android:textSize="13sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
-                app:layout_constraintEnd_toStartOf="@+id/tv_info_item_kill_concerned"
-                app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toTopOf="@+id/guideline10"
                 app:layout_constraintVertical_bias="0.555" />
 
-            <TextView
-                android:id="@+id/tv_info_item_kill_concerned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="50%"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline9"
-                app:layout_constraintTop_toTopOf="@+id/textView9" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_info_item_kill_concerned"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:text="50%"-->
+<!--                android:textSize="13sp"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/guideline9"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/textView9" />-->
 
             <TextView
                 android:id="@+id/tv_info_item_rank_type"

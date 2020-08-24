@@ -1,7 +1,9 @@
 package com.jaybon.opgg.view.adapter;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import com.jaybon.opgg.databinding.RankHeaderBinding;
 import com.jaybon.opgg.databinding.RankItemBinding;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
+import com.jaybon.opgg.view.info.InfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +89,20 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             super(rankItemBinding.getRoot());
             this.rankItemBinding = rankItemBinding;
+
+            rankItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // 리사이클러뷰에서 액티비티 전환하기
+                    Intent intent = new Intent(rankItemBinding.getRoot().getContext(), InfoActivity.class);
+                    intent.putExtra("summonerName", rankItemBinding.getRankingDto().getRankingModel().getSummonerName());
+                    rankItemBinding.getRoot().getContext().startActivity(intent);
+
+                }
+            });
+
+
 
         }
 

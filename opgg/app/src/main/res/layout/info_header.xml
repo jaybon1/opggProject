@@ -62,23 +62,41 @@
 
 
             <TextView
-                android:id="@+id/tv_info_header_ranking"
+                android:id="@+id/tv_info_header_ranking_pre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:text="레더 랭킹 600,000 위"
+                android:layout_marginTop="16dp"
+                android:text="레더 랭킹 "
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_info_header_nickname"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_info_header_nickname"
                 app:layout_constraintTop_toBottomOf="@+id/tv_info_header_nickname" />
 
+            <TextView
+                android:id="@+id/tv_info_header_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:text="@{String.valueOf(infoDto.radder)}"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_info_header_ranking_pre"
+                app:layout_constraintTop_toTopOf="@+id/tv_info_header_ranking_pre" />
+
+            <TextView
+                android:id="@+id/tv_info_header_ranking_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 위"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_info_header_ranking"
+                app:layout_constraintTop_toTopOf="@+id/tv_info_header_ranking_pre" />
+
             <Button
                 android:id="@+id/btn_info_header_update"
                 android:layout_width="86dp"
                 android:layout_height="34dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="55dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/radius_button_blue"
                 android:text="전적갱신"
@@ -143,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:hint=""
+                    android:hint="0"
                     android:text="@{String.valueOf(infoDto.entryModels.get(0).rank)}"
                     android:textSize="15sp"
                     android:textStyle="bold"

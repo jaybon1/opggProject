@@ -19,6 +19,8 @@ public class InfoDto {
 
     private int type;
 
+    private long radder;
+
     private SummonerModel summonerModel;
 
     private List<EntryModel> entryModels;

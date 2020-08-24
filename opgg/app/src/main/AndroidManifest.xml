@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.info.ResultActivity"/>
+        <activity android:name=".view.detail.DetailActivity"/>
         <activity android:name=".view.community.CommunityDetailviewActivity" />
         <activity android:name=".view.auth.JoinActivity" />
         <activity android:name=".view.info.InfoActivity" />

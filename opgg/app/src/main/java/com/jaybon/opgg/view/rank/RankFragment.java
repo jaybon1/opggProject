@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.FragmentRankBinding;
+import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
-import com.jaybon.opgg.model.dto.RespListDto;
+import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.RankAdapter;
 import com.jaybon.opgg.viewmodel.rank.RankViewModel;
 
@@ -75,12 +76,12 @@ public class RankFragment extends Fragment {
         rankViewModel = ViewModelProviders.of(this).get(RankViewModel.class);
 
         // 뷰모델 구독
-        rankViewModel.subscribe().observe(this, new Observer<RespListDto<RankingDto>>() {
+        rankViewModel.subscribe().observe(this, new Observer<RespDto<List<RankingDto>>>() {
             @Override
-            public void onChanged(RespListDto<RankingDto> respListDto) {
+            public void onChanged(RespDto<List<RankingDto>> respDto) {
 
                 // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
-                adapter.addContents(respListDto.getData());
+                adapter.addContents(respDto.getData());
                 adapter.notifyDataSetChanged();
 
                 // 로딩 화면 없애기

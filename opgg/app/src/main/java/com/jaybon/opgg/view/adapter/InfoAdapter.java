@@ -1,7 +1,9 @@
 package com.jaybon.opgg.view.adapter;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.databinding.InfoHeaderBinding;
 import com.jaybon.opgg.databinding.InfoItemBinding;
+import com.jaybon.opgg.view.detail.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +90,20 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             super(infoItemBinding.getRoot());
             this.infoItemBinding = infoItemBinding;
+
+            infoItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.d(TAG, "onClick: "+infoItemBinding.getInfoDto().getMatchSummonerModel().getGameId());
+
+                    // 리사이클러뷰에서 액티비티 전환하기
+                    Intent intent = new Intent(infoItemBinding.getRoot().getContext(), DetailActivity.class);
+                    intent.putExtra("gameId", infoItemBinding.getInfoDto().getMatchSummonerModel().getGameId());
+                    infoItemBinding.getRoot().getContext().startActivity(intent);
+
+                }
+            });
 
         }
 
