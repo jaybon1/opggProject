@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 public class CommunityDto {
 
     private int type;
-    private int statusCode;
-    private String message;
 
     private Post post;
     private String nickname;

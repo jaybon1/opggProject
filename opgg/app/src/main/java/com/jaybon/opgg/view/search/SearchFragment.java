@@ -3,6 +3,7 @@ package com.jaybon.opgg.view.search;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,15 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaybon.opgg.R;
+import com.jaybon.opgg.databinding.FragmentSearchBinding;
 import com.jaybon.opgg.view.info.InfoActivity;
 
 public class SearchFragment extends Fragment {
 
     private static final String TAG = "SearchFragment";
 
-    private ImageView ivSearchButton;
-
-    private TextView etSearchInput;
+    private FragmentSearchBinding fragmentSearchBinding;
 
     private boolean enterKeyDown;
     private boolean enterKeyUp;
@@ -49,15 +49,15 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        fragmentSearchBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search,container,false);
+
         enterKeyDown = false;
         enterKeyUp = false;
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
 
-        etSearchInput = rootView.findViewById(R.id.et_search_input);
-
         // 엔터로 검색
-        etSearchInput.setOnKeyListener(new View.OnKeyListener() {
+        fragmentSearchBinding.etSearchInput.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 Log.d(TAG, "onKey: " + keyCode);
@@ -76,16 +76,15 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        etSearchInput.setOnClickListener(new View.OnClickListener() {
+        fragmentSearchBinding.etSearchInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enterKeyUp = false;
             }
         });
 
-        ivSearchButton = rootView.findViewById(R.id.iv_search_button);
         // 터치로 검색
-        ivSearchButton.setOnClickListener(new View.OnClickListener() {
+        fragmentSearchBinding.ivSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 액티비티 이동
@@ -94,11 +93,12 @@ public class SearchFragment extends Fragment {
         });
 
         // Inflate the layout for this fragment
-        return rootView;
+//        return rootView;
+        return fragmentSearchBinding.getRoot();
     }
 
     private void moveToNext() {
-        if (etSearchInput.getText().toString() == null || etSearchInput.getText().toString().equals("")) {
+        if (fragmentSearchBinding.etSearchInput.getText().toString() == null || fragmentSearchBinding.etSearchInput.getText().toString().equals("")) {
 //            Toast.makeText(getContext(), "소환사 이름을 입력하세요", Toast.LENGTH_SHORT).show();
             Toast toast = Toast.makeText(getContext(), "소환사 이름을 입력하세요", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, -600);
@@ -106,7 +106,8 @@ public class SearchFragment extends Fragment {
             return;
         }
         Intent intent = new Intent(getActivity(), InfoActivity.class);
-        intent.putExtra("summonerName", etSearchInput.getText().toString());
+        intent.putExtra("summonerName", fragmentSearchBinding.etSearchInput.getText().toString());
+        fragmentSearchBinding.etSearchInput.setText("");
         startActivity(intent);
     }
 }

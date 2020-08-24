@@ -1,82 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.search.SearchFragment"
-    android:orientation="vertical"
-    android:background="#F7F7F9">
+    xmlns:tools="http://schemas.android.com/tools">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp">
+    <data>
+    </data>
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/search_toolbar" />
+    <LinearLayout
 
-    <ImageView
-        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="87dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include"
-        app:layout_constraintVertical_bias="0.364"
-        app:srcCompat="@drawable/lol_logo"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="match_parent"
+        android:background="#F7F7F9"
+        android:orientation="vertical"
+        tools:context=".view.search.SearchFragment">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/search_searchbar_view"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.16"
-        tools:layout_editor_absoluteX="0dp">
-
-        <EditText
-            android:id="@+id/et_search_input"
-            android:layout_width="250dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/transparent"
-            android:hint="소환사 검색"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:maxLength="20"
-            android:textColor="@android:color/black"
-            android:textColorHint="#9FA6AC" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-        <ImageButton
-            android:id="@+id/iv_search_button"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_search_search_icon"/>
+            <include
+                android:id="@+id/include"
+                layout="@layout/search_toolbar" />
 
-<!--        android:background="@drawable/iv_background"-->
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="87dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/include"
+                app:layout_constraintVertical_bias="0.364"
+                app:srcCompat="@drawable/lol_logo"
+                tools:layout_editor_absoluteX="0dp" />
 
-        <!--        <ImageView-->
-<!--            android:id="@+id/iv_search_button"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:background="@drawable/iv_background"-->
-<!--            app:srcCompat="@drawable/ic_search_search_icon" />-->
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/search_searchbar_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:layout_constraintVertical_bias="0.16"
+                tools:layout_editor_absoluteX="0dp">
 
+                <EditText
+                    android:id="@+id/et_search_input"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@android:color/transparent"
+                    android:hint="소환사 검색"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:maxLength="20"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#9FA6AC" />
 
-    </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/iv_search_button"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/ic_search_search_icon" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
 
-</LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</layout>
