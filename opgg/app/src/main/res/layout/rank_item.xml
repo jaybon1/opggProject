@@ -60,7 +60,7 @@
             android:hint="C1"
             android:textColor="@android:color/white"
             app:getBackgroundColor="@{rankingDto.rankingModel.tier}"
-            android:text="@{XmlAdapter.getTierRankAndColor(rankingDto.rankingModel.tier, rankingDto.rankingModel.rank)}"
+            android:text="@{XmlAdapter.getTierRank(rankingDto.rankingModel.tier, rankingDto.rankingModel.rank)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_rank_lp"
             app:layout_constraintTop_toTopOf="parent" />

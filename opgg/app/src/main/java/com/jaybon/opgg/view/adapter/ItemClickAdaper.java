@@ -1,5 +1,5 @@
 package com.jaybon.opgg.view.adapter;
 
-public interface OnItemClick {
+public interface ItemClickAdaper {
     void onClick ();
 }

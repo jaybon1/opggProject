@@ -1,12 +1,15 @@
 package com.jaybon.opgg.view.adapter;
 
 
+import android.util.Log;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //xml에 데이터 바인딩 하여 값을 원하는대로 변경
 public class XmlAdapter {
+    private static final String TAG = "XmlAdapter";
 
     // 큐타입
     public static String solo = "솔랭";
@@ -17,6 +20,24 @@ public class XmlAdapter {
     // 조건에 맟춰서 승 패 데이터
     public static String win = "승";
     public static String lose = "패";
+
+    public static int longToint(long longNum){
+        int intNum = Integer.parseInt(String.valueOf(longNum));
+        return intNum;
+    }
+
+    // 골드입력
+    public static String getGold(long gold){
+        String goldK = String.format("%.1fK", ((double)gold/1000.0));
+        return goldK;
+    }
+
+    // CS 입력
+    public static String getCS(long cs, long duration){
+
+        String csData = ""+cs+"("+(cs/(duration/60))+")";
+        return csData;
+    }
 
     // 평점 계산
     public static String getGrade (long kill, long death, long assist) {
@@ -31,7 +52,7 @@ public class XmlAdapter {
 
         double grade = (killDouble + assistDouble) / deathDouble;
 
-        return String.format("%.2f : 1 평점",grade);
+        return String.format("%.2f : 1 평점", grade);
     }
 
     // 숫자 시간을 분과 초로 변경
@@ -44,7 +65,7 @@ public class XmlAdapter {
     }
 
 
-    public static String getTierRankAndColor(String tier, String rank) {
+    public static String getTierRank(String tier, String rank) {
 
         StringBuilder sb = new StringBuilder();
 

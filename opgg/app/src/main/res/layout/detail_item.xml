@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.databinding.adapters.Converters" />
+        <import type="com.jaybon.opgg.view.adapter.XmlAdapter" />
+        <variable
+            name="matchSummonerModel"
+            type="com.jaybon.opgg.model.apidao.MatchSummonerModel" />
+        <variable
+            name="matchCommonModel"
+            type="com.jaybon.opgg.model.apidao.MatchCommonModel" />
+        <variable
+            name="maxDeal"
+            type="java.lang.Long" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_detail_color"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_detail_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/lolchamp"
+            app:getChampImg="@{String.valueOf(XmlAdapter.getChampName(matchSummonerModel.championId))}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/iv_detail_champ_level"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/radius_button_black"
+            android:hint="0"
+            android:text="@{String.valueOf(matchSummonerModel.champLevel)}"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_spell1"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="6dp"
+            app:getSpell="@{String.valueOf(matchSummonerModel.spell1Id)}"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/skill_view" />
+
+        <ImageView
+
+            android:id="@+id/iv_detail_spell2"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="2dp"
+            app:getSpell="@{String.valueOf(matchSummonerModel.spell2Id)}"
+            app:layout_constraintStart_toStartOf="@+id/iv_detail_spell1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_detail_spell1"
+            app:srcCompat="@drawable/skill_view" />
+
+        <ImageView
+            android:id="@+id/iv_detail_perk1"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="6dp"
+            app:getPerk="@{String.valueOf(matchSummonerModel.perkPrimaryStyle)}"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_spell1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/item_view" />
+
+        <ImageView
+            android:id="@+id/iv_detail_perk2"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="2dp"
+            app:getPerk="@{String.valueOf(matchSummonerModel.perkSubStyle)}"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_spell1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_detail_perk1"
+            app:srcCompat="@drawable/item_view" />
+
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/iv_result_tier_rank"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="19dp"-->
+        <!--            android:layout_marginStart="5dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:hint=""-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/iv_result_perk1"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+        <TextView
+            android:id="@+id/iv_detail_summoner"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:hint="name"
+            android:text="@{matchSummonerModel.summonerName}"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_perk1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iv_detail_kill"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:hint="0"
+            android:text="@{String.valueOf(matchSummonerModel.kills)}"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_perk2"
+            app:layout_constraintTop_toBottomOf="@+id/iv_detail_summoner" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="5dp"
+            android:text="/"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_kill"
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_kill" />
+
+        <TextView
+            android:id="@+id/iv_detail_death"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="5dp"
+            android:hint="0"
+            android:text="@{String.valueOf(matchSummonerModel.deaths)}"
+            app:layout_constraintStart_toEndOf="@+id/textView25"
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_kill" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="5dp"
+            android:text="/"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_death"
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_kill" />
+
+        <TextView
+            android:id="@+id/iv_detail_assist"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="5dp"
+            android:hint="0"
+            android:text="@{String.valueOf(matchSummonerModel.assists)}"
+            app:layout_constraintStart_toEndOf="@+id/textView30"
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_kill" />
+
+        <TextView
+            android:id="@+id/iv_detail_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:hint="1.0:1"
+            android:text="@{XmlAdapter.getGrade(matchSummonerModel.kills,matchSummonerModel.deaths,matchSummonerModel.assists)}"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iv_detail_assist"
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_kill" />
+
+        <!--        android:textColor="#F18920"-->
+
+        <ImageView
+            android:id="@+id/iv_detail_item0"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="2dp"
+            app:getItem="@{String.valueOf(matchSummonerModel.item0)}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_item1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_item1"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="2dp"
+            app:getItem="@{String.valueOf(matchSummonerModel.item1)}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_item2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_item2"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="2dp"
+            app:getItem="@{String.valueOf(matchSummonerModel.item2)}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_item3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_item3"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="2dp"
+            app:getItem="@{String.valueOf(matchSummonerModel.item3)}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_item4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_item4"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="2dp"
+            app:getItem="@{String.valueOf(matchSummonerModel.item4)}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_item5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_item5"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="2dp"
+            app:getItem="@{String.valueOf(matchSummonerModel.item5)}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_item6"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_item6"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="5dp"
+            app:getItem="@{String.valueOf(matchSummonerModel.item6)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iv_detail_cs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:hint="0(0)"
+            android:text="@{XmlAdapter.getCS(matchSummonerModel.totalMinionsKilled, matchCommonModel.gameDuration)}"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_detail_gold"
+            app:layout_constraintEnd_toStartOf="@+id/textView23"
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_gold" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="/"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_detail_gold"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_gold"
+            app:layout_constraintTop_toTopOf="@+id/iv_detail_gold" />
+
+        <TextView
+            android:id="@+id/iv_detail_gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@{XmlAdapter.getGold(matchSummonerModel.goldEarned)}"
+            android:hint="0K"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/pg_detail"
+            app:layout_constraintEnd_toStartOf="@+id/pg_detail"
+            app:layout_constraintTop_toTopOf="@+id/pg_detail" />
+
+
+        <ProgressBar
+            android:id="@+id/pg_detail"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="60dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:progressDrawable="@drawable/result_info_item_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_detail_item6" />
+
+        <TextView
+            android:id="@+id/iv_detail_deal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:hint="0"
+            android:text="@{String.valueOf(matchSummonerModel.totalDamageDealtToChampions)}"
+            android:textColor="#000000"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/pg_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pg_detail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -26,12 +26,12 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "InfoAdapter";
 
     private Context context;
-    private OnItemClick contextListener;
+    private ItemClickAdaper contextListener;
     private String nowSummoner;
 
     private List<InfoDto> infoDtos = new ArrayList<>();
 
-    public InfoAdapter(Context context, String nowSummoner,OnItemClick contextListener) {
+    public InfoAdapter(Context context, String nowSummoner, ItemClickAdaper contextListener) {
         this.context = context;
         this.contextListener = contextListener;
         this.nowSummoner = nowSummoner;
@@ -134,7 +134,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // 규칙1 (xml이 들고있는 뷰)
         private InfoHeaderBinding infoHeaderBinding;
 
-        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, OnItemClick contextListener) {
+        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, ItemClickAdaper contextListener) {
             super(infoHeaderBinding.getRoot());
             this.infoHeaderBinding = infoHeaderBinding;
 

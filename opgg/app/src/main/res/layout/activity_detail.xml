@@ -18,16 +18,16 @@
         android:orientation="vertical"
         tools:context=".view.detail.DetailActivity">
 
-<!--        <ProgressBar-->
-<!--            android:id="@+id/pg_detail_loading"-->
-<!--            style="?android:attr/progressBarStyle"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_gravity="center"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <ProgressBar
+            android:id="@+id/pg_detail_loading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RelativeLayout
             android:id="@+id/layout_detail_header1"
@@ -48,86 +48,86 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_detail_header2"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:background="#5383E9">
 
             <TextView
                 android:id="@+id/tv_detail_header_winorlose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:hint="승리"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/tv_detail_header_queuetype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="right"
                 android:text="솔랭"
                 android:textColor="#FFFFFF"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView21"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView21" />
 
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="right"
                 android:text="|"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_detail_header_duration"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_detail_header_duration" />
 
             <TextView
                 android:id="@+id/tv_detail_header_createdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="right"
                 android:text="2020.07.24"
                 android:textColor="#FFFFFF"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView19"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView19" />
 
             <TextView
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="right"
                 android:text="|"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_detail_header_createdate"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_detail_header_createdate" />
 
             <TextView
                 android:id="@+id/tv_detail_header_duration"
                 android:layout_width="39dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="right"
                 android:text="19:27"
                 android:textColor="#FFFFFF"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -169,7 +169,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
-                android:text="12"
+                android:hint="0"
                 android:textSize="15dp" />
 
             <TextView
@@ -186,7 +186,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
-                android:text="4"
+                android:hint="0"
                 android:textSize="15dp" />
 
             <TextView
@@ -203,7 +203,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
-                android:text="14"
+                android:hint="0"
                 android:textSize="15dp" />
 
             <ImageView
@@ -218,6 +218,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
+                android:hint="0"
                 android:text="@{String.valueOf(detailDto.winTeam.baronKills)}"
                 android:textSize="15dp" />
 
@@ -233,6 +234,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
+                android:hint="0"
                 android:text="@{String.valueOf(detailDto.winTeam.dragonkils)}"
                 android:textSize="15dp" />
 
@@ -248,29 +250,17 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
+                android:hint="0"
                 android:text="@{String.valueOf(detailDto.winTeam.towerKills)}"
                 android:textSize="15dp" />
 
         </LinearLayout>
 
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_detail_win"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-        </LinearLayout>
-
+            android:orientation="vertical"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -359,7 +349,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
-                android:text="0"
+                android:hint="0"
                 android:textSize="15dp" />
 
             <ImageView
@@ -374,7 +364,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
-                android:text="3"
+                android:hint="0"
                 android:textSize="15dp" />
 
             <ImageView
@@ -389,28 +379,16 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center_vertical"
-                android:text="3"
+                android:hint="0"
                 android:textSize="15dp" />
 
         </LinearLayout>
 
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_detail_lose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-            <include layout="@layout/result_item" />
-
-        </LinearLayout>
+            android:orientation="vertical"/>
 
     </LinearLayout>
 
