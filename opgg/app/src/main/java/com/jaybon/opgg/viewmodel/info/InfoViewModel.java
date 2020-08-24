@@ -5,29 +5,27 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.jaybon.opgg.model.dto.InfoDto;
-
-import java.util.List;
+import com.jaybon.opgg.model.dto.RespListDto;
 
 public class InfoViewModel extends AndroidViewModel {
 
-    private LiveData<List<InfoDto>> liveInfoDtos;
+    private LiveData<RespListDto<InfoDto>> liveRespListDto;
     private InfoRepository infoRepository;
 
     public InfoViewModel(@NonNull Application application) {
         super(application);
         infoRepository = new InfoRepository();
-        liveInfoDtos = infoRepository.initData();
+        liveRespListDto = infoRepository.initData();
     }
 
     public void initLiveData(String summonerName){
-        infoRepository.getInfoDtos(summonerName);
+        infoRepository.getDto(summonerName);
     }
 
-    public LiveData<List<InfoDto>> subscribe(){
-        return liveInfoDtos;
+    public LiveData<RespListDto<InfoDto>> subscribe(){
+        return liveRespListDto;
     }
 
 }

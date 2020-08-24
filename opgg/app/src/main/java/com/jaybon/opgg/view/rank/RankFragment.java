@@ -1,6 +1,9 @@
 package com.jaybon.opgg.view.rank;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -8,15 +11,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.FragmentRankBinding;
 import com.jaybon.opgg.model.dto.RankingDto;
-import com.jaybon.opgg.view.MainActivity;
+import com.jaybon.opgg.model.dto.RespListDto;
 import com.jaybon.opgg.view.adapter.RankAdapter;
 import com.jaybon.opgg.viewmodel.rank.RankViewModel;
 
@@ -77,12 +75,12 @@ public class RankFragment extends Fragment {
         rankViewModel = ViewModelProviders.of(this).get(RankViewModel.class);
 
         // 뷰모델 구독
-        rankViewModel.subscribe().observe(this, new Observer<List<RankingDto>>() {
+        rankViewModel.subscribe().observe(this, new Observer<RespListDto<RankingDto>>() {
             @Override
-            public void onChanged(List<RankingDto> rankingDtos) {
+            public void onChanged(RespListDto<RankingDto> respListDto) {
 
-                // 뷰가 변경되면 리사이클러뷰 어댑어테 데이터 새로 담기
-                adapter.addContents(rankingDtos);
+                // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
+                adapter.addContents(respListDto.getData());
                 adapter.notifyDataSetChanged();
 
                 // 로딩 화면 없애기

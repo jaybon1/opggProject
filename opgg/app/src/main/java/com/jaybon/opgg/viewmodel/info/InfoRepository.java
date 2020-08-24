@@ -6,11 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jaybon.opgg.model.dto.InfoDto;
+import com.jaybon.opgg.model.dto.RespListDto;
 import com.jaybon.opgg.model.network.OpggRetrofitHelper;
 import com.jaybon.opgg.model.network.OpggService;
-
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,43 +23,40 @@ public class InfoRepository {
     Retrofit opggRetrofit;
 
     // 뮤터블 라이브데이터 레퍼런스 생성
-    private MutableLiveData<List<InfoDto>> liveInfoDtos;
+    private MutableLiveData<RespListDto<InfoDto>> liveRespListDto;
 
     // 생성자에서 레퍼런스 초기화
     public InfoRepository(){
         opggRetrofit = OpggRetrofitHelper.getRetrofit();
-        liveInfoDtos = new MutableLiveData<>();
+        liveRespListDto = new MutableLiveData<>();
     }
 
     // 라이브데이터를 넘겨주는 메서드
-    public LiveData<List<InfoDto>> initData(){
-        return liveInfoDtos;
+    public LiveData<RespListDto<InfoDto>> initData(){
+        return liveRespListDto;
     }
 
     // 라이브데이터에 초기데이터를 입력해주는 메서드
-    public void getInfoDtos(String summonerName) {
+    public void getDto(String summonerName) {
         OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<List<InfoDto>> call = opggService.getInfoByName(summonerName);
+        Call<RespListDto<InfoDto>> call = opggService.getInfoByName(summonerName);
 
-        call.enqueue(new Callback<List<InfoDto>>() {
+        call.enqueue(new Callback<RespListDto<InfoDto>>() {
             @Override
-            public void onResponse(Call<List<InfoDto>> call, Response<List<InfoDto>> response) {
+            public void onResponse(Call<RespListDto<InfoDto>> call, Response<RespListDto<InfoDto>> response) {
 
                 if (!response.isSuccessful()) {
                     Log.d(TAG, "onResponse: " + response.code());
                     return;
                 }
-                Log.d(TAG, "onResponse: " + response.body());
 
-                List<InfoDto> infoDtos = response.body();
+                RespListDto<InfoDto> respListDto = response.body();
 
-                Log.d(TAG, "onResponse: " + infoDtos);
-
-                liveInfoDtos.setValue(infoDtos);
+                liveRespListDto.setValue(respListDto);
             }
 
             @Override
-            public void onFailure(Call<List<InfoDto>> call, Throwable t) {
+            public void onFailure(Call<RespListDto<InfoDto>> call, Throwable t) {
                 Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
             }
         });

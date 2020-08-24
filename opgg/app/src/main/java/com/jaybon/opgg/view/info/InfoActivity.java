@@ -1,7 +1,6 @@
 package com.jaybon.opgg.view.info;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.ActivityInfoBinding;
 import com.jaybon.opgg.model.dto.InfoDto;
+import com.jaybon.opgg.model.dto.RespListDto;
 import com.jaybon.opgg.view.adapter.InfoAdapter;
 import com.jaybon.opgg.viewmodel.info.InfoViewModel;
 
@@ -68,12 +68,12 @@ public class InfoActivity extends AppCompatActivity {
         infoViewModel = ViewModelProviders.of(this).get(InfoViewModel.class);
 
         // 뷰모델 구독
-        infoViewModel.subscribe().observe(this, new Observer<List<InfoDto>>() {
+        infoViewModel.subscribe().observe(this, new Observer<RespListDto<InfoDto>>() {
             @Override
-            public void onChanged(List<InfoDto> infoDtos) {
+            public void onChanged(RespListDto<InfoDto> respListDto) {
 
-                // 뷰가 변경되면 리사이클러뷰 어댑어테 데이터 새로 담기
-                adapter.addContents(infoDtos);
+                // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
+                adapter.addContents(respListDto.getData());
                 adapter.notifyDataSetChanged();
 
                 // 로딩화면 없애기
