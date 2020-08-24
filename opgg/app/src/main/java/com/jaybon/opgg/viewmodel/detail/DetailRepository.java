@@ -49,7 +49,6 @@ public class DetailRepository {
                     Log.d(TAG, "onResponse: " + response.code());
                     return;
                 }
-                Log.d(TAG, "onResponse: "+response.body());
                 RespDto<DetailDto> respDto = response.body();
 
                 liveRespDto.setValue(respDto);

@@ -30,5 +30,9 @@ public interface OpggService {
     @GET("test/info/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> getInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
+    // infoDto 가져오기
+    @GET("test/info/update/name/{summonerName}")
+    Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
+
 }
 

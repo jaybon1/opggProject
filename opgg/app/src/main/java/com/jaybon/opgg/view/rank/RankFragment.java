@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.RankAdapter;
+import com.jaybon.opgg.view.detail.DetailActivity;
 import com.jaybon.opgg.viewmodel.rank.RankViewModel;
 
 import java.util.ArrayList;
@@ -80,14 +82,23 @@ public class RankFragment extends Fragment {
             @Override
             public void onChanged(RespDto<List<RankingDto>> respDto) {
 
-                // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
-                adapter.addContents(respDto.getData());
-                adapter.notifyDataSetChanged();
+                if(respDto.getStatusCode() == 200){
 
-                // 로딩 화면 없애기
-                fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+                    // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
+                    adapter.addContents(respDto.getData());
+                    adapter.notifyDataSetChanged();
+
+                    // 로딩 화면 없애기
+                    fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+
+                } else{
+                    Toast.makeText(getContext(), respDto.getMessage(), Toast.LENGTH_SHORT).show();
+                    // 로딩 화면 없애기
+                    fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+                }
 
             }
+
         });
 
         // 뷰모델 데이터 초기화

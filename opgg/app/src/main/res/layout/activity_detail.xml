@@ -30,6 +30,7 @@
 <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <RelativeLayout
+            android:id="@+id/layout_detail_header1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="#5383E9">
@@ -38,24 +39,25 @@
                 android:id="@+id/iv_info_detail_back"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="#5383E9"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/ic_back_white" />
 
         </RelativeLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_detail_header2"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="#5383E9">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tv_detail_header_winorlose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="승리"
+                android:hint="승리"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp"
                 android:textStyle="bold"
@@ -63,7 +65,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/tv_detail_header_queuetype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -85,11 +87,11 @@
                 android:text="|"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView17"
+                app:layout_constraintEnd_toStartOf="@+id/tv_detail_header_duration"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/tv_detail_header_createdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -111,11 +113,11 @@
                 android:text="|"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/textView15"
+                app:layout_constraintEnd_toStartOf="@+id/tv_detail_header_createdate"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/tv_detail_header_duration"
                 android:layout_width="39dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="15dp"
@@ -145,6 +147,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/tv_detail_win_team_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -161,6 +164,7 @@
                 app:srcCompat="@drawable/lol_score_b" />
 
             <TextView
+                android:id="@+id/tv_detail_win_team_kill"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -177,6 +181,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/tv_detail_win_team_death"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -193,6 +198,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/tv_detail_win_team_assist"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -204,7 +210,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="76dp"
+                android:layout_marginLeft="30dp"
                 app:srcCompat="@drawable/lol_baron_b" />
 
             <TextView
@@ -282,6 +288,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/tv_detail_lose_team_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -298,6 +305,7 @@
                 app:srcCompat="@drawable/lol_score_r" />
 
             <TextView
+                android:id="@+id/tv_detail_lose_team_kill"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -314,6 +322,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/tv_detail_lose_team_death"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -330,6 +339,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/tv_detail_lose_team_assist"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -341,7 +351,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="76dp"
+                android:layout_marginLeft="30dp"
                 app:srcCompat="@drawable/lol_baron_r" />
 
             <TextView

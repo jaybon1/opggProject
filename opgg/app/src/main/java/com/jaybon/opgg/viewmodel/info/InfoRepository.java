@@ -38,6 +38,34 @@ public class InfoRepository {
         return liveRespDto;
     }
 
+    public void updateLiveData(String summonerName){
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<List<InfoDto>>> call = opggService.updateInfoByName(summonerName);
+
+        call.enqueue(new Callback<RespDto<List<InfoDto>>>() {
+            @Override
+            public void onResponse(Call<RespDto<List<InfoDto>>> call, Response<RespDto<List<InfoDto>>> response) {
+
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+
+                if(response.body().getStatusCode() == 200){
+                    RespDto<List<InfoDto>> respListDto = response.body();
+                    liveRespDto.setValue(respListDto);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<List<InfoDto>>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+
+    }
+
     // 라이브데이터에 초기데이터를 입력해주는 메서드
     public void getDto(String summonerName) {
         OpggService opggService = opggRetrofit.create(OpggService.class);
@@ -62,6 +90,5 @@ public class InfoRepository {
                 Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
             }
         });
-
     }
 }

@@ -1,10 +1,12 @@
 package com.jaybon.opgg.view.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -23,7 +25,17 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "InfoAdapter";
 
+    private Context context;
+    private OnItemClick contextListener;
+    private String nowSummoner;
+
     private List<InfoDto> infoDtos = new ArrayList<>();
+
+    public InfoAdapter(Context context, String nowSummoner,OnItemClick contextListener) {
+        this.context = context;
+        this.contextListener = contextListener;
+        this.nowSummoner = nowSummoner;
+    }
 
     public void addContent(InfoDto infoDto) {
         infoDtos.add(infoDto);
@@ -33,6 +45,10 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void addContents(List<InfoDto> infoDtos){
         Log.d(TAG, "addContents: 호출됨");
         this.infoDtos = infoDtos;
+    }
+
+    public String getNowSummoner(){
+        return nowSummoner;
     }
 
     @Override
@@ -52,14 +68,14 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             InfoItemBinding infoItemBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()),R.layout.info_item,parent,false
             );
-            return new MyViewHolder(infoItemBinding);
+            return new MyViewHolder(infoItemBinding, nowSummoner);
 
         } else {
 
             InfoHeaderBinding infoHeaderBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()),R.layout.info_header,parent,false
             );
-            return new HeaderViewHolder(infoHeaderBinding);
+            return new HeaderViewHolder(infoHeaderBinding, contextListener);
 
         }
     }
@@ -85,13 +101,13 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private InfoItemBinding infoItemBinding;
 
-        public MyViewHolder(@NonNull InfoItemBinding infoItemBinding) {
+        public MyViewHolder(@NonNull InfoItemBinding infoItemBinding, String nowSummoner) {
 //            super(itemView);
 
             super(infoItemBinding.getRoot());
             this.infoItemBinding = infoItemBinding;
 
-            infoItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            this.infoItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -100,6 +116,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     // 리사이클러뷰에서 액티비티 전환하기
                     Intent intent = new Intent(infoItemBinding.getRoot().getContext(), DetailActivity.class);
                     intent.putExtra("gameId", infoItemBinding.getInfoDto().getMatchSummonerModel().getGameId());
+                    intent.putExtra("nowSummoner", nowSummoner);
                     infoItemBinding.getRoot().getContext().startActivity(intent);
 
                 }
@@ -117,9 +134,19 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // 규칙1 (xml이 들고있는 뷰)
         private InfoHeaderBinding infoHeaderBinding;
 
-        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding) {
+        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, OnItemClick contextListener) {
             super(infoHeaderBinding.getRoot());
             this.infoHeaderBinding = infoHeaderBinding;
+
+            this.infoHeaderBinding.btnInfoHeaderUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    contextListener.onClick();
+                    Toast.makeText(infoHeaderBinding.getRoot().getContext(), "로딩중", Toast.LENGTH_SHORT).show();
+                    infoHeaderBinding.btnInfoHeaderUpdate.setBackgroundResource(R.drawable.radius_button_gray);
+                    infoHeaderBinding.btnInfoHeaderUpdate.setOnClickListener(null);
+                }
+            });
         }
 
         // 규칙3 뷰에 데이터넣기

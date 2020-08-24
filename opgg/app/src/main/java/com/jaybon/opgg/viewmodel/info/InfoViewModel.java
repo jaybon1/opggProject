@@ -31,4 +31,8 @@ public class InfoViewModel extends AndroidViewModel {
         return liveRespDto;
     }
 
+    public void updateLiveData(String summonerName){
+        infoRepository.updateLiveData(summonerName);
+    };
+
 }

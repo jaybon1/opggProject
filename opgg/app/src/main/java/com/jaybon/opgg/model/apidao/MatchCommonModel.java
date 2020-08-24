@@ -14,6 +14,7 @@ public class MatchCommonModel {
     private int id;
 
     private long gameId;
+    private long queueId;
     private String platformId;
     private long gameCreation;
     private long gameDuration;
