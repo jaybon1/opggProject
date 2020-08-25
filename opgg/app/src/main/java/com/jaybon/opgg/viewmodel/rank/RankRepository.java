@@ -40,6 +40,8 @@ public class RankRepository {
 
     // 라이브데이터에 초기데이터를 입력해주는 메서드
     public void getDto(long page){
+
+        // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);
         Call<RespDto<List<RankingDto>>> call = opggService.getRankingByPage(page);
 
@@ -67,6 +69,8 @@ public class RankRepository {
 
     // 소환사 이름으로 검색
     public void getDto(String summonerName){
+
+        // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);
         Call<RespDto<List<RankingDto>>> call = opggService.getRankingBySummonerName(summonerName);
 

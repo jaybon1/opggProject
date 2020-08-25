@@ -21,6 +21,7 @@ public class XmlAdapter {
     public static String win = "승";
     public static String lose = "패";
 
+    // 롱 값을 인트값으로 변경
     public static int longToint(long longNum){
         int intNum = Integer.parseInt(String.valueOf(longNum));
         return intNum;
@@ -64,7 +65,7 @@ public class XmlAdapter {
         return String.format("%02d:%02d",minutes,seconds);
     }
 
-
+    // 티어랭크를 합치기
     public static String getTierRank(String tier, String rank) {
 
         StringBuilder sb = new StringBuilder();

@@ -39,6 +39,8 @@ public class InfoRepository {
     }
 
     public void updateLiveData(String summonerName){
+
+        // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);
         Call<RespDto<List<InfoDto>>> call = opggService.updateInfoByName(summonerName);
 
@@ -68,6 +70,8 @@ public class InfoRepository {
 
     // 라이브데이터에 초기데이터를 입력해주는 메서드
     public void getDto(String summonerName) {
+
+        // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);
         Call<RespDto<List<InfoDto>>> call = opggService.getInfoByName(summonerName);
 

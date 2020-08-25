@@ -27,37 +27,49 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "InfoAdapter";
 
+    // 루트 액티비티(미사용)
     private Context context;
+
+    // 콜백 레퍼런스
     private ItemClickCallback contextListener;
+
+    // 현재 검색한 소환사
     private String nowSummoner;
 
+    // 리사이클러뷰 데이터
     private List<InfoDto> infoDtos = new ArrayList<>();
 
+    // 생성자
     public InfoAdapter(Context context, String nowSummoner, ItemClickCallback contextListener) {
         this.context = context;
         this.contextListener = contextListener;
         this.nowSummoner = nowSummoner;
     }
 
+    // 데이터 개별로 넣기
     public void addContent(InfoDto infoDto) {
         infoDtos.add(infoDto);
         Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
+    // 데이터 통으로 넣기
     public void addContents(List<InfoDto> infoDtos){
         Log.d(TAG, "addContents: 호출됨");
         this.infoDtos = infoDtos;
     }
 
+    // 현재소환사 가져오기
     public String getNowSummoner(){
         return nowSummoner;
     }
 
+    // 뷰홀더 타입
     @Override
     public int getItemViewType(int position) {
         return infoDtos.get(position).getType();
     }
 
+    // 뷰홀더 생성
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -82,6 +94,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    // 뷰홀더에 데이터 연결
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         InfoDto infoDto = infoDtos.get(position);
@@ -92,6 +105,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    // 데이터 개수 확인
     @Override
     public int getItemCount() {
         return infoDtos.size();
@@ -101,6 +115,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // ViewHolder (뷰들의 책꽂이)
     public static class MyViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
 
+        // 데이터 바인딩
         private InfoItemBinding infoItemBinding;
 
         public MyViewHolder(@NonNull InfoItemBinding infoItemBinding, String nowSummoner) {
@@ -147,6 +162,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 //style="?android:attr/progressBarStyle"
                 @Override
                 public void onClick(View v) {
+                    // 콜백으로 함수실행
                     contextListener.onClick();
 //                    Toast.makeText(infoHeaderBinding.getRoot().getContext(), "로딩중", Toast.LENGTH_SHORT).show();
                     infoHeaderBinding.btnInfoHeaderUpdate.setText("로딩 중");

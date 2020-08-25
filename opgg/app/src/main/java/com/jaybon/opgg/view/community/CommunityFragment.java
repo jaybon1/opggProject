@@ -1,135 +1,192 @@
 package com.jaybon.opgg.view.community;
 
 import android.os.Bundle;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jaybon.opgg.R;
-import com.jaybon.opgg.view.adapter.CommunityAdapter;
+import com.jaybon.opgg.databinding.CommunityToolbarBinding;
+import com.jaybon.opgg.databinding.FragmentCommunityBinding;
 import com.jaybon.opgg.model.dto.CommunityDto;
-import com.jaybon.opgg.model.dao.Post;
+import com.jaybon.opgg.model.dto.RespDto;
+import com.jaybon.opgg.view.adapter.CommunityAdapter;
+import com.jaybon.opgg.view.adapter.ItemClickCallback;
+import com.jaybon.opgg.viewmodel.community.CommunityViewModel;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CommunityFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CommunityFragment extends Fragment {
+public class CommunityFragment extends Fragment implements ItemClickCallback {
 
     private static final String TAG = "CommunityFragment";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    // 데이터바인딩
+    private FragmentCommunityBinding fragmentCommunityBinding;
+    private CommunityToolbarBinding communityToolbarBinding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // 리사이클러뷰 어댑터
+    private CommunityAdapter adapter;
 
-    private ImageView ivCommunityToolbar;
-    private DrawerLayout drawerLayoutCommunity;
-    private RecyclerView rvCommunity;
+    // 리사이클러뷰 데이터
+    private List<CommunityDto> CommunityDtos;
 
+    // 뷰모델
+    private CommunityViewModel communityViewModel;
+
+    // 생성자
     public CommunityFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CommunityFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+    // 미사용
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_community, container, false);
-        ivCommunityToolbar = rootView.findViewById(R.id.iv_community_toolbar);
-        drawerLayoutCommunity = rootView.findViewById(R.id.drawer_layout_community);
+        // 리스트 초기화
+        CommunityDtos = new ArrayList<>();
 
-        ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
+        // 액티비티와 프래그먼트는 바인딩 방식이 다름 (확인)
+        fragmentCommunityBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_community, container, false);
+
+        // 툴바
+        communityToolbarBinding = DataBindingUtil.inflate(inflater, R.layout.community_toolbar, container, false);
+
+        communityToolbarBinding.ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
+                fragmentCommunityBinding.drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
             }
         });
 
-        rvCommunity = rootView.findViewById(R.id.rv_community);
+        // 리사이클러뷰 세팅
+        fragmentCommunityBinding.rvCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        CommunityAdapter adapter = new CommunityAdapter();
+        // 사이클러뷰 어댑터 세팅
+        adapter = new CommunityAdapter(CommunityFragment.this);
+        fragmentCommunityBinding.rvCommunity.setAdapter(adapter);
 
-        Post post = Post.builder()
-                .like(123)
-                .title("테스트 제목입니다.")
-                .createDate(Timestamp.valueOf("2020-08-01 23:59:59"))
-                .build();
+        // 리사이클러뷰 데이터 초기화
+        adapter.addContents(CommunityDtos);
 
-        CommunityDto communityDto = CommunityDto.builder()
-                .post(post)
-                .nickname("테스트유저")
-                .replyCount(21)
-                .type(1)
-                .build();
+        // 뷰모델 초기화
+        communityViewModel = ViewModelProviders.of(this).get(CommunityViewModel.class);
 
-        CommunityDto communityDto1 = CommunityDto.builder()
-                .page(1)
-                .type(0)
-                .build();
+        // 뷰모델 구독
+        communityViewModel.subscribe().observe(this, new Observer<RespDto<List<CommunityDto>>>() {
 
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto);
-        adapter.addContent(communityDto1);
+            // 라이브데이터 값이 변경되면 자동실행
+            @Override
+            public void onChanged(RespDto<List<CommunityDto>> respDto) {
 
-        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        rvCommunity.setLayoutManager(layoutManager1);
-        rvCommunity.setAdapter(adapter);
+                // dto 상태값 확인
+                if (respDto.getStatusCode() == 200) {
 
-        // Inflate the layout for this fragment
-        return rootView;
+                    //리사이클러뷰에 데이터 넣기
+                    adapter.addContents(respDto.getData());
+
+                    // 리사이클러뷰 데이터 다시넣을 경우 호출함수
+                    adapter.notifyDataSetChanged();
+
+                } else {
+
+                    // dto 메시지 출력
+                    Toast.makeText(getContext(), respDto.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    // 로딩 화면 없애기
+//                    fragmentCommunityBinding.pgRankLoading.setVisibility(View.GONE);
+                }
+
+            }
+
+        });
+
+        // 뷰모델 데이터 초기화
+        communityViewModel.initLiveData(1);
+
+        // 둘중아무거나 되는듯?
+        return fragmentCommunityBinding.getRoot();
+//        return inflater.inflate(R.layout.fragment_community, container, false);
+    }
+
+    // 콜백
+    @Override
+    public void onClick() {
+
+    }
+
+    // 콜백
+    @Override
+    public void onClick(String value) {
 
     }
 }
+
+//
+//    ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_community, container, false);
+//        ivCommunityToolbar = rootView.findViewById(R.id.iv_community_toolbar);
+//                drawerLayoutCommunity = rootView.findViewById(R.id.drawer_layout_community);
+//
+//                ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
+//@Override
+//public void onClick(View v) {
+//        drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
+//        }
+//        });
+//
+//        rvCommunity = rootView.findViewById(R.id.rv_community);
+//
+//        CommunityAdapter adapter = new CommunityAdapter();
+//
+//        Post post = Post.builder()
+//        .like(123)
+//        .title("테스트 제목입니다.")
+//        .createDate(Timestamp.valueOf("2020-08-01 23:59:59"))
+//        .build();
+//
+//        CommunityDto communityDto = CommunityDto.builder()
+//        .post(post)
+//        .nickname("테스트유저")
+//        .replyCount(21)
+//        .type(1)
+//        .build();
+//
+//        CommunityDto communityDto1 = CommunityDto.builder()
+//        .page(1)
+//        .type(0)
+//        .build();
+//
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto);
+//        adapter.addContent(communityDto1);
+//
+//        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+//        rvCommunity.setLayoutManager(layoutManager1);
+//        rvCommunity.setAdapter(adapter);

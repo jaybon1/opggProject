@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.jaybon.opgg.view.MainActivity;
 
+// 스플래시 (앱 켰을시 보이는 로고)
 public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

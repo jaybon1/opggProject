@@ -86,12 +86,14 @@ public class RankFragment extends Fragment implements ItemClickCallback {
 
                 if(respDto.getStatusCode() == 200){
 
+                    // 리사이클러뷰에 데이터가 있는지 확인하고 없으면 초기화 있으면 추가
                     if(adapter.getRankingDtos() == null || adapter.getRankingDtos().size() == 0){
 
                         // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
                         adapter.addContents(respDto.getData());
                         adapter.notifyDataSetChanged();
 
+                        // 로딩이 다되었으므로 false
                         adapter.setNowLoading(false);
 
                         // 로딩 화면 없애기
@@ -102,21 +104,27 @@ public class RankFragment extends Fragment implements ItemClickCallback {
 
                     } else if(adapter.getRankingDtos().size() > 1) {
 
+                        // 로딩 아이템 삭제
                         adapter.getRankingDtos().remove(adapter.getRankingDtos().size()-1);
 //                        adapter.getRankingDtos().addAll(respDto.getData());
 
+                        // 아이템 추가
                         for (int i = 1; i < respDto.getData().size(); i++){
                             adapter.getRankingDtos().add(respDto.getData().get(i));
                         }
                         adapter.notifyDataSetChanged();
                         adapter.setNowLoading(false);
 
+                    } else{
+                        Toast.makeText(getContext(), "더 이상 가져올 목록이 없습니다.", Toast.LENGTH_SHORT).show();
                     }
 
                 } else{
                     Toast.makeText(getContext(), respDto.getMessage(), Toast.LENGTH_SHORT).show();
                     // 로딩 화면 없애기
                     fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+
+                    // 화면 안눌러지게 하는 것 해제
                     RankFragment.this.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
@@ -126,7 +134,6 @@ public class RankFragment extends Fragment implements ItemClickCallback {
 
         // 뷰모델 데이터 초기화
         rankViewModel.initLiveData(1);
-
 
 
         // 둘중아무거나 되는듯?
@@ -144,6 +151,7 @@ public class RankFragment extends Fragment implements ItemClickCallback {
 
     }
 
+    // 추가데이터 가져오기
     @Override
     public void onClick(String value) {
 

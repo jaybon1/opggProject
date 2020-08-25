@@ -4,13 +4,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaybon.opgg.R;
+import com.jaybon.opgg.databinding.CommunityFooterBinding;
+import com.jaybon.opgg.databinding.CommunityItemBinding;
 import com.jaybon.opgg.model.dto.CommunityDto;
 
 import java.sql.Timestamp;
@@ -21,29 +21,41 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private static final String TAG = "ContentAdapter";
 
+    // 콜백 레퍼런스
+    private ItemClickCallback itemClickCallback;
+
+    // 리스트 데이터
     private List<CommunityDto> communityDtos = new ArrayList<>();
 
+    // 아이템 개별 추가
     public void addContent(CommunityDto communityDto) {
         communityDtos.add(communityDto);
         Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
-    public void addContents(List<CommunityDto> communityDtos){
+    // 아이템 통으로 추가
+    public void addContents(List<CommunityDto> communityDtos) {
         this.communityDtos = communityDtos;
     }
 
+    // 아이템 타입(다른모양의 뷰홀더)
     @Override
     public int getItemViewType(int position) {
         return communityDtos.get(position).getType();
     }
 
+    // 생성자
+    public CommunityAdapter(ItemClickCallback itemClickCallback) {
+        this.itemClickCallback = itemClickCallback;
+    }
+
+    // 뷰홀더 생성
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         // type 0 = header / 2 = footer
-        if(viewType == 1)
-        {
+        if (viewType == 1) {
             View view = inflater.inflate(R.layout.community_item, parent, false);
             return new MyViewHolder(view);
         } else {
@@ -52,16 +64,18 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+    // 뷰홀더에 데이터 연결
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CommunityDto communityDto = communityDtos.get(position);
-        if(holder instanceof MyViewHolder) {
+        if (holder instanceof MyViewHolder) {
             ((MyViewHolder) holder).setContent(communityDto);
         } else {
             ((FooterViewHolder) holder).setContent(communityDto);
         }
     }
 
+    // 뷰홀더 사이즈
     @Override
     public int getItemCount() {
         return communityDtos.size();
@@ -72,37 +86,22 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
 
         // 규칙1 (xml이 들고있는 뷰)
-        private TextView tvCommunityPostLike;
-        private TextView tvCommunityPostTitle;
-        private TextView tvCommunityPostTimeAgo;
-        private TextView tvCommunityUserUsername;
-        private TextView tvCommunityReplyCount;
-
+        private CommunityItemBinding communityItemBinding;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             // 규칙2 뷰들을 변수에 연결
-            tvCommunityPostLike = itemView.findViewById(R.id.tv_community_count_post_like);
-            tvCommunityPostTitle = itemView.findViewById(R.id.tv_community_post_title);
-            tvCommunityPostTimeAgo = itemView.findViewById(R.id.tv_community_post_time_ago);
-            tvCommunityUserUsername = itemView.findViewById(R.id.tv_community_user_username);
-            tvCommunityReplyCount = itemView.findViewById(R.id.tv_community_reply_count);
         }
 
         // 규칙3 뷰에 데이터 넣기
         public void setContent(CommunityDto communityDto) {
-            tvCommunityPostLike.setText(communityDto.getPost().getLike()+"");
-            tvCommunityPostTitle.setText(communityDto.getPost().getTitle());
-            tvCommunityPostTimeAgo.setText(getTimeAgo(communityDto.getPost().getCreateDate()));
-            tvCommunityUserUsername.setText(communityDto.getNickname());
-            tvCommunityReplyCount.setText("["+communityDto.getReplyCount()+"]");
         }
 
         // ~시간전 계산
-        public String getTimeAgo(Timestamp timestamp){
+        public String getTimeAgo(Timestamp timestamp) {
 
-            if(timestamp == null){
+            if (timestamp == null) {
                 return "-";
             }
 
@@ -110,11 +109,11 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             long ts = timestamp.getTime(); // 가져온시간
             long mTime = currentTime - ts; // 시간 빼기
 
-            if(mTime < 3600000){
-                long agoMinutes = (mTime/60000);
+            if (mTime < 3600000) {
+                long agoMinutes = (mTime / 60000);
                 return agoMinutes + " 분 전";
-            } else if(mTime < 86400000){ // 차이가 24시간 내라면 ~시간 전 리턴
-                long agoHours = (mTime/3600000);
+            } else if (mTime < 86400000) { // 차이가 24시간 내라면 ~시간 전 리턴
+                long agoHours = (mTime / 3600000);
                 return agoHours + " 시간 전";
             } else {
                 long agoDays = (mTime / 86400000);
@@ -126,33 +125,22 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static class FooterViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
 
         // 규칙1 (xml이 들고있는 뷰)
-        private TextView tvCommunityFooter;
-        private Button btnCommunityFooterPrev;
-        private Button btnCommunityFooterNext;
+        private CommunityFooterBinding communityFooterBinding;
 
         public FooterViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvCommunityFooter = itemView.findViewById(R.id.tv_community_footer);
-            btnCommunityFooterPrev = itemView.findViewById(R.id.btn_community_footer_prev);
-            btnCommunityFooterNext = itemView.findViewById(R.id.btn_community_footer_next);
-
         }
-
         // 규칙3
         public void setContent(CommunityDto communityDto) {
 
-            tvCommunityFooter.setText(communityDto.getPage()+"");
-            tvCommunityFooter.setVisibility(View.INVISIBLE); // 뷰를 안보이게 함
-
-            if(communityDto.getPage() == 0){
-                btnCommunityFooterPrev.setVisibility(View.INVISIBLE);
-            }
+//            tvCommunityFooter.setText(communityDto.getPage()+"");
+//            tvCommunityFooter.setVisibility(View.INVISIBLE); // 뷰를 안보이게 함
+//
+//            if(communityDto.getPage() == 0){
+//                btnCommunityFooterPrev.setVisibility(View.INVISIBLE);
+//            }
         }
-
     }
 }
-
-
-
 

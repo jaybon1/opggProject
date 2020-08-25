@@ -17,6 +17,8 @@ import com.jaybon.opgg.view.search.SearchFragment;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main_Activity";
+
+    // 바텀네비게이션
     private BottomNavigationView bottomNavSearch;
     private long backBtnTime = 0;
 
@@ -27,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavSearch = findViewById(R.id.bottom_nav_search);
 
+        // 프래그먼트 매니저
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
 
+        // 네비게이션 셀렉터
         bottomNavSearch.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // 뒤로가기 두번누르면 종료
     @Override
     public void onBackPressed() {
         long curTime = System.currentTimeMillis();

@@ -31,17 +31,23 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
 
     private static final String TAG = "DetailActivity";
 
+    // 게임 아이디
     private long gameId;
 
+    // 2팀이라 리사이클러뷰 어댑터 2개
     private DetailAdapter winAdapter;
     private DetailAdapter loseAdapter;
 
+    // 현재 검색중인 소환사
     private String nowSummoner;
 
+    // 리사이클러뷰 데이터
     private DetailDto detailDto;
 
+    // 뷰모델
     private DetailViewModel detailViewModel;
 
+    // 데이터 바인딩
     private ActivityDetailBinding activityDetailBinding;
 
     @Override
@@ -49,6 +55,7 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        // 디테일 초기화
         detailDto = new DetailDto();
 
         // 데이터 바인딩 연결
@@ -68,6 +75,7 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
         winAdapter.addContents(new ArrayList<>());
         loseAdapter.addContents(new ArrayList<>());
 
+        // 뒤로가기
         activityDetailBinding.ivInfoDetailBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,10 +95,13 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
             @Override
             public void onChanged(RespDto<DetailDto> respDto) {
 
+                // dto가 정상인지 확인
                 if(respDto.getStatusCode() == 200){
 
+                    // 바인딩에 dto 입력
                     activityDetailBinding.setDetailDto(respDto.getData());
 
+                    // 현재 소환사가 승리하였는지 체크
                     boolean nowSummonerWin = false;
 
                     for (MatchSummonerModel matchSummonerModel : respDto.getData().getWinSummonerModels()){
@@ -100,6 +111,7 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
                         }
                     }
 
+                    // 현재 소환사가 이겼을 경우 와 졌을 경우 헤더 색깔과 글자 변경
                     if(nowSummonerWin){
                         activityDetailBinding.layoutDetailHeader1.setBackgroundResource(R.color.win);
                         activityDetailBinding.layoutDetailHeader2.setBackgroundResource(R.color.win);
@@ -117,11 +129,13 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
                         activityDetailBinding.tvDetailHeaderQueuetype.setText("자유");
                     }
 
+                    // 게임 생성시간과 게임 지속시간 세팅
                     activityDetailBinding.tvDetailHeaderCreatedate.setText(XmlAdapter.getCreation(respDto.getData().getMatchCommonModel().getGameCreation()));
                     activityDetailBinding.tvDetailHeaderDuration.setText(XmlAdapter.getDuration(respDto.getData().getMatchCommonModel().getGameDuration()));
 
 
 
+                    // 이긴팀 진팀 확인하여 팀 색깔 정하기
                     String winTeamName;
                     String loseTeamName;
 

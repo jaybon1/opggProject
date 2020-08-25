@@ -30,41 +30,51 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "RankAdapter";
 
+    // 리사이클러뷰 데이터
     private List<RankingDto> rankingDtos = new ArrayList<>();
 
+    // 콜백 레퍼런스
     private ItemClickCallback itemClickCallback;
 
+    // 로딩 중복을 방지하기 위한 변수
     boolean nowLoading =false;
 
+    // 아이템 개별추가
     public void addContent(RankingDto rankingDto) {
         rankingDtos.add(rankingDto);
         Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
+    // 아이템 통으로 추가
     public void addContents(List<RankingDto> rankingDtos) {
         Log.d(TAG, "addContents: 호출됨");
         this.rankingDtos = rankingDtos;
     }
 
+    // 외부로 데이터 전달
     public List<RankingDto> getRankingDtos() {
         return rankingDtos;
     }
 
+    // 외부에서 로딩여부 가져오기
     public void setNowLoading(boolean nowLoading) {
         this.nowLoading = nowLoading;
     }
 
+    // 뷰홀더 타입
     @Override
     public int getItemViewType(int position) {
         return rankingDtos.get(position).getType();
     }
 
+    // 생성자
     public RankAdapter(ItemClickCallback itemClickCallback) {
         this.itemClickCallback = itemClickCallback;
 
 
     }
 
+    // 뷰홀더 생성
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -91,6 +101,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    // 뷰홀더에 데이터 연결
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         RankingDto rankingDto = rankingDtos.get(position);
@@ -108,6 +119,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    // 데이터 사이즈 체크
     @Override
     public int getItemCount() {
         return rankingDtos.size();
@@ -117,6 +129,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // ViewHolder (뷰들의 책꽂이)
     public static class MyViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
 
+        // 데이터 바인딩
         private RankItemBinding rankItemBinding;
 
         public MyViewHolder(@NonNull RankItemBinding rankItemBinding) {
@@ -148,10 +161,13 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static class HeaderViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
 
-        // 규칙1 (xml이 들고있는 뷰)
+        // 데이터 바인딩
         private RankHeaderBinding rankHeaderBinding;
+
+        // 콜백 레퍼런스
         private ItemClickCallback itemClickCallback;
 
+        // 엔터키 중복입력방지를 위한 코드
         private boolean enterKeyDown;
         private boolean enterKeyUp;
 
@@ -162,44 +178,64 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             enterKeyDown = false;
             enterKeyUp = false;
 
+            // 터치로 검색
             rankHeaderBinding.ivSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Log.d(TAG, "onClick: "+rankHeaderBinding.etSearchInput.getText());
+
                     if(rankHeaderBinding.etSearchInput.getText() == null || rankHeaderBinding.etSearchInput.getText().toString().equals("")){
+
                         Log.d(TAG, "onClick: 널 또는 공백");
                         Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT).show();
+
                     } else {
+
                         Log.d(TAG, "onClick: 입력");
+
                         itemClickCallback.onClick(rankHeaderBinding.etSearchInput.getText().toString());
                         rankHeaderBinding.etSearchInput.setText("");
+
                     }
                 }
             });
 
             // 엔터로 검색
             rankHeaderBinding.etSearchInput.setOnKeyListener(new View.OnKeyListener() {
+
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
+
                     Log.d(TAG, "onKey: " + keyCode);
+
                     if (keyCode == event.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP && !enterKeyUp) {
+
                         Log.d(TAG, "onKey: 엔터키업");
                         enterKeyUp = true;
+
                         // 액티비티 이동
                         Log.d(TAG, "onClick: "+rankHeaderBinding.etSearchInput.getText());
+
                         if(rankHeaderBinding.etSearchInput.getText() == null || rankHeaderBinding.etSearchInput.getText().toString().equals("")){
+
                             Log.d(TAG, "onClick: 널 또는 공백");
                             Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT).show();
+
                         } else {
+
                             Log.d(TAG, "onClick: 입력");
                             itemClickCallback.onClick(rankHeaderBinding.etSearchInput.getText().toString());
                             rankHeaderBinding.etSearchInput.setText("");
+
                         }
                         return true;
                     } else if (keyCode == event.KEYCODE_ENTER) {
+
                         Log.d(TAG, "onKey: 엔터키다운");
                         enterKeyDown = true;
                         return true;
+
                     }
                     return false;
                 }
@@ -212,16 +248,14 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public static class LoadingViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
+    // 로딩 뷰홀더
+    public static class LoadingViewHolder extends RecyclerView.ViewHolder {
 
-        // 규칙1 (xml이 들고있는 뷰)
         public LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        // 규칙3 뷰에 데이터넣기
-//        public void setContent(InfoDto communityDto) {
-//        }
+
     }
 
 }

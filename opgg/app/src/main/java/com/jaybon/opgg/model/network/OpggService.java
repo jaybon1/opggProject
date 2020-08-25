@@ -1,6 +1,8 @@
 package com.jaybon.opgg.model.network;
 
 
+import com.jaybon.opgg.model.dao.Post;
+import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
@@ -33,6 +35,14 @@ public interface OpggService {
     // infoDto 가져오기
     @GET("test/info/update/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
+
+    // communityDto 가져오기
+    @GET("test/Community/page/{page}")
+    Call<RespDto<List<CommunityDto>>> getPostByPage(@Path(value = "page", encoded = true) long page);
+
+    // communityDto 가져오기
+    @GET("test/Community/page/{id}")
+    Call<RespDto<CommunityDto>> getPostById(@Path(value = "page", encoded = true) long id);
 
 }
 

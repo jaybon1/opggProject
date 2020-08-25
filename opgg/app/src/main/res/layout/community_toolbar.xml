@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <Toolbar
+    <data></data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="45dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_community_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="#2b2b2b"
-        android:text="커뮤니티" />
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/iv_community_toolbar"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        app:srcCompat="@drawable/ic_notes" />
+        <TextView
+            android:id="@+id/tv_community_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="커뮤니티"
+            android:textColor="#2b2b2b"
+            android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:layout_width="60dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/img_logo_opgg" />
+        <ImageView
+            android:id="@+id/iv_community_toolbar"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_notes" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/img_logo_opgg" />
+
+    </RelativeLayout>
+
+</layout>

@@ -10,17 +10,19 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.jaybon.opgg.R;
 
-// 이미지 바인딩을 위한함수
+// 이미지 바인딩을 위한 메서드 커스텀
 
 public class ImageBindAdapter {
 
     private static final String TAG = "ImageBindAdapter";
 
+    // 안씀
     @BindingAdapter({"getImg"})
     public static void getImg(ImageView imageView, String imgURI) {
         Glide.with(imageView.getContext()).load(imgURI).into(imageView);
     }
 
+    // 랭킹 등 티어 배경색 세팅
     @BindingAdapter({"getBackgroundColor"})
     public static void getBackgroundColor(TextView textView, String tier) {
 
@@ -49,6 +51,7 @@ public class ImageBindAdapter {
         }
     }
 
+    // CDN에서 챔프 이미지 가져오기
     @BindingAdapter({"getChampImg"})
     public static void getChampImg(ImageView imageView, String champId) {
 
@@ -59,6 +62,7 @@ public class ImageBindAdapter {
         }
     }
 
+    // 챔프 티어 아이콘 가져오기
     @BindingAdapter({"getTierIcon"})
     public static void getTierIcon(ImageView imageView, String tierRankId) {
 
@@ -69,6 +73,7 @@ public class ImageBindAdapter {
         }
     }
 
+    // 소환사 프로필 가져오기
     @BindingAdapter({"getProfile"})
     public static void getProfile(ImageView imageView, String profileId) {
         if(profileId != null && !profileId.equals("") && !profileId.equals("null")){
@@ -78,6 +83,7 @@ public class ImageBindAdapter {
         }
     }
 
+    // 아이템 이미지 가져오기
     @BindingAdapter({"getItem"})
     public static void getItem(ImageView imageView, String itemId) {
 
@@ -89,6 +95,7 @@ public class ImageBindAdapter {
         }
     }
 
+    // 특성 이미지 가져오기
     @BindingAdapter({"getPerk"})
     public static void getPerk(ImageView imageView, String perkId) {
 
@@ -99,7 +106,7 @@ public class ImageBindAdapter {
         }
     }
 
-
+    // 스펠 이미지 가져오기
     @BindingAdapter({"getSpell"})
     public static void getSpell(ImageView imageView, String spellId) {
 

@@ -17,9 +17,9 @@ public class OpggRetrofitHelper {
 
     // 레트로핏 세팅
     private static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://59.20.79.42:58002/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
+            .baseUrl("http://59.20.79.42:58002/") // 루트주소
+            .addConverterFactory(GsonConverterFactory.create()) // 지선
+            .client(okHttpClient) // 연결시간 세팅
             .build();
 
     private OpggRetrofitHelper(){};
