@@ -15,13 +15,13 @@ import com.jaybon.opgg.databinding.ActivityInfoBinding;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.InfoAdapter;
-import com.jaybon.opgg.view.adapter.ItemClickAdaper;
+import com.jaybon.opgg.view.adapter.ItemClickCallback;
 import com.jaybon.opgg.viewmodel.info.InfoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoActivity extends AppCompatActivity implements ItemClickAdaper {
+public class InfoActivity extends AppCompatActivity implements ItemClickCallback {
 
     private static final String TAG = "InfoActivity";
 
@@ -102,5 +102,10 @@ public class InfoActivity extends AppCompatActivity implements ItemClickAdaper {
     @Override
     public void onClick() {
         infoViewModel.updateLiveData(summonerName);
+    }
+
+    @Override
+    public void onClick(String value) {
+
     }
 }

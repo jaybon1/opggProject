@@ -26,6 +26,14 @@ public class RankViewModel extends AndroidViewModel {
         rankRepository.getDto(page);
     }
 
+    public void getLiveDataByName(String summonerName){
+        rankRepository.getDto(summonerName);
+    }
+
+    public void getLiveDataByPage(long page){
+        rankRepository.getDto(page);
+    }
+
     public LiveData<RespDto<List<RankingDto>>> subscribe(){
         return liveRespDto;
     }

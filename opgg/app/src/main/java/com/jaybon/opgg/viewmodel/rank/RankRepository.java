@@ -65,5 +65,32 @@ public class RankRepository {
 
     }
 
+    // 소환사 이름으로 검색
+    public void getDto(String summonerName){
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<List<RankingDto>>> call = opggService.getRankingBySummonerName(summonerName);
+
+        call.enqueue(new Callback<RespDto<List<RankingDto>>>() {
+            @Override
+            public void onResponse(Call<RespDto<List<RankingDto>>> call, Response<RespDto<List<RankingDto>>> response) {
+
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: "+response.code());
+                    return;
+                }
+
+                RespDto<List<RankingDto>> respListDto = response.body();
+
+                liveRespDto.setValue(respListDto);
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<List<RankingDto>>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+
+    }
+
 
 }

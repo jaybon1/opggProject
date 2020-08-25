@@ -1,10 +1,14 @@
 package com.jaybon.opgg.view.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -22,9 +26,15 @@ import java.util.List;
 
 public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+
+
     private static final String TAG = "RankAdapter";
 
     private List<RankingDto> rankingDtos = new ArrayList<>();
+
+    private ItemClickCallback itemClickCallback;
+
+    boolean nowLoading =false;
 
     public void addContent(RankingDto rankingDto) {
         rankingDtos.add(rankingDto);
@@ -36,15 +46,29 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.rankingDtos = rankingDtos;
     }
 
+    public List<RankingDto> getRankingDtos() {
+        return rankingDtos;
+    }
+
+    public void setNowLoading(boolean nowLoading) {
+        this.nowLoading = nowLoading;
+    }
+
     @Override
     public int getItemViewType(int position) {
         return rankingDtos.get(position).getType();
     }
 
+    public RankAdapter(ItemClickCallback itemClickCallback) {
+        this.itemClickCallback = itemClickCallback;
+
+
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
 
         // type 0 = header / 2 = footer
         if (viewType == 1) {
@@ -53,13 +77,17 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             );
             return new MyViewHolder(rankItemBinding);
 
-        } else {
+        } else if(viewType == 0) {
 
             RankHeaderBinding rankHeaderBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()), R.layout.rank_header, parent, false
             );
-            return new HeaderViewHolder(rankHeaderBinding);
+            return new HeaderViewHolder(rankHeaderBinding, itemClickCallback);
 
+        } else {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View view = inflater.inflate(R.layout.rank_load,parent,false);
+            return new LoadingViewHolder(view);
         }
     }
 
@@ -68,8 +96,15 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         RankingDto rankingDto = rankingDtos.get(position);
         if (holder instanceof MyViewHolder) {
             ((MyViewHolder) holder).rankItemBinding.setRankingDto(rankingDto);
-        } else {
+        } else if (holder instanceof HeaderViewHolder) {
             ((HeaderViewHolder) holder).rankHeaderBinding.setRankingDto(rankingDto);
+        }
+
+        if(rankingDtos.size()-1 == position && !nowLoading){
+            nowLoading = true;
+            rankingDtos.add(RankingDto.builder().type(2).build());
+            Log.d(TAG, "onBindViewHolder: rankingDtos.add(RankingDto.builder().type(2).build());");
+            itemClickCallback.onClick();
         }
     }
 
@@ -115,15 +150,78 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         // 규칙1 (xml이 들고있는 뷰)
         private RankHeaderBinding rankHeaderBinding;
+        private ItemClickCallback itemClickCallback;
 
-        public HeaderViewHolder(@NonNull RankHeaderBinding rankHeaderBinding) {
+        private boolean enterKeyDown;
+        private boolean enterKeyUp;
+
+        public HeaderViewHolder(@NonNull RankHeaderBinding rankHeaderBinding, ItemClickCallback itemClickCallback) {
             super(rankHeaderBinding.getRoot());
             this.rankHeaderBinding = rankHeaderBinding;
+            this.itemClickCallback = itemClickCallback;
+            enterKeyDown = false;
+            enterKeyUp = false;
+
+            rankHeaderBinding.ivSearchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "onClick: "+rankHeaderBinding.etSearchInput.getText());
+                    if(rankHeaderBinding.etSearchInput.getText() == null || rankHeaderBinding.etSearchInput.getText().toString().equals("")){
+                        Log.d(TAG, "onClick: 널 또는 공백");
+                        Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d(TAG, "onClick: 입력");
+                        itemClickCallback.onClick(rankHeaderBinding.etSearchInput.getText().toString());
+                        rankHeaderBinding.etSearchInput.setText("");
+                    }
+                }
+            });
+
+            // 엔터로 검색
+            rankHeaderBinding.etSearchInput.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    Log.d(TAG, "onKey: " + keyCode);
+                    if (keyCode == event.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP && !enterKeyUp) {
+                        Log.d(TAG, "onKey: 엔터키업");
+                        enterKeyUp = true;
+                        // 액티비티 이동
+                        Log.d(TAG, "onClick: "+rankHeaderBinding.etSearchInput.getText());
+                        if(rankHeaderBinding.etSearchInput.getText() == null || rankHeaderBinding.etSearchInput.getText().toString().equals("")){
+                            Log.d(TAG, "onClick: 널 또는 공백");
+                            Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d(TAG, "onClick: 입력");
+                            itemClickCallback.onClick(rankHeaderBinding.etSearchInput.getText().toString());
+                            rankHeaderBinding.etSearchInput.setText("");
+                        }
+                        return true;
+                    } else if (keyCode == event.KEYCODE_ENTER) {
+                        Log.d(TAG, "onKey: 엔터키다운");
+                        enterKeyDown = true;
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
         }
 
         // 규칙3 뷰에 데이터넣기
         public void setContent(InfoDto communityDto) {
         }
+    }
+
+    public static class LoadingViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
+
+        // 규칙1 (xml이 들고있는 뷰)
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        // 규칙3 뷰에 데이터넣기
+//        public void setContent(InfoDto communityDto) {
+//        }
     }
 
 }

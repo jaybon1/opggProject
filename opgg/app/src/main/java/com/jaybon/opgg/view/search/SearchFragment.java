@@ -23,6 +23,7 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.FragmentSearchBinding;
 import com.jaybon.opgg.view.info.InfoActivity;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 public class SearchFragment extends Fragment {
@@ -115,6 +116,8 @@ public class SearchFragment extends Fragment {
         }
         Intent intent = new Intent(getActivity(), InfoActivity.class);
         intent.putExtra("summonerName", fragmentSearchBinding.etSearchInput.getText().toString());
+        // 이전화면을 없애고 새화면을 띄운다
+        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
         fragmentSearchBinding.etSearchInput.setText("");
         startActivity(intent);
     }

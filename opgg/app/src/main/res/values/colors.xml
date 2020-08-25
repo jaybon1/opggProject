@@ -15,4 +15,6 @@
     <color name="tierBronze">#806A43</color>
     <color name="white">#FFFFFF</color>
     <color name="nowSummoner">#2200CFBB</color>
+    <color name="blueTeam">#ECF2FF</color>
+    <color name="redTeam">#FFF0F3</color>
 </resources>

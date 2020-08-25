@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,15 +18,16 @@ import com.jaybon.opgg.model.apidao.MatchSummonerModel;
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.DetailAdapter;
-import com.jaybon.opgg.view.adapter.InfoAdapter;
+import com.jaybon.opgg.view.adapter.ItemClickCallback;
 import com.jaybon.opgg.view.adapter.XmlAdapter;
 import com.jaybon.opgg.view.info.InfoActivity;
 import com.jaybon.opgg.viewmodel.detail.DetailViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class DetailActivity extends AppCompatActivity {
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
+public class DetailActivity extends AppCompatActivity implements ItemClickCallback {
 
     private static final String TAG = "DetailActivity";
 
@@ -118,15 +120,46 @@ public class DetailActivity extends AppCompatActivity {
                     activityDetailBinding.tvDetailHeaderCreatedate.setText(XmlAdapter.getCreation(respDto.getData().getMatchCommonModel().getGameCreation()));
                     activityDetailBinding.tvDetailHeaderDuration.setText(XmlAdapter.getDuration(respDto.getData().getMatchCommonModel().getGameDuration()));
 
+
+
                     String winTeamName;
                     String loseTeamName;
+
+                    Log.d(TAG, "onChanged: "+respDto.getData().getWinTeam().getTeamId());
+                    Log.d(TAG, "onChanged: "+respDto.getData().getLoseTeam().getTeamId());
 
                     if(respDto.getData().getWinTeam().getTeamId() == 100){
                         winTeamName = "(레드)";
                         loseTeamName = "(블루)";
+                        activityDetailBinding.layoutDetailWinTeamHeader.setBackgroundResource(R.color.redTeam);
+                        activityDetailBinding.layoutDetailLoseTeamHeader.setBackgroundResource(R.color.blueTeam);
+
+                        activityDetailBinding.ivDetailWinKnife.setImageResource(R.drawable.red_knife);
+                        activityDetailBinding.ivDetailWinTeamBaron.setImageResource(R.drawable.red_baron);
+                        activityDetailBinding.ivDetailWinTeamDragon.setImageResource(R.drawable.red_dragon);
+                        activityDetailBinding.ivDetailWinTeamTower.setImageResource(R.drawable.red_tower);
+
+                        activityDetailBinding.ivDetailLoseKnife.setImageResource(R.drawable.blue_knife);
+                        activityDetailBinding.ivDetailLoseTeamBaron.setImageResource(R.drawable.blue_baron);
+                        activityDetailBinding.ivDetailLoseTeamDragon.setImageResource(R.drawable.blue_dragon);
+                        activityDetailBinding.ivDetailLoseTeamTower.setImageResource(R.drawable.blue_tower);
+
                     } else{
                         winTeamName = "(블루)";
                         loseTeamName = "(레드)";
+                        activityDetailBinding.layoutDetailWinTeamHeader.setBackgroundResource(R.color.blueTeam);
+                        activityDetailBinding.layoutDetailLoseTeamHeader.setBackgroundResource(R.color.redTeam);
+
+                        activityDetailBinding.ivDetailWinKnife.setImageResource(R.drawable.blue_knife);
+                        activityDetailBinding.ivDetailWinTeamBaron.setImageResource(R.drawable.blue_baron);
+                        activityDetailBinding.ivDetailWinTeamDragon.setImageResource(R.drawable.blue_dragon);
+                        activityDetailBinding.ivDetailWinTeamTower.setImageResource(R.drawable.blue_tower);
+
+                        activityDetailBinding.ivDetailLoseKnife.setImageResource(R.drawable.red_knife);
+                        activityDetailBinding.ivDetailLoseTeamBaron.setImageResource(R.drawable.red_baron);
+                        activityDetailBinding.ivDetailLoseTeamDragon.setImageResource(R.drawable.red_dragon);
+                        activityDetailBinding.ivDetailLoseTeamTower.setImageResource(R.drawable.red_tower);
+
                     }
 
                     activityDetailBinding.tvDetailWinTeamName.setText(winTeamName);
@@ -174,8 +207,8 @@ public class DetailActivity extends AppCompatActivity {
                     }
 
                     // 리사이클러뷰 어댑터 재배정
-                    winAdapter = new DetailAdapter(respDto.getData().getMatchCommonModel(),maxDeal, nowSummoner);
-                    loseAdapter = new DetailAdapter(respDto.getData().getMatchCommonModel(),maxDeal, nowSummoner);
+                    winAdapter = new DetailAdapter(respDto.getData().getMatchCommonModel(),maxDeal, nowSummoner, DetailActivity.this);
+                    loseAdapter = new DetailAdapter(respDto.getData().getMatchCommonModel(),maxDeal, nowSummoner, DetailActivity.this);
 
                     activityDetailBinding.rvDetailWin.setAdapter(winAdapter);
                     activityDetailBinding.rvDetailLose.setAdapter(loseAdapter);
@@ -190,6 +223,7 @@ public class DetailActivity extends AppCompatActivity {
                     activityDetailBinding.pgDetailLoading.setVisibility(View.GONE);
 
                 } else{
+
                     Toast.makeText(DetailActivity.this, respDto.getMessage(), Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
@@ -201,5 +235,19 @@ public class DetailActivity extends AppCompatActivity {
         detailViewModel.initLiveData(gameId);
 
 
+    }
+
+    @Override
+    public void onClick() {
+
+    }
+
+    @Override
+    public void onClick(String value) {
+        Intent intent = new Intent(DetailActivity.this, InfoActivity.class);
+        intent.putExtra("summonerName", value);
+        // 이전화면을 없애고 새화면을 띄운다
+        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

@@ -24,15 +24,17 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private MatchCommonModel matchCommonModel;
     private long maxDeal;
     private String nowSummoner;
+    private ItemClickCallback itemClickCallback;
     private List<MatchSummonerModel> matchSummonerModels;
 
     public DetailAdapter() {
     }
 
-    public DetailAdapter(MatchCommonModel matchCommonModel, long maxDeal, String nowSummoner) {
+    public DetailAdapter(MatchCommonModel matchCommonModel, long maxDeal, String nowSummoner, ItemClickCallback itemClickCallback) {
         this.matchCommonModel = matchCommonModel;
         this.maxDeal = maxDeal;
         this.nowSummoner = nowSummoner;
+        this.itemClickCallback = itemClickCallback;
         matchSummonerModels = new ArrayList<>();
     }
 
@@ -59,7 +61,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         DetailItemBinding detailItemBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()), R.layout.detail_item, parent, false
         );
-        return new MyViewHolder(detailItemBinding);
+        return new MyViewHolder(detailItemBinding, itemClickCallback);
     }
 
 
@@ -88,16 +90,19 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static class MyViewHolder extends RecyclerView.ViewHolder { // 뷰홀더
 
         private DetailItemBinding detailItemBinding;
+        private ItemClickCallback itemClickCallback;
 
-        public MyViewHolder(@NonNull DetailItemBinding detailItemBinding) {
+        public MyViewHolder(@NonNull DetailItemBinding detailItemBinding, ItemClickCallback itemClickCallback) {
 //            super(itemView);
             super(detailItemBinding.getRoot());
             this.detailItemBinding = detailItemBinding;
+            this.itemClickCallback = itemClickCallback;
 
             detailItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Log.d(TAG, "onClick: "+detailItemBinding.getMatchSummonerModel().getSummonerName());
+                    itemClickCallback.onClick(detailItemBinding.getMatchSummonerModel().getSummonerName());
                 }
             });
 

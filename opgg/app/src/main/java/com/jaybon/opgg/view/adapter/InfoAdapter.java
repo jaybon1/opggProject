@@ -21,17 +21,19 @@ import com.jaybon.opgg.view.detail.DetailActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "InfoAdapter";
 
     private Context context;
-    private ItemClickAdaper contextListener;
+    private ItemClickCallback contextListener;
     private String nowSummoner;
 
     private List<InfoDto> infoDtos = new ArrayList<>();
 
-    public InfoAdapter(Context context, String nowSummoner, ItemClickAdaper contextListener) {
+    public InfoAdapter(Context context, String nowSummoner, ItemClickCallback contextListener) {
         this.context = context;
         this.contextListener = contextListener;
         this.nowSummoner = nowSummoner;
@@ -117,6 +119,8 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     Intent intent = new Intent(infoItemBinding.getRoot().getContext(), DetailActivity.class);
                     intent.putExtra("gameId", infoItemBinding.getInfoDto().getMatchSummonerModel().getGameId());
                     intent.putExtra("nowSummoner", nowSummoner);
+                    // 이전화면을 없애고 새화면을 띄운다
+                    intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                     infoItemBinding.getRoot().getContext().startActivity(intent);
 
                 }
@@ -134,15 +138,18 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // 규칙1 (xml이 들고있는 뷰)
         private InfoHeaderBinding infoHeaderBinding;
 
-        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, ItemClickAdaper contextListener) {
+        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, ItemClickCallback contextListener) {
             super(infoHeaderBinding.getRoot());
             this.infoHeaderBinding = infoHeaderBinding;
 
+            // 전적갱신
             this.infoHeaderBinding.btnInfoHeaderUpdate.setOnClickListener(new View.OnClickListener() {
+                //style="?android:attr/progressBarStyle"
                 @Override
                 public void onClick(View v) {
                     contextListener.onClick();
-                    Toast.makeText(infoHeaderBinding.getRoot().getContext(), "로딩중", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(infoHeaderBinding.getRoot().getContext(), "로딩중", Toast.LENGTH_SHORT).show();
+                    infoHeaderBinding.btnInfoHeaderUpdate.setText("로딩 중");
                     infoHeaderBinding.btnInfoHeaderUpdate.setBackgroundResource(R.drawable.radius_button_gray);
                     infoHeaderBinding.btnInfoHeaderUpdate.setOnClickListener(null);
                 }

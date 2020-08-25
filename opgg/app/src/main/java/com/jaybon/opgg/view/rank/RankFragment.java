@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -17,6 +18,7 @@ import com.jaybon.opgg.databinding.FragmentRankBinding;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
 import com.jaybon.opgg.model.dto.RespDto;
+import com.jaybon.opgg.view.adapter.ItemClickCallback;
 import com.jaybon.opgg.view.adapter.RankAdapter;
 import com.jaybon.opgg.view.detail.DetailActivity;
 import com.jaybon.opgg.viewmodel.rank.RankViewModel;
@@ -24,7 +26,7 @@ import com.jaybon.opgg.viewmodel.rank.RankViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RankFragment extends Fragment {
+public class RankFragment extends Fragment implements ItemClickCallback {
 
     private static final String TAG = "RankFragment";
 
@@ -68,7 +70,7 @@ public class RankFragment extends Fragment {
         fragmentRankBinding.rvRank.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // 사이클러뷰 어댑터 세팅
-        adapter = new RankAdapter();
+        adapter = new RankAdapter(RankFragment.this);
         fragmentRankBinding.rvRank.setAdapter(adapter);
 
         // 리사이클러뷰 데이터 초기화
@@ -84,17 +86,38 @@ public class RankFragment extends Fragment {
 
                 if(respDto.getStatusCode() == 200){
 
-                    // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
-                    adapter.addContents(respDto.getData());
-                    adapter.notifyDataSetChanged();
+                    if(adapter.getRankingDtos() == null || adapter.getRankingDtos().size() == 0){
 
-                    // 로딩 화면 없애기
-                    fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+                        // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
+                        adapter.addContents(respDto.getData());
+                        adapter.notifyDataSetChanged();
+
+                        adapter.setNowLoading(false);
+
+                        // 로딩 화면 없애기
+                        fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+
+                        // 터치 되도록하기
+                        RankFragment.this.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                    } else if(adapter.getRankingDtos().size() > 1) {
+
+                        adapter.getRankingDtos().remove(adapter.getRankingDtos().size()-1);
+//                        adapter.getRankingDtos().addAll(respDto.getData());
+
+                        for (int i = 1; i < respDto.getData().size(); i++){
+                            adapter.getRankingDtos().add(respDto.getData().get(i));
+                        }
+                        adapter.notifyDataSetChanged();
+                        adapter.setNowLoading(false);
+
+                    }
 
                 } else{
                     Toast.makeText(getContext(), respDto.getMessage(), Toast.LENGTH_SHORT).show();
                     // 로딩 화면 없애기
                     fragmentRankBinding.pgRankLoading.setVisibility(View.GONE);
+                    RankFragment.this.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
             }
@@ -109,5 +132,28 @@ public class RankFragment extends Fragment {
         // 둘중아무거나 되는듯?
         return fragmentRankBinding.getRoot();
 //        return inflater.inflate(R.layout.fragment_rank, container, false);
+    }
+
+    // 스크롤 내리면 값 추가하기
+    @Override
+    public void onClick() {
+
+        // 10개씩불러오니 10으로 나누면 몇페이지 인지 알 수 있다
+        long count = adapter.getRankingDtos().size() / 10;
+        rankViewModel.getLiveDataByPage(count+1);
+
+    }
+
+    @Override
+    public void onClick(String value) {
+
+        // 터치 막기
+        RankFragment.this.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        // 라이브데이터 다시가져오기
+        rankViewModel.getLiveDataByName(value);
+
+        // 로딩화면 띄우기
+        fragmentRankBinding.pgRankLoading.setVisibility(View.VISIBLE);
     }
 }

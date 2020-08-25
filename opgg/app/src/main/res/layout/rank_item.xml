@@ -4,8 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <import type="androidx.databinding.adapters.Converters" />
+        <import type="com.jaybon.opgg.view.adapter.XmlAdapter" />
+        <variable
+            name="rankingDto"
+            type="com.jaybon.opgg.model.dto.RankingDto" />
+    </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="68dp">
 
@@ -99,14 +107,6 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <data>
-        <import type="androidx.databinding.adapters.Converters" />
-        <import type="com.jaybon.opgg.view.adapter.XmlAdapter" />
-        <variable
-            name="rankingDto"
-            type="com.jaybon.opgg.model.dto.RankingDto" />
-    </data>
 
 
 </layout>
