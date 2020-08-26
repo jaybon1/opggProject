@@ -5,17 +5,24 @@ import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class User {
+
     private long id;
-    private String email;
-    private String nickname;
+    private String username;
     private String password;
+    private String email;
     private String role;
+    private String provider;
+    private String providerId;
     private Timestamp createDate;
+
 }

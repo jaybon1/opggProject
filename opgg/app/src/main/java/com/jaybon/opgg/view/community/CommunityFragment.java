@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -14,7 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jaybon.opgg.R;
-import com.jaybon.opgg.databinding.CommunityToolbarBinding;
 import com.jaybon.opgg.databinding.FragmentCommunityBinding;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
@@ -31,7 +31,6 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
 
     // 데이터바인딩
     private FragmentCommunityBinding fragmentCommunityBinding;
-    private CommunityToolbarBinding communityToolbarBinding;
 
     // 리사이클러뷰 어댑터
     private CommunityAdapter adapter;
@@ -67,10 +66,24 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
         // 액티비티와 프래그먼트는 바인딩 방식이 다름 (확인)
         fragmentCommunityBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_community, container, false);
 
-        // 툴바
-        communityToolbarBinding = DataBindingUtil.inflate(inflater, R.layout.community_toolbar, container, false);
+        // 서치버튼
+        fragmentCommunityBinding.btnCommunitySearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        communityToolbarBinding.ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+        // 글쓰기버튼
+        fragmentCommunityBinding.btnCommunityWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // 툴바
+        fragmentCommunityBinding.ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentCommunityBinding.drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
