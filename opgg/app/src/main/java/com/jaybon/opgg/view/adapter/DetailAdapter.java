@@ -86,7 +86,8 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((MyViewHolder) holder).detailItemBinding.setMaxDeal(maxDeal);
             ((MyViewHolder) holder).detailItemBinding.pgDetail.setMax(XmlAdapter.longToint(maxDeal));
             ((MyViewHolder) holder).detailItemBinding.pgDetail.setProgress(XmlAdapter.longToint(matchSummonerModel.getTotalDamageDealtToChampions()));
-            if(((MyViewHolder) holder).detailItemBinding.getMatchSummonerModel().getSummonerName().equals(nowSummoner)){
+            if(((MyViewHolder) holder).detailItemBinding.getMatchSummonerModel().getSummonerName().replace(" ", "").toLowerCase()
+                    .equals(nowSummoner.replace(" ", "").toLowerCase())){
                 ((MyViewHolder) holder).detailItemBinding.layoutDetailColor.setBackgroundResource(R.color.nowSummoner);
             }
         }

@@ -134,8 +134,8 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     Intent intent = new Intent(infoItemBinding.getRoot().getContext(), DetailActivity.class);
                     intent.putExtra("gameId", infoItemBinding.getInfoDto().getMatchSummonerModel().getGameId());
                     intent.putExtra("nowSummoner", nowSummoner);
-                    // 이전화면을 없애고 새화면을 띄운다
-                    intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+//                    // 이전화면을 없애고 새화면을 띄운다
+//                    intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                     infoItemBinding.getRoot().getContext().startActivity(intent);
 
                 }

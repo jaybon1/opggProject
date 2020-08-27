@@ -108,4 +108,10 @@ public class InfoActivity extends AppCompatActivity implements ItemClickCallback
     public void onClick(String value) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,android.R.anim.slide_out_right);
+    }
 }

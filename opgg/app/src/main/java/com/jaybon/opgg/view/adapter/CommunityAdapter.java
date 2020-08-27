@@ -14,7 +14,7 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.CommunityFooterBinding;
 import com.jaybon.opgg.databinding.CommunityItemBinding;
 import com.jaybon.opgg.model.dto.CommunityDto;
-import com.jaybon.opgg.view.community.CommunityDetailviewActivity;
+import com.jaybon.opgg.view.communitydetail.CommunityDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +119,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View v) {
 
                     // 리사이클러뷰에서 액티비티 전환하기
-                    Intent intent = new Intent(communityItemBinding.getRoot().getContext(), CommunityDetailviewActivity.class);
+                    Intent intent = new Intent(communityItemBinding.getRoot().getContext(), CommunityDetailActivity.class);
                     intent.putExtra("postId", communityItemBinding.getCommunityDto().getPost().getId());
                     // 이전화면을 없애고 새화면을 띄운다
                     intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);

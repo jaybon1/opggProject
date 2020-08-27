@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.jaybon.opgg.R;
@@ -105,7 +106,8 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
                     boolean nowSummonerWin = false;
 
                     for (MatchSummonerModel matchSummonerModel : respDto.getData().getWinSummonerModels()){
-                        if(matchSummonerModel.getSummonerName().equals(nowSummoner)){
+                        if(matchSummonerModel.getSummonerName().replace(" ", "").toLowerCase()
+                                .equals(nowSummoner.replace(" ", "").toLowerCase())){
                             nowSummonerWin = true;
                             break;
                         }
@@ -260,8 +262,15 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
     public void onClick(String value) {
         Intent intent = new Intent(DetailActivity.this, InfoActivity.class);
         intent.putExtra("summonerName", value);
-        // 이전화면을 없애고 새화면을 띄운다
-        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+//        // 이전화면을 없애고 새화면을 띄운다
+//        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,android.R.anim.slide_out_right);
     }
 }

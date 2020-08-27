@@ -116,8 +116,8 @@ public class SearchFragment extends Fragment {
         }
         Intent intent = new Intent(getActivity(), InfoActivity.class);
         intent.putExtra("summonerName", fragmentSearchBinding.etSearchInput.getText().toString());
-        // 이전화면을 없애고 새화면을 띄운다
-        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+//        // 이전화면을 없애고 새화면을 띄운다
+//        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
         fragmentSearchBinding.etSearchInput.setText("");
         startActivity(intent);
     }

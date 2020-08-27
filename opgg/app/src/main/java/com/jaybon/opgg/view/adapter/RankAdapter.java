@@ -146,7 +146,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     Intent intent = new Intent(rankItemBinding.getRoot().getContext(), InfoActivity.class);
                     intent.putExtra("summonerName", rankItemBinding.getRankingDto().getRankingModel().getSummonerName());
                     rankItemBinding.getRoot().getContext().startActivity(intent);
-
                 }
             });
 

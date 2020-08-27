@@ -1,23 +1,22 @@
 package com.jaybon.opgg.model.dto;
 
 import com.jaybon.opgg.model.dao.Post;
+import com.jaybon.opgg.model.dao.Reply;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Data
-public class CommunityDto {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class CommunityDetailDto {
 
     private int type;
 
     private Post post;
+    private Reply reply;
 
 }
