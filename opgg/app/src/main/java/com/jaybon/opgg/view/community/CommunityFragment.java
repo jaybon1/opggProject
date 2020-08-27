@@ -5,7 +5,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -94,7 +93,7 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
         fragmentCommunityBinding.rvCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // 사이클러뷰 어댑터 세팅
-        adapter = new CommunityAdapter(CommunityFragment.this);
+        adapter = new CommunityAdapter(CommunityFragment.this, 0);
         fragmentCommunityBinding.rvCommunity.setAdapter(adapter);
 
         // 리사이클러뷰 데이터 초기화
@@ -110,10 +109,33 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
             @Override
             public void onChanged(RespDto<List<CommunityDto>> respDto) {
 
-                // dto 상태값 확인
-                if (respDto.getStatusCode() == 200) {
+//                Log.d(TAG, "onChanged: "+respDto.getData().get(0).getPost());
+
+                if(respDto.getStatusCode() == 201){ // 첫페이지 일경우
+
+                    adapter.setButtonType(0);
 
                     //리사이클러뷰에 데이터 넣기
+                    adapter.addContents(respDto.getData());
+
+                    // 리사이클러뷰 데이터 다시넣을 경우 호출함수
+                    adapter.notifyDataSetChanged();
+
+                } else if(respDto.getStatusCode() == 200){ // 0페이지나 끝페이지가 아닐경우
+
+                    adapter.setButtonType(1);
+
+                    //리사이클러뷰에 데이터 넣기
+                    adapter.addContents(respDto.getData());
+
+                    // 리사이클러뷰 데이터 다시넣을 경우 호출함수
+                    adapter.notifyDataSetChanged();
+
+                } else if(respDto.getStatusCode() == 204){ // 끝페이지 일경우
+
+                    adapter.setButtonType(2);
+
+                    //리사이클러뷰에 데이터넣기
                     adapter.addContents(respDto.getData());
 
                     // 리사이클러뷰 데이터 다시넣을 경우 호출함수
@@ -133,20 +155,18 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
         });
 
         // 뷰모델 데이터 초기화
-        communityViewModel.initLiveData(1);
+        communityViewModel.initLiveData(0);
 
         // 둘중아무거나 되는듯?
         return fragmentCommunityBinding.getRoot();
 //        return inflater.inflate(R.layout.fragment_community, container, false);
     }
 
-    // 콜백
     @Override
     public void onClick() {
 
     }
 
-    // 콜백
     @Override
     public void onClick(String value) {
 
