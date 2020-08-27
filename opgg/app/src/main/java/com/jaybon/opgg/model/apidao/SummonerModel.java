@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SummonerModel {
 
-
     private int id;
     private String summonerId;
     private String accountId;
