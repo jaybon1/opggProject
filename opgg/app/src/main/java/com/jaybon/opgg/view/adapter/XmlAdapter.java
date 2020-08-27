@@ -21,6 +21,11 @@ public class XmlAdapter {
     public static String win = "승";
     public static String lose = "패";
 
+    // 댓글수 리턴 [300] 모양
+    public static String parseReplySize(int replySize){
+        return "["+replySize+"]";
+    }
+
     // 롱 값을 인트값으로 변경
     public static int longToint(long longNum){
         int intNum = Integer.parseInt(String.valueOf(longNum));
@@ -101,6 +106,28 @@ public class XmlAdapter {
         }
 
         return sb.toString();
+    }
+
+    // 타임스탬프 시간을 날짜로 변경
+    public static String getDate(Timestamp timestamp) {
+        long ts = timestamp.getTime();
+
+        if(ts + 86400000 > System.currentTimeMillis()){
+            long temp = System.currentTimeMillis() - ts;
+            if(temp < 60000){
+                return temp/1000+"초 전";
+            } else if(temp < 3600000){
+                return temp/60000+"분 전";
+            } else{
+                return temp/3600000+"시간 전";
+            }
+        }
+
+        Date date = new Date(ts);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        String dateString = sdf.format(date);
+
+        return dateString;
     }
 
     // 롱 시간을 날짜로 변경

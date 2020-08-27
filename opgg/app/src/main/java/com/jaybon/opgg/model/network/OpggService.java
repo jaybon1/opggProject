@@ -37,11 +37,11 @@ public interface OpggService {
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // communityDto 가져오기
-    @GET("test/community/page/{page}")
+    @GET("test/post/{page}")
     Call<RespDto<List<CommunityDto>>> getPostByPage(@Path(value = "page", encoded = true) long page);
 
     // communityDto 가져오기
-    @GET("test/community/page/{id}")
+    @GET("test/post/detail/{id}")
     Call<RespDto<CommunityDto>> getPostById(@Path(value = "page", encoded = true) long id);
 
 }

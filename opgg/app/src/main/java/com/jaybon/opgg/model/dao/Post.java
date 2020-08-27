@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString(exclude = {"user","replies"})
 public class Post {
 
-    private long id;
+    private int id;
     private String title;
     private String content;
 
@@ -31,5 +31,4 @@ public class Post {
     private List<Reply> replies;
 
     private Timestamp createDate;
-
 }
