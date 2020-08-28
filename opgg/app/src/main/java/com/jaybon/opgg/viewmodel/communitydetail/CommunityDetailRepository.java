@@ -5,10 +5,14 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.jaybon.opgg.model.dao.Reply;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.model.network.OpggRetrofitHelper;
 import com.jaybon.opgg.model.network.OpggService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,4 +66,31 @@ public class CommunityDetailRepository {
             }
         });
     }
+
+    public void writeReply(Reply reply) {
+
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<CommunityDto>> call = opggService.writeReply(reply);
+
+        call.enqueue(new Callback<RespDto<CommunityDto>>() {
+            @Override
+            public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+                RespDto<CommunityDto> respDto = response.body();
+
+                liveRespDto.setValue(respDto);
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+
+
+    }
+
 }

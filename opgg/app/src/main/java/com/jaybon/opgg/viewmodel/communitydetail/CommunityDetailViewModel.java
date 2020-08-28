@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.jaybon.opgg.model.dao.Reply;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
 
@@ -32,6 +33,10 @@ public class CommunityDetailViewModel extends AndroidViewModel {
     // 구독
     public LiveData<RespDto<CommunityDto>> subscribe(){
         return liveRespDto;
+    }
+
+    public void writeReplyRefresh(Reply reply){
+        communityDetailRepository.writeReply(reply);
     }
 
 }

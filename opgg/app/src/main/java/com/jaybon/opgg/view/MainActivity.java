@@ -3,6 +3,7 @@ package com.jaybon.opgg.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavSearch;
     private long backBtnTime = 0;
 
+
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +32,21 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavSearch = findViewById(R.id.bottom_nav_search);
 
-        // 프래그먼트 매니저
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
+        // frag 엑스트라에 담긴 값으로 포커싱
+        switch (getIntent().getIntExtra("frag", 0)){
+            case 0:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
+                bottomNavSearch.setSelectedItemId(R.id.bottom_nav_search_button);
+                break;
+            case 1:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CommunityFragment(getIntent().getIntExtra("page", 0))).commit();
+                bottomNavSearch.setSelectedItemId(R.id.bottom_nav_community_button);
+                break;
+            case 2:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RankFragment()).commit();
+                bottomNavSearch.setSelectedItemId(R.id.bottom_nav_ranking_button);
+                break;
+        }
 
         // 네비게이션 셀렉터
         bottomNavSearch.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

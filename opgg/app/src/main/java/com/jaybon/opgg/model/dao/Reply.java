@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString(exclude = {"user","post"})
 public class Reply {
 
-    private long id;
+    private int id;
     private String reply;
 
     private User user;

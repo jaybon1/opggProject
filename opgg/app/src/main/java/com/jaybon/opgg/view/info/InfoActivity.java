@@ -79,6 +79,8 @@ public class InfoActivity extends AppCompatActivity implements ItemClickCallback
             @Override
             public void onChanged(RespDto<List<InfoDto>> respDto) {
 
+                infoDtos.clear();
+
                 if(respDto.getStatusCode() == 200){
                     // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
                     adapter.addContents(respDto.getData());
@@ -106,6 +108,11 @@ public class InfoActivity extends AppCompatActivity implements ItemClickCallback
 
     @Override
     public void onClick(String value) {
+
+    }
+
+    @Override
+    public void sendReply(int postId, String value) {
 
     }
 

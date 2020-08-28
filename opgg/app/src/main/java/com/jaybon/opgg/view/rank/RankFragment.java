@@ -85,6 +85,8 @@ public class RankFragment extends Fragment implements ItemClickCallback {
             @Override
             public void onChanged(RespDto<List<RankingDto>> respDto) {
 
+                rankingDtos.clear();
+
                 if(respDto.getStatusCode() == 200){
 
                     // 리사이클러뷰에 데이터가 있는지 확인하고 없으면 초기화 있으면 추가
@@ -127,9 +129,6 @@ public class RankFragment extends Fragment implements ItemClickCallback {
                     }
 
                 } else if(respDto.getStatusCode() == 205) {
-
-                    // 로딩 아이템 전부 삭제
-                    adapter.getRankingDtos().clear();
 
                     // 아이템 재배정
                     adapter.addContents(respDto.getData());
@@ -189,4 +188,10 @@ public class RankFragment extends Fragment implements ItemClickCallback {
         // 로딩화면 띄우기
         fragmentRankBinding.pgRankLoading.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void sendReply(int postId, String value) {
+
+    }
+
 }

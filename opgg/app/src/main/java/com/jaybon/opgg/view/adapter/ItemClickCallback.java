@@ -6,4 +6,7 @@ public interface ItemClickCallback {
     void onClick ();
 
     void onClick (String value);
+
+    void sendReply (int postId, String value);
+
 }

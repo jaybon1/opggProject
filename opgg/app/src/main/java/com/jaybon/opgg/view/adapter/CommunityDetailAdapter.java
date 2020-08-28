@@ -2,6 +2,7 @@ package com.jaybon.opgg.view.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,10 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
+    public List<CommunityDetailDto> getCommunityDetailDtos() {
+        return communityDetailDtos;
+    }
+
     // 아이템 통으로 추가
     public void addContents(List<CommunityDetailDto> communityDetailDtos) {
         this.communityDetailDtos = communityDetailDtos;
@@ -59,7 +64,7 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             CommunityDetailContentBinding communityDetailContentBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()), R.layout.community_detail_content, parent, false);
 
-            return new CommunityDetailAdapter.ContentViewHolder(communityDetailContentBinding);
+            return new CommunityDetailAdapter.ContentViewHolder(communityDetailContentBinding, itemClickCallback);
 
         } else {
 
@@ -96,12 +101,21 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         // 규칙1 (xml이 들고있는 뷰)
         private CommunityDetailContentBinding communityDetailContentBinding;
 
-        public ContentViewHolder(@NonNull CommunityDetailContentBinding communityDetailContentBinding) {
+        public ContentViewHolder(@NonNull CommunityDetailContentBinding communityDetailContentBinding, ItemClickCallback itemClickCallback) {
 //            super(itemView);
 
             // 규칙2 뷰들을 변수에 연결
             super(communityDetailContentBinding.getRoot());
             this.communityDetailContentBinding = communityDetailContentBinding;
+
+            communityDetailContentBinding.btnCommunityDetailReplySubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    itemClickCallback.sendReply(communityDetailContentBinding.getCommunityDetailDto().getPost().getId(),communityDetailContentBinding.etCommunityDetailReplyContent.getText().toString());
+                    communityDetailContentBinding.etCommunityDetailReplyContent.setText("");
+                }
+            });
 
         }
 

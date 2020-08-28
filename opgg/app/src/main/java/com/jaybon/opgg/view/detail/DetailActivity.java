@@ -96,6 +96,8 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
             @Override
             public void onChanged(RespDto<DetailDto> respDto) {
 
+                detailDto = new DetailDto();
+
                 // dto가 정상인지 확인
                 if(respDto.getStatusCode() == 200){
 
@@ -265,7 +267,11 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
 //        // 이전화면을 없애고 새화면을 띄운다
 //        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right,0);
+    }
+
+    @Override
+    public void sendReply(int postId, String value) {
+
     }
 
     @Override

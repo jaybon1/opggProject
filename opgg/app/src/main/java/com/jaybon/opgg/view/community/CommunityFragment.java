@@ -1,6 +1,9 @@
 package com.jaybon.opgg.view.community;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +22,14 @@ import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.CommunityAdapter;
 import com.jaybon.opgg.view.adapter.ItemClickCallback;
+import com.jaybon.opgg.view.info.InfoActivity;
+import com.jaybon.opgg.view.write.WriteActivity;
 import com.jaybon.opgg.viewmodel.community.CommunityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 public class CommunityFragment extends Fragment implements ItemClickCallback {
 
@@ -40,8 +47,15 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
     // 뷰모델
     private CommunityViewModel communityViewModel;
 
+    // 페이지
+    private int page;
+
     // 생성자
     public CommunityFragment() {
+    }
+
+    public CommunityFragment(int page) {
+        this.page = page;
     }
 
     // 미사용
@@ -77,7 +91,9 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
         fragmentCommunityBinding.btnCommunityWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), WriteActivity.class);
+                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -108,6 +124,8 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
             // 라이브데이터 값이 변경되면 자동실행
             @Override
             public void onChanged(RespDto<List<CommunityDto>> respDto) {
+
+                CommunityDtos.clear();
 
 //                Log.d(TAG, "onChanged: "+respDto.getData().get(0).getPost());
 
@@ -155,7 +173,7 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
         });
 
         // 뷰모델 데이터 초기화
-        communityViewModel.initLiveData(0);
+        communityViewModel.initLiveData(page);
 
         // 둘중아무거나 되는듯?
         return fragmentCommunityBinding.getRoot();
@@ -169,6 +187,11 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
 
     @Override
     public void onClick(String value) {
+
+    }
+
+    @Override
+    public void sendReply(int postId, String value) {
 
     }
 }

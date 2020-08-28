@@ -1,5 +1,6 @@
 package com.jaybon.opgg.view.communitydetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,12 +17,15 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.ActivityCommunityDetailBinding;
 import com.jaybon.opgg.model.dao.Post;
 import com.jaybon.opgg.model.dao.Reply;
+import com.jaybon.opgg.model.dao.User;
 import com.jaybon.opgg.model.dto.CommunityDetailDto;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RespDto;
+import com.jaybon.opgg.view.MainActivity;
 import com.jaybon.opgg.view.adapter.CommunityDetailAdapter;
 import com.jaybon.opgg.view.adapter.ItemClickCallback;
+import com.jaybon.opgg.view.write.WriteActivity;
 import com.jaybon.opgg.viewmodel.community.CommunityViewModel;
 import com.jaybon.opgg.viewmodel.communitydetail.CommunityDetailViewModel;
 
@@ -95,9 +99,10 @@ public class CommunityDetailActivity extends AppCompatActivity implements ItemCl
             @Override
             public void onChanged(RespDto<CommunityDto> respDto) {
 
-                if(respDto.getStatusCode() == 200){
+                communityDetailDtos.clear();
 
-                    Log.d(TAG, "onChanged: "+respDto);
+                if(respDto.getStatusCode() == 201){
+
 
                     Post post = respDto.getData().getPost();
 
@@ -113,6 +118,50 @@ public class CommunityDetailActivity extends AppCompatActivity implements ItemCl
                     if(replies == null || replies.size() == 0){
                         adapter.addContents(communityDetailDtos);
                         adapter.notifyDataSetChanged();
+                        // 로딩화면 없애기
+                        activityCommunityDetailBinding.pgCommunityDetailLoading.setVisibility(View.GONE);
+                        return;
+                    }
+
+
+                    for (Reply reply : replies) {
+                        CommunityDetailDto communityDetailDtoReply = CommunityDetailDto.builder()
+                                .type(1)
+                                .reply(reply)
+                                .build();
+
+                        communityDetailDtos.add(communityDetailDtoReply);
+                    }
+
+                    // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
+                    adapter.addContents(communityDetailDtos);
+                    adapter.notifyDataSetChanged();
+
+                    // 로딩화면 없애기
+                    activityCommunityDetailBinding.pgCommunityDetailLoading.setVisibility(View.GONE);
+
+                } else if(respDto.getStatusCode() == 200){
+
+                    communityDetailDtos.clear();
+
+                    Log.d(TAG, "onChanged: "+respDto.getData().getPost());
+
+                    Post post = respDto.getData().getPost();
+
+                    List<Reply> replies = post.getReplies();
+
+                    CommunityDetailDto communityDetailDtoContent = CommunityDetailDto.builder()
+                            .type(0)
+                            .post(post)
+                            .build();
+
+                    communityDetailDtos.add(communityDetailDtoContent);
+
+                    if(replies == null || replies.size() == 0){
+                        adapter.addContents(communityDetailDtos);
+                        adapter.notifyDataSetChanged();
+                        // 로딩화면 없애기
+                        activityCommunityDetailBinding.pgCommunityDetailLoading.setVisibility(View.GONE);
                         return;
                     }
 
@@ -130,7 +179,7 @@ public class CommunityDetailActivity extends AppCompatActivity implements ItemCl
                     adapter.notifyDataSetChanged();
 
                     // 로딩화면 없애기
-//                    activityInfoBinding.pgInfoLoading.setVisibility(View.GONE);
+                    activityCommunityDetailBinding.pgCommunityDetailLoading.setVisibility(View.GONE);
 
                 } else{
                     Toast.makeText(CommunityDetailActivity.this, respDto.getMessage(), Toast.LENGTH_SHORT).show();
@@ -150,14 +199,37 @@ public class CommunityDetailActivity extends AppCompatActivity implements ItemCl
 
     }
 
+
     @Override
     public void onClick(String value) {
 
     }
 
+    // 댓글 보내기
+    @Override
+    public void sendReply(int postId, String replyContent) {
+        activityCommunityDetailBinding.pgCommunityDetailLoading.setVisibility(View.VISIBLE);
+
+        // 유저아이디는 넣을필요 없고, 토큰으로
+//        User user = User.builder().id().build();
+
+        Post post = Post.builder().id(postId).build();
+
+        Reply reply = Reply.builder()
+                .reply(replyContent)
+                .post(post)
+                .build();
+
+        communityDetailViewModel.writeReplyRefresh(reply);
+    }
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent intent = new Intent(CommunityDetailActivity.this, MainActivity.class);
+        intent.putExtra("frag", 1);
+        intent.putExtra("page", 0);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
         overridePendingTransition(0,android.R.anim.slide_out_right);
     }
 }

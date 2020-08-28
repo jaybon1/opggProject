@@ -2,16 +2,21 @@ package com.jaybon.opgg.model.network;
 
 
 import com.jaybon.opgg.model.dao.Post;
+import com.jaybon.opgg.model.dao.Reply;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
 import com.jaybon.opgg.model.dto.RespDto;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface OpggService {
@@ -43,6 +48,10 @@ public interface OpggService {
     // communityDto 가져오기
     @GET("post/detail/{id}")
     Call<RespDto<CommunityDto>> getPostById(@Path(value = "id", encoded = true) long id);
+
+    // communityDto 가져오기
+    @POST("reply/writeProc")
+    Call<RespDto<CommunityDto>> writeReply(@Body Reply reply);
 
 }
 

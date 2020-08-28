@@ -452,6 +452,8 @@ public class XmlAdapter {
             champName = "Zoe";
         } else if (champId == 143) {
             champName = "Zyra";
+        } else{
+            champName = "Garen";
         }
 
         return champName;
