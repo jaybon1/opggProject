@@ -1,9 +1,7 @@
-package com.jaybon.opgg.view.community;
+package com.jaybon.opgg.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +19,15 @@ import com.jaybon.opgg.databinding.FragmentCommunityBinding;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.CommunityAdapter;
-import com.jaybon.opgg.view.adapter.ItemClickCallback;
-import com.jaybon.opgg.view.info.InfoActivity;
-import com.jaybon.opgg.view.write.WriteActivity;
-import com.jaybon.opgg.viewmodel.community.CommunityViewModel;
+import com.jaybon.opgg.view.callback.CommunityCallback;
+import com.jaybon.opgg.viewmodel.CommunityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
-public class CommunityFragment extends Fragment implements ItemClickCallback {
+public class CommunityFragment extends Fragment implements CommunityCallback {
 
     private static final String TAG = "CommunityFragment";
 
@@ -42,20 +38,22 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
     private CommunityAdapter adapter;
 
     // 리사이클러뷰 데이터
-    private List<CommunityDto> CommunityDtos;
+    private List<CommunityDto> communityDtos;
 
     // 뷰모델
     private CommunityViewModel communityViewModel;
 
     // 페이지
     private int page;
+    private int position;
 
     // 생성자
     public CommunityFragment() {
     }
 
-    public CommunityFragment(int page) {
+    public CommunityFragment(int page, int position) {
         this.page = page;
+        this.position = position;
     }
 
     // 미사용
@@ -74,7 +72,7 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
                              Bundle savedInstanceState) {
 
         // 리스트 초기화
-        CommunityDtos = new ArrayList<>();
+        communityDtos = new ArrayList<>();
 
         // 액티비티와 프래그먼트는 바인딩 방식이 다름 (확인)
         fragmentCommunityBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_community, container, false);
@@ -109,11 +107,11 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
         fragmentCommunityBinding.rvCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // 사이클러뷰 어댑터 세팅
-        adapter = new CommunityAdapter(CommunityFragment.this, 0);
+        adapter = new CommunityAdapter(CommunityFragment.this, 0, page);
         fragmentCommunityBinding.rvCommunity.setAdapter(adapter);
 
         // 리사이클러뷰 데이터 초기화
-        adapter.addContents(CommunityDtos);
+        adapter.addContents(communityDtos);
 
         // 뷰모델 초기화
         communityViewModel = ViewModelProviders.of(this).get(CommunityViewModel.class);
@@ -125,9 +123,10 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
             @Override
             public void onChanged(RespDto<List<CommunityDto>> respDto) {
 
-                CommunityDtos.clear();
+                // 페이지 비우기
+                communityDtos.clear();
 
-//                Log.d(TAG, "onChanged: "+respDto.getData().get(0).getPost());
+                adapter.setPage(page);
 
                 if(respDto.getStatusCode() == 201){ // 첫페이지 일경우
 
@@ -139,6 +138,15 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
                     // 리사이클러뷰 데이터 다시넣을 경우 호출함수
                     adapter.notifyDataSetChanged();
 
+                    // 디테일 내용을 보다가 다시 돌아올 경우 해당위치로이동
+                    fragmentCommunityBinding.rvCommunity.scrollToPosition(position);
+
+                    // 페이지 이동시 맨위로 올리기위해서 포지션0
+                    position = 0;
+
+                    // 로딩 화면 없애기
+                    fragmentCommunityBinding.pgCommunityLoading.setVisibility(View.GONE);
+
                 } else if(respDto.getStatusCode() == 200){ // 0페이지나 끝페이지가 아닐경우
 
                     adapter.setButtonType(1);
@@ -148,6 +156,15 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
 
                     // 리사이클러뷰 데이터 다시넣을 경우 호출함수
                     adapter.notifyDataSetChanged();
+
+                    // 디테일 내용을 보다가 다시 돌아올 경우 해당위치로이동
+                    fragmentCommunityBinding.rvCommunity.scrollToPosition(position);
+
+                    // 페이지 이동시 맨위로 올리기위해서 포지션0
+                    position = 0;
+
+                    // 로딩 화면 없애기
+                    fragmentCommunityBinding.pgCommunityLoading.setVisibility(View.GONE);
 
                 } else if(respDto.getStatusCode() == 204){ // 끝페이지 일경우
 
@@ -159,13 +176,22 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
                     // 리사이클러뷰 데이터 다시넣을 경우 호출함수
                     adapter.notifyDataSetChanged();
 
+                    // 디테일 내용을 보다가 다시 돌아올 경우 해당위치로이동
+                    fragmentCommunityBinding.rvCommunity.scrollToPosition(position);
+
+                    // 페이지 이동시 맨위로 올리기위해서 포지션0
+                    position = 0;
+
+                    // 로딩 화면 없애기
+                    fragmentCommunityBinding.pgCommunityLoading.setVisibility(View.GONE);
+
                 } else {
 
                     // dto 메시지 출력
                     Toast.makeText(getContext(), respDto.getMessage(), Toast.LENGTH_SHORT).show();
 
                     // 로딩 화면 없애기
-//                    fragmentCommunityBinding.pgRankLoading.setVisibility(View.GONE);
+                    fragmentCommunityBinding.pgCommunityLoading.setVisibility(View.GONE);
                 }
 
             }
@@ -181,68 +207,12 @@ public class CommunityFragment extends Fragment implements ItemClickCallback {
     }
 
     @Override
-    public void onClick() {
+    public void getPage(int page) {
 
-    }
+        // 로딩 화면 생성
+        fragmentCommunityBinding.pgCommunityLoading.setVisibility(View.VISIBLE);
 
-    @Override
-    public void onClick(String value) {
-
-    }
-
-    @Override
-    public void sendReply(int postId, String value) {
-
+        communityViewModel.initLiveData(page);
+        this.page = page;
     }
 }
-
-//
-//    ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_community, container, false);
-//        ivCommunityToolbar = rootView.findViewById(R.id.iv_community_toolbar);
-//                drawerLayoutCommunity = rootView.findViewById(R.id.drawer_layout_community);
-//
-//                ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
-//@Override
-//public void onClick(View v) {
-//        drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
-//        }
-//        });
-//
-//        rvCommunity = rootView.findViewById(R.id.rv_community);
-//
-//        CommunityAdapter adapter = new CommunityAdapter();
-//
-//        Post post = Post.builder()
-//        .like(123)
-//        .title("테스트 제목입니다.")
-//        .createDate(Timestamp.valueOf("2020-08-01 23:59:59"))
-//        .build();
-//
-//        CommunityDto communityDto = CommunityDto.builder()
-//        .post(post)
-//        .nickname("테스트유저")
-//        .replyCount(21)
-//        .type(1)
-//        .build();
-//
-//        CommunityDto communityDto1 = CommunityDto.builder()
-//        .page(1)
-//        .type(0)
-//        .build();
-//
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto);
-//        adapter.addContent(communityDto1);
-//
-//        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-//        rvCommunity.setLayoutManager(layoutManager1);
-//        rvCommunity.setAdapter(adapter);

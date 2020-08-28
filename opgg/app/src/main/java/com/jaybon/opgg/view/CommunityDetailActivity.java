@@ -1,4 +1,4 @@
-package com.jaybon.opgg.view.communitydetail;
+package com.jaybon.opgg.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,24 +17,22 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.ActivityCommunityDetailBinding;
 import com.jaybon.opgg.model.dao.Post;
 import com.jaybon.opgg.model.dao.Reply;
-import com.jaybon.opgg.model.dao.User;
 import com.jaybon.opgg.model.dto.CommunityDetailDto;
 import com.jaybon.opgg.model.dto.CommunityDto;
-import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RespDto;
-import com.jaybon.opgg.view.MainActivity;
 import com.jaybon.opgg.view.adapter.CommunityDetailAdapter;
-import com.jaybon.opgg.view.adapter.ItemClickCallback;
-import com.jaybon.opgg.view.write.WriteActivity;
-import com.jaybon.opgg.viewmodel.community.CommunityViewModel;
-import com.jaybon.opgg.viewmodel.communitydetail.CommunityDetailViewModel;
+import com.jaybon.opgg.view.callback.CommunityDetailCallback;
+import com.jaybon.opgg.viewmodel.CommunityDetailViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommunityDetailActivity extends AppCompatActivity implements ItemClickCallback {
+public class CommunityDetailActivity extends AppCompatActivity implements CommunityDetailCallback {
 
     private static final String TAG = "CommunityDetailActivity";
+
+    // 해당글의 페이지
+    int page;
 
     // 데이터바인딩
     private ActivityCommunityDetailBinding activityCommunityDetailBinding;
@@ -85,7 +83,7 @@ public class CommunityDetailActivity extends AppCompatActivity implements ItemCl
         activityCommunityDetailBinding.rvCommunityDetail.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰 어댑터 세팅 (리스너 넘기기)
-        adapter = new CommunityDetailAdapter(CommunityDetailActivity.this);
+        adapter = new CommunityDetailAdapter(CommunityDetailActivity.this, page);
         activityCommunityDetailBinding.rvCommunityDetail.setAdapter(adapter);
 
         // 리사이클러뷰 데이터 초기화
@@ -194,17 +192,6 @@ public class CommunityDetailActivity extends AppCompatActivity implements ItemCl
 
     }
 
-    @Override
-    public void onClick() {
-
-    }
-
-
-    @Override
-    public void onClick(String value) {
-
-    }
-
     // 댓글 보내기
     @Override
     public void sendReply(int postId, String replyContent) {
@@ -227,7 +214,8 @@ public class CommunityDetailActivity extends AppCompatActivity implements ItemCl
     public void onBackPressed() {
         Intent intent = new Intent(CommunityDetailActivity.this, MainActivity.class);
         intent.putExtra("frag", 1);
-        intent.putExtra("page", 0);
+        intent.putExtra("page", getIntent().getIntExtra("page",0));
+        intent.putExtra("position", getIntent().getIntExtra("position",0));
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         overridePendingTransition(0,android.R.anim.slide_out_right);

@@ -1,4 +1,4 @@
-package com.jaybon.opgg.viewmodel.detail;
+package com.jaybon.opgg.viewmodel;
 
 import android.app.Application;
 
@@ -6,12 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.RespDto;
-import com.jaybon.opgg.viewmodel.community.CommunityRepository;
-
-import java.util.List;
 
 public class DetailViewModel extends AndroidViewModel {
 

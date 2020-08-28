@@ -1,12 +1,10 @@
 package com.jaybon.opgg.view.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -16,22 +14,18 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.databinding.InfoHeaderBinding;
 import com.jaybon.opgg.databinding.InfoItemBinding;
-import com.jaybon.opgg.view.detail.DetailActivity;
+import com.jaybon.opgg.view.callback.InfoCallback;
+import com.jaybon.opgg.view.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "InfoAdapter";
 
-    // 루트 액티비티(미사용)
-    private Context context;
-
     // 콜백 레퍼런스
-    private ItemClickCallback contextListener;
+    private InfoCallback infoCallback;
 
     // 현재 검색한 소환사
     private String nowSummoner;
@@ -40,9 +34,8 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<InfoDto> infoDtos = new ArrayList<>();
 
     // 생성자
-    public InfoAdapter(Context context, String nowSummoner, ItemClickCallback contextListener) {
-        this.context = context;
-        this.contextListener = contextListener;
+    public InfoAdapter(String nowSummoner, InfoCallback infoCallback) {
+        this.infoCallback = infoCallback;
         this.nowSummoner = nowSummoner;
     }
 
@@ -89,7 +82,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             InfoHeaderBinding infoHeaderBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()),R.layout.info_header,parent,false
             );
-            return new HeaderViewHolder(infoHeaderBinding, contextListener);
+            return new HeaderViewHolder(infoHeaderBinding, infoCallback);
 
         }
     }
@@ -152,18 +145,24 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         // 규칙1 (xml이 들고있는 뷰)
         private InfoHeaderBinding infoHeaderBinding;
+        private InfoCallback infoCallback;
 
-        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, ItemClickCallback contextListener) {
+        public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, InfoCallback infoCallback) {
             super(infoHeaderBinding.getRoot());
             this.infoHeaderBinding = infoHeaderBinding;
 
+            initListener();
+
+        }
+
+        public void initListener(){
             // 전적갱신
-            this.infoHeaderBinding.btnInfoHeaderUpdate.setOnClickListener(new View.OnClickListener() {
+            infoHeaderBinding.btnInfoHeaderUpdate.setOnClickListener(new View.OnClickListener() {
                 //style="?android:attr/progressBarStyle"
                 @Override
                 public void onClick(View v) {
                     // 콜백으로 함수실행
-                    contextListener.onClick();
+                    infoCallback.updateData();
 //                    Toast.makeText(infoHeaderBinding.getRoot().getContext(), "로딩중", Toast.LENGTH_SHORT).show();
                     infoHeaderBinding.btnInfoHeaderUpdate.setText("로딩 중");
                     infoHeaderBinding.btnInfoHeaderUpdate.setBackgroundResource(R.drawable.radius_button_gray);

@@ -1,4 +1,4 @@
-package com.jaybon.opgg.view.write;
+package com.jaybon.opgg.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,9 +9,6 @@ import android.view.View;
 
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.ActivityWriteBinding;
-import com.jaybon.opgg.view.MainActivity;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 public class WriteActivity extends AppCompatActivity {
 

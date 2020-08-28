@@ -43,7 +43,7 @@ public interface OpggService {
 
     // communityDto 가져오기
     @GET("post/{page}")
-    Call<RespDto<List<CommunityDto>>> getPostByPage(@Path(value = "page", encoded = true) long page);
+    Call<RespDto<List<CommunityDto>>> getPostByPage(@Path(value = "page", encoded = true) int page);
 
     // communityDto 가져오기
     @GET("post/detail/{id}")

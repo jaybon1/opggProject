@@ -1,4 +1,4 @@
-package com.jaybon.opgg.view.info;
+package com.jaybon.opgg.view;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,13 +15,13 @@ import com.jaybon.opgg.databinding.ActivityInfoBinding;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.InfoAdapter;
-import com.jaybon.opgg.view.adapter.ItemClickCallback;
-import com.jaybon.opgg.viewmodel.info.InfoViewModel;
+import com.jaybon.opgg.view.callback.InfoCallback;
+import com.jaybon.opgg.viewmodel.InfoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoActivity extends AppCompatActivity implements ItemClickCallback {
+public class InfoActivity extends AppCompatActivity implements InfoCallback {
 
     private static final String TAG = "InfoActivity";
 
@@ -65,7 +65,7 @@ public class InfoActivity extends AppCompatActivity implements ItemClickCallback
         activityInfoBinding.rvInfo.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰 어댑터 세팅 (리스너 넘기기)
-        adapter = new InfoAdapter(InfoActivity.this, summonerName,this);
+        adapter = new InfoAdapter( summonerName,InfoActivity.this);
         activityInfoBinding.rvInfo.setAdapter(adapter);
 
         // 리사이클러뷰 데이터 초기화
@@ -102,18 +102,8 @@ public class InfoActivity extends AppCompatActivity implements ItemClickCallback
     }
 
     @Override
-    public void onClick() {
+    public void updateData() {
         infoViewModel.updateLiveData(summonerName);
-    }
-
-    @Override
-    public void onClick(String value) {
-
-    }
-
-    @Override
-    public void sendReply(int postId, String value) {
-
     }
 
     @Override

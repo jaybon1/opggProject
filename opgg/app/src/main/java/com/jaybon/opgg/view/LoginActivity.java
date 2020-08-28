@@ -1,4 +1,4 @@
-package com.jaybon.opgg.view.auth;
+package com.jaybon.opgg.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 

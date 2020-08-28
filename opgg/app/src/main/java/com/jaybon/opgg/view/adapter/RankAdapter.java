@@ -1,13 +1,11 @@
 package com.jaybon.opgg.view.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,7 +17,8 @@ import com.jaybon.opgg.databinding.RankHeaderBinding;
 import com.jaybon.opgg.databinding.RankItemBinding;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
-import com.jaybon.opgg.view.info.InfoActivity;
+import com.jaybon.opgg.view.callback.RankCallback;
+import com.jaybon.opgg.view.InfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<RankingDto> rankingDtos = new ArrayList<>();
 
     // 콜백 레퍼런스
-    private ItemClickCallback itemClickCallback;
+    private RankCallback rankCallback;
 
     // 로딩 중복을 방지하기 위한 변수
     boolean nowLoading =false;
@@ -68,8 +67,8 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     // 생성자
-    public RankAdapter(ItemClickCallback itemClickCallback) {
-        this.itemClickCallback = itemClickCallback;
+    public RankAdapter(RankCallback rankCallback) {
+        this.rankCallback = rankCallback;
 
 
     }
@@ -92,7 +91,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             RankHeaderBinding rankHeaderBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()), R.layout.rank_header, parent, false
             );
-            return new HeaderViewHolder(rankHeaderBinding, itemClickCallback);
+            return new HeaderViewHolder(rankHeaderBinding, rankCallback);
 
         } else {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -114,8 +113,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(rankingDtos.size()-1 == position && !nowLoading){
             nowLoading = true;
             rankingDtos.add(RankingDto.builder().type(2).build());
-            Log.d(TAG, "onBindViewHolder: rankingDtos.add(RankingDto.builder().type(2).build());");
-            itemClickCallback.onClick();
+            rankCallback.addDataByScroll();
         }
     }
 
@@ -138,6 +136,10 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(rankItemBinding.getRoot());
             this.rankItemBinding = rankItemBinding;
 
+            initListener();
+        }
+
+        private void initListener(){
             rankItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -148,9 +150,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     rankItemBinding.getRoot().getContext().startActivity(intent);
                 }
             });
-
-
-
         }
 
         // 규칙3 뷰에 데이터 넣기
@@ -164,18 +163,24 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private RankHeaderBinding rankHeaderBinding;
 
         // 콜백 레퍼런스
-        private ItemClickCallback itemClickCallback;
+        private RankCallback rankCallback;
 
         // 엔터키 중복입력방지를 위한 코드
         private boolean enterKeyDown;
         private boolean enterKeyUp;
 
-        public HeaderViewHolder(@NonNull RankHeaderBinding rankHeaderBinding, ItemClickCallback itemClickCallback) {
+        public HeaderViewHolder(@NonNull RankHeaderBinding rankHeaderBinding, RankCallback rankCallback) {
             super(rankHeaderBinding.getRoot());
             this.rankHeaderBinding = rankHeaderBinding;
-            this.itemClickCallback = itemClickCallback;
+            this.rankCallback = rankCallback;
             enterKeyDown = false;
             enterKeyUp = false;
+
+            initListener();
+
+        }
+
+        public void initListener(){
 
             // 터치로 검색
             rankHeaderBinding.ivSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +198,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                         Log.d(TAG, "onClick: 입력");
 
-                        itemClickCallback.onClick(rankHeaderBinding.etSearchInput.getText().toString());
+                        rankCallback.changeDataBySummonerName(rankHeaderBinding.etSearchInput.getText().toString());
                         rankHeaderBinding.etSearchInput.setText("");
 
                     }
@@ -224,7 +229,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         } else {
 
                             Log.d(TAG, "onClick: 입력");
-                            itemClickCallback.onClick(rankHeaderBinding.etSearchInput.getText().toString());
+                            rankCallback.changeDataBySummonerName(rankHeaderBinding.etSearchInput.getText().toString());
                             rankHeaderBinding.etSearchInput.setText("");
 
                         }
@@ -239,7 +244,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     return false;
                 }
             });
-
         }
 
         // 규칙3 뷰에 데이터넣기

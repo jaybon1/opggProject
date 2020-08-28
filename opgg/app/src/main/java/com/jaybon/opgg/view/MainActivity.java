@@ -11,9 +11,6 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jaybon.opgg.R;
-import com.jaybon.opgg.view.community.CommunityFragment;
-import com.jaybon.opgg.view.rank.RankFragment;
-import com.jaybon.opgg.view.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavSearch.setSelectedItemId(R.id.bottom_nav_search_button);
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CommunityFragment(getIntent().getIntExtra("page", 0))).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,
+                        new CommunityFragment(getIntent().getIntExtra("page", 0), getIntent().getIntExtra("position", 0))).commit();
                 bottomNavSearch.setSelectedItemId(R.id.bottom_nav_community_button);
                 break;
             case 2:

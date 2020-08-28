@@ -1,6 +1,6 @@
-package com.jaybon.opgg.view.adapter;
+package com.jaybon.opgg.view.callback;
 
 // 콜백을 위한 인터페이스
 public interface CommunityCallback {
-    void getDetail(int id);
+    void getPage(int page);
 }

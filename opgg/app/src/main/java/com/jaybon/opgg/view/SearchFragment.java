@@ -1,8 +1,6 @@
-package com.jaybon.opgg.view.search;
+package com.jaybon.opgg.view;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -14,17 +12,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.FragmentSearchBinding;
-import com.jaybon.opgg.view.info.InfoActivity;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class SearchFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.jaybon.opgg.view.detail;
+package com.jaybon.opgg.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.jaybon.opgg.R;
@@ -19,16 +18,13 @@ import com.jaybon.opgg.model.apidao.MatchSummonerModel;
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.DetailAdapter;
-import com.jaybon.opgg.view.adapter.ItemClickCallback;
+import com.jaybon.opgg.view.callback.DetailCallback;
 import com.jaybon.opgg.view.adapter.XmlAdapter;
-import com.jaybon.opgg.view.info.InfoActivity;
-import com.jaybon.opgg.viewmodel.detail.DetailViewModel;
+import com.jaybon.opgg.viewmodel.DetailViewModel;
 
 import java.util.ArrayList;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-
-public class DetailActivity extends AppCompatActivity implements ItemClickCallback {
+public class DetailActivity extends AppCompatActivity implements DetailCallback {
 
     private static final String TAG = "DetailActivity";
 
@@ -251,32 +247,23 @@ public class DetailActivity extends AppCompatActivity implements ItemClickCallba
 
         // 뷰모델 데이터 초기화
         detailViewModel.initLiveData(gameId);
-
-
     }
 
     @Override
-    public void onClick() {
-
-    }
-
-    @Override
-    public void onClick(String value) {
+    public void changeActivity(String summonerName) {
         Intent intent = new Intent(DetailActivity.this, InfoActivity.class);
-        intent.putExtra("summonerName", value);
+        intent.putExtra("summonerName", summonerName);
 //        // 이전화면을 없애고 새화면을 띄운다
 //        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
-    @Override
-    public void sendReply(int postId, String value) {
-
-    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(0,android.R.anim.slide_out_right);
     }
+
+
 }

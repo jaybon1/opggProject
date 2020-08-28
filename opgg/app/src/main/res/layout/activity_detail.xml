@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.detail.DetailActivity">
+        tools:context=".view.DetailActivity">
 
         <ProgressBar
             android:id="@+id/pg_detail_loading"

@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
-            tools:context=".view.communitydetail.CommunityDetailActivity">
+            tools:context=".view.CommunityDetailActivity">
 
             <com.google.android.material.navigation.NavigationView
                 android:id="@+id/nav_community_detail"

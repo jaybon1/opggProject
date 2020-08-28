@@ -1,4 +1,4 @@
-package com.jaybon.opgg.viewmodel.community;
+package com.jaybon.opgg.viewmodel;
 
 import android.app.Application;
 
@@ -27,7 +27,7 @@ public class CommunityViewModel extends AndroidViewModel {
     }
 
     // 데이터 초기화
-    public void initLiveData(long page){
+    public void initLiveData(int page){
         communityRepository.getDto(page);
     }
 

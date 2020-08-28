@@ -1,7 +1,6 @@
-package com.jaybon.opgg.view.rank;
+package com.jaybon.opgg.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.FragmentRankBinding;
-import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.RankingDto;
 import com.jaybon.opgg.model.dto.RespDto;
-import com.jaybon.opgg.view.adapter.ItemClickCallback;
 import com.jaybon.opgg.view.adapter.RankAdapter;
-import com.jaybon.opgg.view.detail.DetailActivity;
-import com.jaybon.opgg.viewmodel.rank.RankViewModel;
+import com.jaybon.opgg.view.callback.RankCallback;
+import com.jaybon.opgg.viewmodel.RankViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RankFragment extends Fragment implements ItemClickCallback {
+public class RankFragment extends Fragment implements RankCallback {
 
     private static final String TAG = "RankFragment";
 
@@ -165,9 +162,10 @@ public class RankFragment extends Fragment implements ItemClickCallback {
 //        return inflater.inflate(R.layout.fragment_rank, container, false);
     }
 
+
     // 스크롤 내리면 값 추가하기
     @Override
-    public void onClick() {
+    public void addDataByScroll() {
 
         // 10개씩불러오니 10으로 나누면 몇페이지 인지 알 수 있다
         long count = adapter.getRankingDtos().size() / 10;
@@ -175,23 +173,18 @@ public class RankFragment extends Fragment implements ItemClickCallback {
 
     }
 
-    // 추가데이터 가져오기
+    // 랭킹 아이디로 가져오기
     @Override
-    public void onClick(String value) {
+    public void changeDataBySummonerName(String summonerName) {
 
         // 터치 막기
         RankFragment.this.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         // 라이브데이터 다시가져오기
-        rankViewModel.getLiveDataByName(value);
+        rankViewModel.getLiveDataByName(summonerName);
 
         // 로딩화면 띄우기
         fragmentRankBinding.pgRankLoading.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void sendReply(int postId, String value) {
 
     }
-
 }

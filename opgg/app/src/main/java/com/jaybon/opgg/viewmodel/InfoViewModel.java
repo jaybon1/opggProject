@@ -1,4 +1,4 @@
-package com.jaybon.opgg.viewmodel.info;
+package com.jaybon.opgg.viewmodel;
 
 import android.app.Application;
 
@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.jaybon.opgg.model.dto.InfoDto;
-import com.jaybon.opgg.model.dto.RankingDto;
 import com.jaybon.opgg.model.dto.RespDto;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.jaybon.opgg.viewmodel.community;
+package com.jaybon.opgg.viewmodel;
 
 import android.util.Log;
 
@@ -39,7 +39,7 @@ public class CommunityRepository {
     }
 
     // 라이브데이터에 초기데이터를 입력해주는 메서드
-    public void getDto(long page) {
+    public void getDto(int page) {
 
         // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);

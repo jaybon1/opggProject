@@ -1,4 +1,4 @@
-package com.jaybon.opgg.viewmodel.communitydetail;
+package com.jaybon.opgg.viewmodel;
 
 import android.app.Application;
 

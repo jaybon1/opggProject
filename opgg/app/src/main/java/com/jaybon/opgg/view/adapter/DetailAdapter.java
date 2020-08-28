@@ -14,6 +14,7 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.DetailItemBinding;
 import com.jaybon.opgg.model.apidao.MatchCommonModel;
 import com.jaybon.opgg.model.apidao.MatchSummonerModel;
+import com.jaybon.opgg.view.callback.DetailCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private String nowSummoner;
 
     private MatchCommonModel matchCommonModel;
-    private ItemClickCallback itemClickCallback;
+    private DetailCallback detailCallback;
     private List<MatchSummonerModel> matchSummonerModels;
 
     // 생성자
@@ -37,11 +38,11 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     // 생성자
-    public DetailAdapter(MatchCommonModel matchCommonModel, long maxDeal, String nowSummoner, ItemClickCallback itemClickCallback) {
+    public DetailAdapter(MatchCommonModel matchCommonModel, long maxDeal, String nowSummoner, DetailCallback detailCallback) {
         this.matchCommonModel = matchCommonModel;
         this.maxDeal = maxDeal;
         this.nowSummoner = nowSummoner;
-        this.itemClickCallback = itemClickCallback;
+        this.detailCallback = detailCallback;
         matchSummonerModels = new ArrayList<>();
     }
 
@@ -72,7 +73,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         DetailItemBinding detailItemBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()), R.layout.detail_item, parent, false
         );
-        return new MyViewHolder(detailItemBinding, itemClickCallback);
+        return new MyViewHolder(detailItemBinding, detailCallback);
     }
 
 
@@ -107,15 +108,20 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private DetailItemBinding detailItemBinding;
 
         // 콜백 레퍼런스
-        private ItemClickCallback itemClickCallback;
+        private DetailCallback detailCallback;
 
-        public MyViewHolder(@NonNull DetailItemBinding detailItemBinding, ItemClickCallback itemClickCallback) {
+        public MyViewHolder(@NonNull DetailItemBinding detailItemBinding, DetailCallback detailCallback) {
 //            super(itemView);
             super(detailItemBinding.getRoot());
 
             this.detailItemBinding = detailItemBinding;
-            this.itemClickCallback = itemClickCallback;
+            this.detailCallback = detailCallback;
 
+            initListener();
+
+        }
+
+        public void initListener(){
             // 아이템 클릭시
             detailItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,10 +130,9 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     Log.d(TAG, "onClick: "+detailItemBinding.getMatchSummonerModel().getSummonerName());
 
                     // 콜백으로 info액티비티로 이동
-                    itemClickCallback.onClick(detailItemBinding.getMatchSummonerModel().getSummonerName());
+                    detailCallback.changeActivity(detailItemBinding.getMatchSummonerModel().getSummonerName());
                 }
             });
-
         }
 
         // 규칙3 뷰에 데이터 넣기

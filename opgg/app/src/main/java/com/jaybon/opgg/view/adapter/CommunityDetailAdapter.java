@@ -13,6 +13,7 @@ import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.CommunityDetailContentBinding;
 import com.jaybon.opgg.databinding.CommunityDetailReplyBinding;
 import com.jaybon.opgg.model.dto.CommunityDetailDto;
+import com.jaybon.opgg.view.callback.CommunityDetailCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,11 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private static final String TAG = "CommunityDetailAdapter";
 
+    // page - 해당글의 페이지
+    private int page;
+
     // 콜백 레퍼런스
-    private ItemClickCallback itemClickCallback;
+    private CommunityDetailCallback communityDetailCallback;
 
     // 리스트 데이터
     private List<CommunityDetailDto> communityDetailDtos = new ArrayList<>();
@@ -49,8 +53,9 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     // 생성자
-    public CommunityDetailAdapter(ItemClickCallback itemClickCallback) {
-        this.itemClickCallback = itemClickCallback;
+    public CommunityDetailAdapter(CommunityDetailCallback communityDetailCallback, int page) {
+        this.communityDetailCallback = communityDetailCallback;
+        this.page = page;
     }
 
     // 뷰홀더 생성
@@ -64,7 +69,7 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             CommunityDetailContentBinding communityDetailContentBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()), R.layout.community_detail_content, parent, false);
 
-            return new CommunityDetailAdapter.ContentViewHolder(communityDetailContentBinding, itemClickCallback);
+            return new CommunityDetailAdapter.ContentViewHolder(communityDetailContentBinding, communityDetailCallback);
 
         } else {
 
@@ -100,23 +105,29 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         // 규칙1 (xml이 들고있는 뷰)
         private CommunityDetailContentBinding communityDetailContentBinding;
+        private CommunityDetailCallback communityDetailCallback;
 
-        public ContentViewHolder(@NonNull CommunityDetailContentBinding communityDetailContentBinding, ItemClickCallback itemClickCallback) {
+        public ContentViewHolder(@NonNull CommunityDetailContentBinding communityDetailContentBinding, CommunityDetailCallback communityDetailCallback) {
 //            super(itemView);
 
             // 규칙2 뷰들을 변수에 연결
             super(communityDetailContentBinding.getRoot());
             this.communityDetailContentBinding = communityDetailContentBinding;
+            this.communityDetailCallback = communityDetailCallback;
 
+            initListener();
+        }
+
+        public void initListener(){
+            // 댓글쓰기
             communityDetailContentBinding.btnCommunityDetailReplySubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    itemClickCallback.sendReply(communityDetailContentBinding.getCommunityDetailDto().getPost().getId(),communityDetailContentBinding.etCommunityDetailReplyContent.getText().toString());
+                    communityDetailCallback.sendReply(communityDetailContentBinding.getCommunityDetailDto().getPost().getId(),communityDetailContentBinding.etCommunityDetailReplyContent.getText().toString());
                     communityDetailContentBinding.etCommunityDetailReplyContent.setText("");
                 }
             });
-
         }
 
     }
