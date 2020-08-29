@@ -2,6 +2,7 @@ package com.jaybon.opgg.view.adapter;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -224,7 +225,9 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         if(rankHeaderBinding.etSearchInput.getText() == null || rankHeaderBinding.etSearchInput.getText().toString().equals("")){
 
                             Log.d(TAG, "onClick: 널 또는 공백");
-                            Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
 
                         } else {
 

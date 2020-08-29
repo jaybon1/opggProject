@@ -1,16 +1,16 @@
 package com.jaybon.opgg.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.ActivityDetailBinding;
@@ -18,8 +18,8 @@ import com.jaybon.opgg.model.apidao.MatchSummonerModel;
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.DetailAdapter;
-import com.jaybon.opgg.view.callback.DetailCallback;
 import com.jaybon.opgg.view.adapter.XmlAdapter;
+import com.jaybon.opgg.view.callback.DetailCallback;
 import com.jaybon.opgg.viewmodel.DetailViewModel;
 
 import java.util.ArrayList;

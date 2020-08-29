@@ -1,6 +1,8 @@
 package com.jaybon.opgg.view;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.jaybon.opgg.view.callback.InfoCallback;
 import com.jaybon.opgg.viewmodel.InfoViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InfoActivity extends AppCompatActivity implements InfoCallback {
@@ -79,17 +82,32 @@ public class InfoActivity extends AppCompatActivity implements InfoCallback {
             @Override
             public void onChanged(RespDto<List<InfoDto>> respDto) {
 
-                infoDtos.clear();
+                Log.d(TAG, "onChanged: "+respDto);
+
+
 
                 if(respDto.getStatusCode() == 200){
+
+                    infoDtos = respDto.getData();
                     // 뷰가 변경되면 리사이클러뷰 어댑터에 데이터 새로 담기
-                    adapter.addContents(respDto.getData());
+                    adapter.addContents(new ArrayList<>(infoDtos));
                     adapter.notifyDataSetChanged();
 
                     // 로딩화면 없애기
                     activityInfoBinding.pgInfoLoading.setVisibility(View.GONE);
+
+                } else if(respDto.getStatusCode() == 400){
+
+                    Toast toast = Toast.makeText(InfoActivity.this, respDto.getMessage(), Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.show();
+
+                    // 로딩화면 없애기
+                    activityInfoBinding.pgInfoLoading.setVisibility(View.GONE);
                 } else{
-                    Toast.makeText(InfoActivity.this, respDto.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(InfoActivity.this, respDto.getMessage(), Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.show();
                     onBackPressed();
                 }
 
@@ -111,4 +129,5 @@ public class InfoActivity extends AppCompatActivity implements InfoCallback {
         super.onBackPressed();
         overridePendingTransition(0,android.R.anim.slide_out_right);
     }
+
 }

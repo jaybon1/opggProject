@@ -1,10 +1,12 @@
 package com.jaybon.opgg.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -37,6 +39,10 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public InfoAdapter(String nowSummoner, InfoCallback infoCallback) {
         this.infoCallback = infoCallback;
         this.nowSummoner = nowSummoner;
+    }
+
+    public List<InfoDto> getInfoDtos() {
+        return infoDtos;
     }
 
     // 데이터 개별로 넣기
@@ -150,6 +156,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public HeaderViewHolder(@NonNull InfoHeaderBinding infoHeaderBinding, InfoCallback infoCallback) {
             super(infoHeaderBinding.getRoot());
             this.infoHeaderBinding = infoHeaderBinding;
+            this.infoCallback = infoCallback;
 
             initListener();
 
@@ -164,7 +171,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     // 콜백으로 함수실행
                     infoCallback.updateData();
 //                    Toast.makeText(infoHeaderBinding.getRoot().getContext(), "로딩중", Toast.LENGTH_SHORT).show();
-                    infoHeaderBinding.btnInfoHeaderUpdate.setText("로딩 중");
+                    infoHeaderBinding.btnInfoHeaderUpdate.setText("");
                     infoHeaderBinding.btnInfoHeaderUpdate.setBackgroundResource(R.drawable.radius_button_gray);
                     infoHeaderBinding.btnInfoHeaderUpdate.setOnClickListener(null);
                 }

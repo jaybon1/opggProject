@@ -53,10 +53,8 @@ public class InfoRepository {
                     return;
                 }
 
-                if(response.body().getStatusCode() == 200){
                     RespDto<List<InfoDto>> respListDto = response.body();
                     liveRespDto.setValue(respListDto);
-                }
 
             }
 

@@ -71,4 +71,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    // 구글 sign in
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+
+
 }

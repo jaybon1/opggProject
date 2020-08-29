@@ -26,8 +26,8 @@ public class CommunityDetailViewModel extends AndroidViewModel {
     }
 
     // 데이터 초기화
-    public void initLiveData(long page){
-        communityDetailRepository.getDto(page);
+    public void initLiveData(long page, String jwtToken){
+        communityDetailRepository.getDto(page, jwtToken);
     }
 
     // 구독
@@ -35,8 +35,8 @@ public class CommunityDetailViewModel extends AndroidViewModel {
         return liveRespDto;
     }
 
-    public void writeReplyRefresh(Reply reply){
-        communityDetailRepository.writeReply(reply);
+    public void writeReplyRefresh(Reply reply, String jwtToken){
+        communityDetailRepository.writeReply(reply, jwtToken);
     }
 
 }

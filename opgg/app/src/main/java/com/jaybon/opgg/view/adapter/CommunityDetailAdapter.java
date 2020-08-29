@@ -31,6 +31,9 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     // 리스트 데이터
     private List<CommunityDetailDto> communityDetailDtos = new ArrayList<>();
 
+    private int userId;
+    private String nickname;
+
     // 아이템 개별 추가
     public void addContent(CommunityDetailDto communityDetailDto) {
         communityDetailDtos.add(communityDetailDto);
@@ -53,9 +56,11 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     // 생성자
-    public CommunityDetailAdapter(CommunityDetailCallback communityDetailCallback, int page) {
+    public CommunityDetailAdapter(CommunityDetailCallback communityDetailCallback, int page, int userId, String nickname) {
         this.communityDetailCallback = communityDetailCallback;
         this.page = page;
+        this.userId = userId;
+        this.nickname = nickname;
     }
 
     // 뷰홀더 생성
@@ -69,14 +74,14 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             CommunityDetailContentBinding communityDetailContentBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()), R.layout.community_detail_content, parent, false);
 
-            return new CommunityDetailAdapter.ContentViewHolder(communityDetailContentBinding, communityDetailCallback);
+            return new CommunityDetailAdapter.ContentViewHolder(communityDetailContentBinding, communityDetailCallback,userId,nickname);
 
         } else {
 
             CommunityDetailReplyBinding communityDetailReplyBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()), R.layout.community_detail_reply, parent, false);
 
-            return new CommunityDetailAdapter.ReplyViewHolder(communityDetailReplyBinding);
+            return new CommunityDetailAdapter.ReplyViewHolder(communityDetailReplyBinding,userId,nickname);
 
         }
     }
@@ -86,10 +91,26 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CommunityDetailDto communityDetailDto = communityDetailDtos.get(position);
 
-        if (holder instanceof CommunityDetailAdapter.ContentViewHolder) {
+        if (holder instanceof CommunityDetailAdapter.ContentViewHolder) { // 내용
             ((ContentViewHolder) holder).communityDetailContentBinding.setCommunityDetailDto(communityDetailDto);
-        } else {
+
+            if(userId == 0){
+                ((ContentViewHolder) holder).communityDetailContentBinding.layoutCommunityDetailReply.setVisibility(View.GONE);
+            }else {
+                ((ContentViewHolder) holder).communityDetailContentBinding.tvCommunityDetailReplyUser.setText(nickname);
+            }
+
+            if(userId != communityDetailDto.getPost().getUser().getId()){
+                ((ContentViewHolder) holder).communityDetailContentBinding.tvCommunityDetailDelete.setVisibility(View.GONE);
+                ((ContentViewHolder) holder).communityDetailContentBinding.tvCommunityDetailUpdate.setVisibility(View.GONE);
+            }
+
+        } else { // 리플
             ((ReplyViewHolder) holder).communityDetailReplyBinding.setCommunityDetailDto(communityDetailDto);
+
+            if(userId != communityDetailDto.getReply().getUser().getId()){
+                ((ReplyViewHolder) holder).communityDetailReplyBinding.tvCommunityDetailReplyDelete.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -106,14 +127,18 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         // 규칙1 (xml이 들고있는 뷰)
         private CommunityDetailContentBinding communityDetailContentBinding;
         private CommunityDetailCallback communityDetailCallback;
+        private int userId;
+        private String nickname;
 
-        public ContentViewHolder(@NonNull CommunityDetailContentBinding communityDetailContentBinding, CommunityDetailCallback communityDetailCallback) {
+        public ContentViewHolder(@NonNull CommunityDetailContentBinding communityDetailContentBinding, CommunityDetailCallback communityDetailCallback, int userId, String nickname) {
 //            super(itemView);
 
             // 규칙2 뷰들을 변수에 연결
             super(communityDetailContentBinding.getRoot());
             this.communityDetailContentBinding = communityDetailContentBinding;
             this.communityDetailCallback = communityDetailCallback;
+            this.userId = userId;
+            this.nickname = nickname;
 
             initListener();
         }
@@ -136,11 +161,15 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         // 규칙1 (xml이 들고있는 뷰)
         private CommunityDetailReplyBinding communityDetailReplyBinding;
+        private int userId;
+        private String nickname;
 
-        public ReplyViewHolder(@NonNull CommunityDetailReplyBinding communityDetailReplyBinding) {
+        public ReplyViewHolder(@NonNull CommunityDetailReplyBinding communityDetailReplyBinding, int userId, String nickname) {
 //            super(itemView);
             super(communityDetailReplyBinding.getRoot());
             this.communityDetailReplyBinding = communityDetailReplyBinding;
+            this.userId = userId;
+            this.nickname = nickname;
 
         }
     }

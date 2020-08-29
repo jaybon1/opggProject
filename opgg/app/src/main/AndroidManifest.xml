@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.WriteActivity"></activity>
+        <activity android:name=".view.temp.GoogleSecondActivity"></activity>
+        <activity android:name=".view.temp.GoogleOauthActivity" />
+        <activity
+            android:name=".view.WriteActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -24,9 +28,13 @@
         </activity>
         <activity android:name=".view.DetailActivity" />
         <activity android:name=".view.CommunityDetailActivity" />
-        <activity android:name=".view.JoinActivity" />
+        <activity
+            android:name=".view.JoinActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".view.InfoActivity" />
-        <activity android:name=".view.LoginActivity" />
+        <activity
+            android:name=".view.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".view.MainActivity">
 
             <!-- 아래코드는 앱에 하나만 있어야됨(여러개있으면 앱이 여러개 설치됨) -->

@@ -41,11 +41,13 @@ public class CommunityDetailRepository {
     }
 
     // 라이브데이터에 초기데이터를 입력해주는 메서드
-    public void getDto(long postId) {
+    public void getDto(long postId, String jwtToken) {
+
+        Log.d(TAG, "getDto: "+jwtToken);
 
         // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<RespDto<CommunityDto>> call = opggService.getPostById(postId);
+        Call<RespDto<CommunityDto>> call = opggService.getPostById(postId,"Bearer "+jwtToken);
 
         call.enqueue(new Callback<RespDto<CommunityDto>>() {
             @Override
@@ -67,10 +69,10 @@ public class CommunityDetailRepository {
         });
     }
 
-    public void writeReply(Reply reply) {
+    public void writeReply(Reply reply, String jwtToken) {
 
         OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<RespDto<CommunityDto>> call = opggService.writeReply(reply);
+        Call<RespDto<CommunityDto>> call = opggService.writeReply(reply, "Bearer "+jwtToken);
 
         call.enqueue(new Callback<RespDto<CommunityDto>>() {
             @Override

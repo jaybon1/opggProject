@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.jaybon.opgg.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 바텀네비게이션
     private BottomNavigationView bottomNavSearch;
+    private NavigationView nav;
     private long backBtnTime = 0;
 
 

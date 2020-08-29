@@ -1,19 +1,31 @@
 package com.jaybon.opgg.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.jaybon.opgg.R;
 import com.jaybon.opgg.databinding.FragmentCommunityBinding;
 import com.jaybon.opgg.model.dto.CommunityDto;
@@ -47,6 +59,9 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
     private int page;
     private int position;
 
+//    private ImageView ivNavHeader;
+//    private Button btnNavHeader;
+
     // 생성자
     public CommunityFragment() {
     }
@@ -77,31 +92,8 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
         // 액티비티와 프래그먼트는 바인딩 방식이 다름 (확인)
         fragmentCommunityBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_community, container, false);
 
-        // 서치버튼
-        fragmentCommunityBinding.btnCommunitySearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        // 글쓰기버튼
-        fragmentCommunityBinding.btnCommunityWrite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WriteActivity.class);
-                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
-        // 툴바
-        fragmentCommunityBinding.ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentCommunityBinding.drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
-            }
-        });
+        // 리스너들 등록
+        initListener();
 
         // 리사이클러뷰 세팅
         fragmentCommunityBinding.rvCommunity.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -128,7 +120,7 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
 
                 adapter.setPage(page);
 
-                if(respDto.getStatusCode() == 201){ // 첫페이지 일경우
+                if (respDto.getStatusCode() == 201) { // 첫페이지 일경우
 
                     adapter.setButtonType(0);
 
@@ -147,7 +139,7 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
                     // 로딩 화면 없애기
                     fragmentCommunityBinding.pgCommunityLoading.setVisibility(View.GONE);
 
-                } else if(respDto.getStatusCode() == 200){ // 0페이지나 끝페이지가 아닐경우
+                } else if (respDto.getStatusCode() == 200) { // 0페이지나 끝페이지가 아닐경우
 
                     adapter.setButtonType(1);
 
@@ -166,7 +158,7 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
                     // 로딩 화면 없애기
                     fragmentCommunityBinding.pgCommunityLoading.setVisibility(View.GONE);
 
-                } else if(respDto.getStatusCode() == 204){ // 끝페이지 일경우
+                } else if (respDto.getStatusCode() == 204) { // 끝페이지 일경우
 
                     adapter.setButtonType(2);
 
@@ -214,5 +206,163 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
 
         communityViewModel.initLiveData(page);
         this.page = page;
+    }
+
+    private void initListener(){
+
+        // 네비게이션바 헤더 엑스버튼
+        fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.iv_nav_header).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentCommunityBinding.drawerLayoutCommunity.closeDrawer(Gravity.RIGHT);
+            }
+        });
+
+        // 네비게이션바 메뉴버튼
+        fragmentCommunityBinding.navCommunity.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.bottom_nav_search_button:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
+                        ((BottomNavigationView)getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_search_button);
+                        break;
+                    case R.id.bottom_nav_community_button:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CommunityFragment()).commit();
+                        ((BottomNavigationView)getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_community_button);
+                        break;
+                    case R.id.bottom_nav_ranking_button:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RankFragment()).commit();
+                        ((BottomNavigationView)getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_ranking_button);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        // 툴바
+        fragmentCommunityBinding.ivCommunityToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentCommunityBinding.drawerLayoutCommunity.openDrawer(Gravity.RIGHT);
+            }
+        });
+
+
+        // 서치버튼
+        fragmentCommunityBinding.btnCommunitySearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // 글쓰기 버튼
+        initWriteButton();
+
+        // 로그인 버튼
+        initLoginButton();
+
+    }
+
+    private void initWriteButton(){
+        // 글쓰기버튼
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.jaybon.opgg.jwt", getActivity().MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        String jwtToken = sharedPreferences.getString("jwtToken","");
+
+        if(jwtToken.equals("")){
+
+            fragmentCommunityBinding.btnCommunityWrite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alert("로그인이 필요합니다.");
+                }
+            });
+
+        }else {
+
+            fragmentCommunityBinding.btnCommunityWrite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), WriteActivity.class);
+                    intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            });
+        }
+    }
+
+    private void initLoginButton(){
+        // 네비게이션바 헤더 로그인버튼
+        // SharedPreferences에 값이 없으면 로그인, 있으면 로그아웃
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.jaybon.opgg.jwt", getActivity().MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        String jwtToken = sharedPreferences.getString("jwtToken","");
+
+        if(jwtToken.equals("")){
+            ((Button)fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header)).setText("로그인");
+            fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    fragmentCommunityBinding.drawerLayoutCommunity.closeDrawer(Gravity.RIGHT);
+                }
+            });
+        } else{
+            ((Button)fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header)).setText("로그아웃");
+            fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+                    if (acct != null) {
+
+                        // 구글 인증 관련
+                        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                .requestEmail()
+                                .build();
+
+                        // 구글 로그인
+                        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+
+                        // 구글 로그아웃
+                        mGoogleSignInClient.signOut();
+                    }
+
+                    // SharedPreferences 내용삭제
+                    SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+                    editor.putString("jwtToken", null); // key,value 형식으로 저장
+                    editor.putString("userId", null); // key,value 형식으로 저장
+                    editor.putString("nickname", null); // key,value 형식으로 저장
+                    editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
+
+                    fragmentCommunityBinding.drawerLayoutCommunity.closeDrawer(Gravity.RIGHT);
+
+                    initLoginButton();
+                    initWriteButton();
+
+                    alert("로그아웃 되었습니다.");
+                }
+            });
+        }
+    }
+
+    private void alert(String value){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(value);
+        builder.setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(value.equals("로그인이 필요합니다.")){
+//                            finish();
+                            Intent intent = new Intent(getContext(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    }
+                });
+        builder.show();
     }
 }

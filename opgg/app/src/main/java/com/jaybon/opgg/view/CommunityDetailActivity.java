@@ -1,6 +1,7 @@
 package com.jaybon.opgg.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -46,7 +47,13 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
     // 리사이클러뷰 데이터
     private List<CommunityDetailDto> communityDetailDtos;
 
+    private SharedPreferences sharedPreferences;
+
     private int postId;
+
+    private String jwtToken;
+    private String userId;
+    private String nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,12 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
 
         // 포스트 아이디
         postId = getIntent().getIntExtra("postId", 1);
+
+        // 현재 유저정보
+        sharedPreferences = getSharedPreferences("com.jaybon.opgg.jwt", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        jwtToken = sharedPreferences.getString("jwtToken","");
+        userId = sharedPreferences.getString("userId","0");
+        nickname = sharedPreferences.getString("nickname","");
 
         Log.d(TAG, "onCreate: "+postId);
 
@@ -83,7 +96,7 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
         activityCommunityDetailBinding.rvCommunityDetail.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰 어댑터 세팅 (리스너 넘기기)
-        adapter = new CommunityDetailAdapter(CommunityDetailActivity.this, page);
+        adapter = new CommunityDetailAdapter(CommunityDetailActivity.this, page, Integer.parseInt(userId), nickname);
         activityCommunityDetailBinding.rvCommunityDetail.setAdapter(adapter);
 
         // 리사이클러뷰 데이터 초기화
@@ -186,8 +199,10 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
             }
         });
 
+        String jwtToken = sharedPreferences.getString("jwtToken","");
+
         // 뷰모델 데이터 초기화
-        communityDetailViewModel.initLiveData(postId);
+        communityDetailViewModel.initLiveData(postId, jwtToken);
 
 
     }
@@ -207,7 +222,7 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
                 .post(post)
                 .build();
 
-        communityDetailViewModel.writeReplyRefresh(reply);
+        communityDetailViewModel.writeReplyRefresh(reply, jwtToken);
     }
 
     @Override
