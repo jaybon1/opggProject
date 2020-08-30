@@ -1,12 +1,14 @@
 package com.jaybon.opgg.model.network;
 
 
+import com.jaybon.opgg.model.dao.Post;
 import com.jaybon.opgg.model.dao.Reply;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.GoogleLoginDto;
 import com.jaybon.opgg.model.dto.InfoDto;
 import com.jaybon.opgg.model.dto.JoinDto;
+import com.jaybon.opgg.model.dto.KakaoLoginDto;
 import com.jaybon.opgg.model.dto.LoginDto;
 import com.jaybon.opgg.model.dto.RankingDto;
 import com.jaybon.opgg.model.dto.RespDto;
@@ -14,11 +16,14 @@ import com.jaybon.opgg.model.dto.TokenDto;
 
 import java.util.List;
 
+import lombok.experimental.Delegate;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface OpggService {
@@ -52,20 +57,41 @@ public interface OpggService {
     Call<RespDto<String>> join(@Body JoinDto joinDto);
 
     // 로그인
-    @POST("oauth/jwt/common")
+    @POST("jwt/common")
     Call<RespDto<TokenDto>> login(@Body LoginDto loginDto);
 
     // 구글로그인
-    @POST("oauth/jwt/google")
+    @POST("jwt/oauth")
     Call<RespDto<TokenDto>> googleLogin(@Body GoogleLoginDto googleLoginDto);
+
+    // 카카오로그인
+    @POST("jwt/oauth")
+    Call<RespDto<TokenDto>> kakaoLogin(@Body KakaoLoginDto kakaoLoginDto);
 
     // 글 상세보기
     @GET("post/detail/{id}")
     Call<RespDto<CommunityDto>> getPostById(@Path(value = "id", encoded = true) long id, @Header("Authorization") String bearerToken);
 
+    // 글쓰기
+    @POST("post/writeProc")
+    Call<RespDto<String>> writePost(@Body Post post, @Header("Authorization") String bearerToken);
+
+    // 글수정
+    @PUT("post/update")
+    Call<RespDto<String>> updatePost(@Body Post post, @Header("Authorization") String bearerToken);
+
+    // 글삭제
+    @DELETE("post/delete/{id}")
+    Call<RespDto<CommunityDto>> deletePost(@Path(value = "id", encoded = true) int id, @Header("Authorization") String bearerToken);
+
     // 댓글쓰기
     @POST("reply/writeProc")
     Call<RespDto<CommunityDto>> writeReply(@Body Reply reply, @Header("Authorization") String bearerToken);
+
+    // 댓글삭제
+    @DELETE("reply/delete/{id}")
+    Call<RespDto<CommunityDto>> deleteReply(@Path(value = "id", encoded = true) int id, @Header("Authorization") String bearerToken);
+
 
 }
 

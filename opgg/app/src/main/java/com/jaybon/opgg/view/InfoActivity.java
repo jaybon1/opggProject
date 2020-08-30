@@ -82,8 +82,6 @@ public class InfoActivity extends AppCompatActivity implements InfoCallback {
             @Override
             public void onChanged(RespDto<List<InfoDto>> respDto) {
 
-                Log.d(TAG, "onChanged: "+respDto);
-
 
 
                 if(respDto.getStatusCode() == 200){

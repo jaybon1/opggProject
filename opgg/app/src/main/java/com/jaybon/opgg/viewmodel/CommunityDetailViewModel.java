@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.jaybon.opgg.model.dao.Reply;
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
+import com.jaybon.opgg.model.network.CommunityDetailRepository;
 
 public class CommunityDetailViewModel extends AndroidViewModel {
 
@@ -37,6 +38,18 @@ public class CommunityDetailViewModel extends AndroidViewModel {
 
     public void writeReplyRefresh(Reply reply, String jwtToken){
         communityDetailRepository.writeReply(reply, jwtToken);
+    }
+
+    public void deletePost(int postId, String jwtToken){
+
+        communityDetailRepository.deletePost(postId,jwtToken);
+
+    }
+
+    public void deleteReply(int replyId, String jwtToken){
+
+        communityDetailRepository.deleteReply(replyId, jwtToken);
+
     }
 
 }

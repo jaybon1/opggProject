@@ -42,12 +42,10 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // 아이템 개별추가
     public void addContent(RankingDto rankingDto) {
         rankingDtos.add(rankingDto);
-        Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
     // 아이템 통으로 추가
     public void addContents(List<RankingDto> rankingDtos) {
-        Log.d(TAG, "addContents: 호출됨");
         this.rankingDtos = rankingDtos;
     }
 
@@ -188,16 +186,11 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    Log.d(TAG, "onClick: "+rankHeaderBinding.etSearchInput.getText());
-
                     if(rankHeaderBinding.etSearchInput.getText() == null || rankHeaderBinding.etSearchInput.getText().toString().equals("")){
 
-                        Log.d(TAG, "onClick: 널 또는 공백");
                         Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT).show();
 
                     } else {
-
-                        Log.d(TAG, "onClick: 입력");
 
                         rankCallback.changeDataBySummonerName(rankHeaderBinding.etSearchInput.getText().toString());
                         rankHeaderBinding.etSearchInput.setText("");
@@ -212,26 +205,21 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                    Log.d(TAG, "onKey: " + keyCode);
 
                     if (keyCode == event.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP && !enterKeyUp) {
 
-                        Log.d(TAG, "onKey: 엔터키업");
                         enterKeyUp = true;
 
                         // 액티비티 이동
-                        Log.d(TAG, "onClick: "+rankHeaderBinding.etSearchInput.getText());
 
                         if(rankHeaderBinding.etSearchInput.getText() == null || rankHeaderBinding.etSearchInput.getText().toString().equals("")){
 
-                            Log.d(TAG, "onClick: 널 또는 공백");
                             Toast toast = Toast.makeText(rankHeaderBinding.getRoot().getContext(), "소환사명을 입력하세요.", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
 
                         } else {
 
-                            Log.d(TAG, "onClick: 입력");
                             rankCallback.changeDataBySummonerName(rankHeaderBinding.etSearchInput.getText().toString());
                             rankHeaderBinding.etSearchInput.setText("");
 
@@ -239,7 +227,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         return true;
                     } else if (keyCode == event.KEYCODE_ENTER) {
 
-                        Log.d(TAG, "onKey: 엔터키다운");
                         enterKeyDown = true;
                         return true;
 

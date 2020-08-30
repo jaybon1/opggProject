@@ -58,15 +58,12 @@ public class SearchFragment extends Fragment {
         fragmentSearchBinding.etSearchInput.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.d(TAG, "onKey: " + keyCode);
                 if (keyCode == event.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP && !enterKeyUp) {
-                    Log.d(TAG, "onKey: 엔터키업");
                     enterKeyUp = true;
                     // 액티비티 이동
                     moveToNext();
                     return true;
                 } else if (keyCode == event.KEYCODE_ENTER) {
-                    Log.d(TAG, "onKey: 엔터키다운");
                     enterKeyDown = true;
                     return true;
                 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -53,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                Log.d(TAG, "onNavigationItemSelected: " + item.getItemId());
-
                 switch (item.getItemId()){
                     case R.id.bottom_nav_search_button:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
@@ -83,7 +82,10 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         } else {
             backBtnTime = curTime;
-            Toast.makeText(this,"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+
+            Toast toast = Toast.makeText(MainActivity.this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 600);
+            toast.show();
         }
     }
 

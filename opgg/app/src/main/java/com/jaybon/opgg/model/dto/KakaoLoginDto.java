@@ -1,5 +1,6 @@
 package com.jaybon.opgg.model.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GoogleProfileObjDto {
+public class KakaoLoginDto {
 
-    private String googleId;
-    private String name;
-    private String email;
+    public String kakaoId;
+    public String name;
+    public String email;
+
 }

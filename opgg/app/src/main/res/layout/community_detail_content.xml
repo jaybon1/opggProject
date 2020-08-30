@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="12dp"
                 android:hint="0"
                 android:text="@{String.valueOf(communityDetailDto.post.viewCount)}"
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="11dp"
                 android:text="|"
                 android:textSize="20sp"
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="12dp"
                 android:hint="2020"
                 android:text="@{XmlAdapter.getDate(communityDetailDto.post.createDate)}"
@@ -104,25 +104,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="11dp"
                 android:text="|"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iv_community_detail_level"
-                app:layout_constraintTop_toBottomOf="@+id/tv_community_detail_title" />
-
-            <ImageView
-                android:id="@+id/iv_community_detail_level"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_community_detail_date_username"
-                app:layout_constraintTop_toBottomOf="@+id/tv_community_detail_title"
-                app:srcCompat="@drawable/lol_tier" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_community_detail_title" />
 
             <TextView
                 android:id="@+id/tv_community_detail_date_username"
@@ -132,37 +120,12 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="12dp"
                 android:hint="a"
-                android:text="@{communityDetailDto.post.user.username}"
+                android:text="@{communityDetailDto.post.user.nickname}"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_community_detail_title" />
-
-            <TextView
-                android:id="@+id/tv_community_detail_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="12dp"
-                android:text="삭제"
-                android:textColor="@color/lose"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_community_detail_update"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginBottom="12dp"
-                android:text="수정"
-                android:textColor="@color/win"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_community_detail_delete" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_community_detail_title"
+                app:layout_constraintVertical_bias="0.39" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -181,6 +144,46 @@
             android:hint="a"
             android:text="@{communityDetailDto.post.content}"
             android:textSize="20sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_community_detail_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="수정"
+                android:textColor="@color/win"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_community_detail_delete"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_community_detail_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="삭제"
+                android:textColor="@color/lose"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:layout_width="match_parent"

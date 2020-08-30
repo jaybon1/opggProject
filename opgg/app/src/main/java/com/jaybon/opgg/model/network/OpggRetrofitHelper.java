@@ -14,7 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OpggRetrofitHelper {
 
-    // 레트로핏 연결시간 세팅
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(2, TimeUnit.MINUTES)
             .readTimeout(60, TimeUnit.SECONDS)
@@ -28,7 +27,9 @@ public class OpggRetrofitHelper {
             .client(okHttpClient) // 연결시간 세팅
             .build();
 
-    private OpggRetrofitHelper(){};
+    private OpggRetrofitHelper() {
+    }
+
 
     public static Retrofit getRetrofit() {
         return retrofit;

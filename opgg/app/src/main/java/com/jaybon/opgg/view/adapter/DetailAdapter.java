@@ -49,12 +49,10 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     // 개별아이템추가
     public void addContent(MatchSummonerModel matchSummonerModel) {
         matchSummonerModels.add(matchSummonerModel);
-        Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
     // 아이템 통으로 추가
     public void addContents(List<MatchSummonerModel> matchSummonerModels) {
-        Log.d(TAG, "addContents: 호출됨");
         this.matchSummonerModels = matchSummonerModels;
     }
 
@@ -127,7 +125,6 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v) {
 
-                    Log.d(TAG, "onClick: "+detailItemBinding.getMatchSummonerModel().getSummonerName());
 
                     // 콜백으로 info액티비티로 이동
                     detailCallback.changeActivity(detailItemBinding.getMatchSummonerModel().getSummonerName());

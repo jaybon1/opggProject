@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.jaybon.opgg.model.dto.DetailDto;
 import com.jaybon.opgg.model.dto.RespDto;
+import com.jaybon.opgg.model.network.DetailRepository;
 
 public class DetailViewModel extends AndroidViewModel {
 

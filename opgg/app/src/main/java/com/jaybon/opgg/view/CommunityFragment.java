@@ -1,9 +1,11 @@
 package com.jaybon.opgg.view;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -33,6 +36,13 @@ import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.CommunityAdapter;
 import com.jaybon.opgg.view.callback.CommunityCallback;
 import com.jaybon.opgg.viewmodel.CommunityViewModel;
+import com.kakao.auth.IApplicationConfig;
+import com.kakao.auth.KakaoAdapter;
+import com.kakao.auth.KakaoSDK;
+import com.kakao.common.KakaoPhase;
+import com.kakao.common.PhaseInfo;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -305,6 +315,7 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.putExtra("activity","community");
                     intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     fragmentCommunityBinding.drawerLayoutCommunity.closeDrawer(Gravity.RIGHT);
@@ -324,12 +335,61 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
                                 .requestEmail()
                                 .build();
 
-                        // 구글 로그인
+                        // 구글 클라이언트
                         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
                         // 구글 로그아웃
                         mGoogleSignInClient.signOut();
                     }
+
+                    // Kakao Sdk 초기화
+                    try {
+
+                        KakaoSDK.init(new KakaoAdapter() {
+                            @Override
+                            public IApplicationConfig getApplicationConfig() {
+                                return new IApplicationConfig() {
+                                    @Override
+                                    public Context getApplicationContext() {
+                                        return getActivity().getApplicationContext();
+                                    }
+                                };
+                            }
+                        }, new PhaseInfo() {
+                            @NonNull
+                            @Override
+                            public KakaoPhase phase() {
+                                return null;
+                            }
+
+                            @Nullable
+                            @Override
+                            public String appKey() { // 앱키 등록
+                                return "e15eb652eb92a95b3d13100542732956";
+                            }
+
+                            @Nullable
+                            @Override
+                            public String clientSecret() {
+                                return null;
+                            }
+                        });
+                    }catch (KakaoSDK.AlreadyInitializedException e){
+                        Log.d(TAG, "initKakaoLoginButton: 이미 초기화 되어있습니다.");
+                    }
+
+                    if(UserManagement.getInstance() != null){
+                        // 카카오 로그아웃
+                        UserManagement.getInstance()
+                                .requestLogout(new LogoutResponseCallback() {
+                                    @Override
+                                    public void onCompleteLogout() {
+//                                    Log.i("KAKAO_API", "로그아웃 완료");
+                                    }
+                                });
+                    }
+
+
 
                     // SharedPreferences 내용삭제
                     SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언

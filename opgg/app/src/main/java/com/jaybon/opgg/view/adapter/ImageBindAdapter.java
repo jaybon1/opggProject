@@ -56,7 +56,7 @@ public class ImageBindAdapter {
     public static void getChampImg(ImageView imageView, String champId) {
 
         if(champId != null && !champId.equals("") && !champId.equals("null")){
-            Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/"+champId+".png").into(imageView);
+            Glide.with(imageView.getContext()).load("https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/"+champId+".png").into(imageView);
         } else {
             imageView.setImageResource(R.color.opGray);
         }

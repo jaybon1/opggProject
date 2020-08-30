@@ -139,9 +139,6 @@ public class DetailActivity extends AppCompatActivity implements DetailCallback 
                     String winTeamName;
                     String loseTeamName;
 
-                    Log.d(TAG, "onChanged: "+respDto.getData().getWinTeam().getTeamId());
-                    Log.d(TAG, "onChanged: "+respDto.getData().getLoseTeam().getTeamId());
-
                     if(respDto.getData().getWinTeam().getTeamId() == 100){
                         winTeamName = "(레드)";
                         loseTeamName = "(블루)";

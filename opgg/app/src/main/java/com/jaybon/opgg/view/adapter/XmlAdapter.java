@@ -110,6 +110,10 @@ public class XmlAdapter {
 
     // 타임스탬프 시간을 날짜로 변경
     public static String getDate(Timestamp timestamp) {
+        if(timestamp == null){
+            return "9999.12.31";
+        }
+
         long ts = timestamp.getTime();
 
         if(ts + 86400000 > System.currentTimeMillis()){
@@ -303,7 +307,7 @@ public class XmlAdapter {
         } else if (champId == 21) {
             champName = "MissFortune";
         } else if (champId == 62) {
-            champName = "Wukong";
+            champName = "MonkeyKing";
         } else if (champId == 82) {
             champName = "Mordekaiser";
         } else if (champId == 25) {
@@ -452,6 +456,10 @@ public class XmlAdapter {
             champName = "Zoe";
         } else if (champId == 143) {
             champName = "Zyra";
+        } else if (champId == 777) {
+            champName = "Yone";
+        } else if (champId == 145) {
+            champName = "Kaisa";
         } else{
             champName = "Garen";
         }

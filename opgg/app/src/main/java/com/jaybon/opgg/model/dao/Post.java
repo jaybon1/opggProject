@@ -16,7 +16,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
-@ToString(exclude = {"user","replies"})
+@ToString
 public class Post {
 
     private int id;

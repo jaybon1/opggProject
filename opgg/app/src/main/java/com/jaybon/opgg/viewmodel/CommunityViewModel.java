@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
+import com.jaybon.opgg.model.network.CommunityRepository;
 
 import java.util.List;
 

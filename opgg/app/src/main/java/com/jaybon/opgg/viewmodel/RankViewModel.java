@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.jaybon.opgg.model.dto.RankingDto;
 import com.jaybon.opgg.model.dto.RespDto;
+import com.jaybon.opgg.model.network.RankRepository;
 
 import java.util.List;
 

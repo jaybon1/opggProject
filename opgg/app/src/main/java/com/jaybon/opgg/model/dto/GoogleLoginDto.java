@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class GoogleLoginDto {
 
-    GoogleProfileObjDto profileObj;
+    private String googleId;
+    private String name;
+    private String email;
 
 }

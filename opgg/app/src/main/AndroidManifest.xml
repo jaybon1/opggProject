@@ -34,7 +34,8 @@
         <activity android:name=".view.InfoActivity" />
         <activity
             android:name=".view.LoginActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity android:name=".view.MainActivity">
 
             <!-- 아래코드는 앱에 하나만 있어야됨(여러개있으면 앱이 여러개 설치됨) -->

@@ -48,12 +48,10 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // 데이터 개별로 넣기
     public void addContent(InfoDto infoDto) {
         infoDtos.add(infoDto);
-        Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
     // 데이터 통으로 넣기
     public void addContents(List<InfoDto> infoDtos){
-        Log.d(TAG, "addContents: 호출됨");
         this.infoDtos = infoDtos;
     }
 
@@ -126,8 +124,6 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.infoItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Log.d(TAG, "onClick: "+infoItemBinding.getInfoDto().getMatchSummonerModel().getGameId());
 
                     // 리사이클러뷰에서 액티비티 전환하기
                     Intent intent = new Intent(infoItemBinding.getRoot().getContext(), DetailActivity.class);

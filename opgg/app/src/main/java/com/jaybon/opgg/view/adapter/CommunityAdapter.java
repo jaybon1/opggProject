@@ -41,7 +41,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void setPage(int page) {
-        Log.d(TAG, "setPage: " + page);
         this.page = page;
     }
 
@@ -52,7 +51,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     // 아이템 개별 추가
     public void addContent(CommunityDto communityDto) {
         communityDtos.add(communityDto);
-        Log.d(TAG, "addContent: 아이템 추가됨");
     }
 
     // 아이템 통으로 추가
@@ -100,7 +98,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CommunityDto communityDto = communityDtos.get(position);
 
-        Log.d(TAG, "onBindViewHolder: "+communityDto.getPost());
 
         if (holder instanceof MyViewHolder) {
             ((MyViewHolder) holder).setPage(page);

@@ -1,4 +1,4 @@
-package com.jaybon.opgg.viewmodel;
+package com.jaybon.opgg.model.network;
 
 import android.util.Log;
 
@@ -93,6 +93,52 @@ public class CommunityDetailRepository {
         });
 
 
+    }
+
+    public void deletePost(int postId, String jwtToken) {
+
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<CommunityDto>> call = opggService.deletePost(postId, "Bearer "+jwtToken);
+
+        call.enqueue(new Callback<RespDto<CommunityDto>>() {
+            @Override
+            public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+                RespDto<CommunityDto> respDto = response.body();
+                liveRespDto.setValue(respDto);
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+    }
+
+    public void deleteReply(int replyId, String jwtToken) {
+
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<CommunityDto>> call = opggService.deleteReply(replyId, "Bearer "+jwtToken);
+
+        call.enqueue(new Callback<RespDto<CommunityDto>>() {
+            @Override
+            public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+                RespDto<CommunityDto> respDto = response.body();
+                liveRespDto.setValue(respDto);
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
     }
 
 }
