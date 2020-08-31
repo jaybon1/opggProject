@@ -48,6 +48,7 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
+import com.kakao.util.helper.Utility;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -174,8 +175,8 @@ public class LoginActivity extends AppCompatActivity implements OAuthLoginCallba
     public void initKakaoLoginButton(){
 
         //키 해시 구하기(구글 디벨로퍼 사이트에 등록해야됨)
-//        String keyHash = Utility.getKeyHash(this);
-//        Log.d(TAG, "onCreate: "+keyHash);
+        String keyHash = Utility.getKeyHash(this);
+        Log.d(TAG, "onCreate: "+keyHash);
 
         // Kakao Sdk 초기화
         try {

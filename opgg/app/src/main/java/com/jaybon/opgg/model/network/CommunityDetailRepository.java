@@ -69,73 +69,133 @@ public class CommunityDetailRepository {
         });
     }
 
-    public void writeReply(Reply reply, String jwtToken) {
-
-        OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<RespDto<CommunityDto>> call = opggService.writeReply(reply, "Bearer "+jwtToken);
-
-        call.enqueue(new Callback<RespDto<CommunityDto>>() {
-            @Override
-            public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
-                if (!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: " + response.code());
-                    return;
-                }
-                RespDto<CommunityDto> respDto = response.body();
-
-                liveRespDto.setValue(respDto);
-            }
-
-            @Override
-            public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
-                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
-            }
-        });
-
-
-    }
-
     public void deletePost(int postId, String jwtToken) {
 
         OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<RespDto<CommunityDto>> call = opggService.deletePost(postId, "Bearer "+jwtToken);
+        Call<RespDto<String>> call = opggService.deletePost(postId, "Bearer "+jwtToken);
 
-        call.enqueue(new Callback<RespDto<CommunityDto>>() {
+        call.enqueue(new Callback<RespDto<String>>() {
             @Override
-            public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+            public void onResponse(Call<RespDto<String>> call, Response<RespDto<String>> response) {
                 if (!response.isSuccessful()) {
                     Log.d(TAG, "onResponse: " + response.code());
                     return;
                 }
-                RespDto<CommunityDto> respDto = response.body();
+
+                RespDto respDto = RespDto.builder()
+                        .statusCode(response.body().getStatusCode())
+                        .message(response.body().getMessage())
+                        .build();
+
                 liveRespDto.setValue(respDto);
+
             }
 
             @Override
-            public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+            public void onFailure(Call<RespDto<String>> call, Throwable t) {
                 Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
             }
         });
+    }
+
+    public void writeReply(Reply reply, String jwtToken) {
+
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<String>> call = opggService.writeReply(reply, "Bearer "+jwtToken);
+
+        call.enqueue(new Callback<RespDto<String>>() {
+            @Override
+            public void onResponse(Call<RespDto<String>> call, Response<RespDto<String>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+
+                // 댓글작성에 성공했으면 post한번더호출해서 포스트내용 가져오기
+                if(response.body().getStatusCode() == 200){
+
+                    OpggService opggService = opggRetrofit.create(OpggService.class);
+                    Call<RespDto<CommunityDto>> call1 = opggService.getPostById(Integer.parseInt(response.body().getData()),"Bearer "+jwtToken);
+
+
+                    call1.enqueue(new Callback<RespDto<CommunityDto>>() {
+                        @Override
+                        public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+
+                            if (!response.isSuccessful()) {
+                                Log.d(TAG, "onResponse: " + response.code());
+                                return;
+                            }
+                            RespDto<CommunityDto> respDto = response.body();
+
+                            liveRespDto.setValue(respDto);
+                        }
+
+                        @Override
+                        public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+                            Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+                        }
+                    });
+                }
+
+//                RespDto<CommunityDto> respDto = response.body();
+//
+//                liveRespDto.setValue(respDto);
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<String>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+
+
     }
 
     public void deleteReply(int replyId, String jwtToken) {
 
         OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<RespDto<CommunityDto>> call = opggService.deleteReply(replyId, "Bearer "+jwtToken);
+        Call<RespDto<String>> call = opggService.deleteReply(replyId, "Bearer "+jwtToken);
 
-        call.enqueue(new Callback<RespDto<CommunityDto>>() {
+        call.enqueue(new Callback<RespDto<String>>() {
             @Override
-            public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+            public void onResponse(Call<RespDto<String>> call, Response<RespDto<String>> response) {
                 if (!response.isSuccessful()) {
                     Log.d(TAG, "onResponse: " + response.code());
                     return;
                 }
-                RespDto<CommunityDto> respDto = response.body();
-                liveRespDto.setValue(respDto);
+
+                // 댓글작성에 성공했으면 post한번더호출해서 포스트내용 가져오기
+                if(response.body().getStatusCode() == 200){
+
+                    OpggService opggService = opggRetrofit.create(OpggService.class);
+                    Call<RespDto<CommunityDto>> call1 = opggService.getPostById(Integer.parseInt(response.body().getData()),"Bearer "+jwtToken);
+
+                    call1.enqueue(new Callback<RespDto<CommunityDto>>() {
+                        @Override
+                        public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+
+                            if (!response.isSuccessful()) {
+                                Log.d(TAG, "onResponse: " + response.code());
+                                return;
+                            }
+                            RespDto<CommunityDto> respDto = response.body();
+
+                            liveRespDto.setValue(respDto);
+                        }
+
+                        @Override
+                        public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+                            Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+                        }
+                    });
+                }
+
+
             }
 
             @Override
-            public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+            public void onFailure(Call<RespDto<String>> call, Throwable t) {
                 Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
             }
         });

@@ -82,15 +82,15 @@ public interface OpggService {
 
     // 글삭제
     @DELETE("post/delete/{id}")
-    Call<RespDto<CommunityDto>> deletePost(@Path(value = "id", encoded = true) int id, @Header("Authorization") String bearerToken);
+    Call<RespDto<String>> deletePost(@Path(value = "id", encoded = true) int id, @Header("Authorization") String bearerToken);
 
     // 댓글쓰기
     @POST("reply/writeProc")
-    Call<RespDto<CommunityDto>> writeReply(@Body Reply reply, @Header("Authorization") String bearerToken);
+    Call<RespDto<String>> writeReply(@Body Reply reply, @Header("Authorization") String bearerToken);
 
     // 댓글삭제
     @DELETE("reply/delete/{id}")
-    Call<RespDto<CommunityDto>> deleteReply(@Path(value = "id", encoded = true) int id, @Header("Authorization") String bearerToken);
+    Call<RespDto<String>> deleteReply(@Path(value = "id", encoded = true) int id, @Header("Authorization") String bearerToken);
 
 
 }
