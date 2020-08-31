@@ -75,13 +75,37 @@
 
                 <TextView
                     android:id="@+id/tv_community_tools"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:text="전체"
                     android:textColor="#2b2b2b"
                     android:textSize="20sp" />
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout_community"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toStartOf="@+id/btn_community_search"
+                    android:background="@drawable/search_searchbar_view">
+
+                    <EditText
+                        android:id="@+id/et_community_search_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="-38dp"
+                        android:background="@android:color/transparent"
+                        android:hint="글 검색"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:maxLength="20"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="#9FA6AC" />
+
+                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/btn_community_search"

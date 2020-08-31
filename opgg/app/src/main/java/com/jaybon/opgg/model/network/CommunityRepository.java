@@ -64,4 +64,54 @@ public class CommunityRepository {
             }
         });
     }
+
+    public void getPostByContent(String content) {
+
+        // 레트로핏 비동기
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<List<CommunityDto>>> call = opggService.getPostByContent(content);
+
+        call.enqueue(new Callback<RespDto<List<CommunityDto>>>() {
+            @Override
+            public void onResponse(Call<RespDto<List<CommunityDto>>> call, Response<RespDto<List<CommunityDto>>> response) {
+
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+                RespDto<List<CommunityDto>> respDto = response.body();
+
+                liveRespDto.setValue(respDto);
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<List<CommunityDto>>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+    }
+
+    public void updateViewCount(int postId) {
+
+        // 레트로핏 비동기
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<String>> call = opggService.updateViewCount(postId);
+
+        call.enqueue(new Callback<RespDto<String>>() {
+            @Override
+            public void onResponse(Call<RespDto<String>> call, Response<RespDto<String>> response) {
+
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<String>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+
+    }
 }

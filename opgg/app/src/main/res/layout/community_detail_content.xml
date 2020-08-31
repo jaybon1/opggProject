@@ -199,15 +199,15 @@
                 android:id="@+id/imageView6"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_community_detail_viewcount"
-                app:layout_constraintEnd_toEndOf="@+id/btn_community_detail_viewcount"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_community_detail_likecount"
+                app:layout_constraintEnd_toEndOf="@+id/btn_community_detail_likecount"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/btn_community_detail_viewcount"
-                app:layout_constraintTop_toTopOf="@+id/btn_community_detail_viewcount"
+                app:layout_constraintStart_toStartOf="@+id/btn_community_detail_likecount"
+                app:layout_constraintTop_toTopOf="@+id/btn_community_detail_likecount"
                 app:srcCompat="@drawable/ic_up_gray" />
 
             <Button
-                android:id="@+id/btn_community_detail_viewcount"
+                android:id="@+id/btn_community_detail_likecount"
                 style="?attr/selectableItemBackgroundBorderless"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"

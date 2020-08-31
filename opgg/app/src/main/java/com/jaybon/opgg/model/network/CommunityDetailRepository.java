@@ -201,4 +201,33 @@ public class CommunityDetailRepository {
         });
     }
 
+    public void updateLikeCount(int postId) {
+
+        // 레트로핏 비동기
+        OpggService opggService = opggRetrofit.create(OpggService.class);
+        Call<RespDto<CommunityDto>> call = opggService.updateLikeCount(postId);
+
+        call.enqueue(new Callback<RespDto<CommunityDto>>() {
+            @Override
+            public void onResponse(Call<RespDto<CommunityDto>> call, Response<RespDto<CommunityDto>> response) {
+
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.code());
+                    return;
+                }
+
+                RespDto<CommunityDto> respDto = response.body();
+
+                liveRespDto.setValue(respDto);
+
+            }
+
+            @Override
+            public void onFailure(Call<RespDto<CommunityDto>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 통신에 실패하였읍니다.");
+            }
+        });
+
+    }
+
 }

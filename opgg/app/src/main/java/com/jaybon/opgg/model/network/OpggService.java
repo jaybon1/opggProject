@@ -16,6 +16,7 @@ import com.jaybon.opgg.model.dto.TokenDto;
 
 import java.util.List;
 
+import lombok.Getter;
 import lombok.experimental.Delegate;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -48,10 +49,6 @@ public interface OpggService {
     @GET("test/info/update/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
-    // communityDto 가져오기
-    @GET("post/{page}")
-    Call<RespDto<List<CommunityDto>>> getPostByPage(@Path(value = "page", encoded = true) int page);
-
     // 회원가입
     @POST("test/join")
     Call<RespDto<String>> join(@Body JoinDto joinDto);
@@ -67,6 +64,14 @@ public interface OpggService {
     // 카카오로그인
     @POST("jwt/oauth")
     Call<RespDto<TokenDto>> kakaoLogin(@Body KakaoLoginDto kakaoLoginDto);
+
+    // 글목록 가져오기 communityDto 가져오기
+    @GET("post/{page}")
+    Call<RespDto<List<CommunityDto>>> getPostByPage(@Path(value = "page", encoded = true) int page);
+
+    // 글검색 communityDto 가져오기
+    @GET("post/find/{content}")
+    Call<RespDto<List<CommunityDto>>> getPostByContent(@Path(value = "content", encoded = true) String content);
 
     // 글 상세보기
     @GET("post/detail/{id}")
@@ -92,6 +97,13 @@ public interface OpggService {
     @DELETE("reply/delete/{id}")
     Call<RespDto<String>> deleteReply(@Path(value = "id", encoded = true) int id, @Header("Authorization") String bearerToken);
 
+    //글 뷰카운트 올리기
+    @PUT("post/update/view/{postId}")
+    Call<RespDto<String>> updateViewCount(@Path(value = "postId", encoded = true) int postId);
+
+    //글 좋아요 올리기
+    @PUT("post/update/like/{postId}")
+    Call<RespDto<CommunityDto>> updateLikeCount(@Path(value = "postId", encoded = true) int postId);
 
 }
 

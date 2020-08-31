@@ -169,6 +169,13 @@ public class CommunityDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public void initListener() {
 
+            // 좋아요늘리기
+            communityDetailContentBinding.btnCommunityDetailLikecount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    communityDetailCallback.updateLikeCount(communityDetailContentBinding.getCommunityDetailDto().getPost().getId());
+                }
+            });
 
             // 글삭제
             communityDetailContentBinding.tvCommunityDetailDelete.setOnClickListener(new View.OnClickListener() {

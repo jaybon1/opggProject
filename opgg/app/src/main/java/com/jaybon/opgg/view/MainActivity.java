@@ -1,18 +1,29 @@
 package com.jaybon.opgg.view;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.jaybon.opgg.R;
+import com.jaybon.opgg.view.callback.DialogCallback;
+
+import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
                         break;
                     case R.id.bottom_nav_community_button:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CommunityFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CommunityFragment(getIntent().getIntExtra("page", 0), getIntent().getIntExtra("position", 0))).commit();
                         break;
                     case R.id.bottom_nav_ranking_button:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RankFragment()).commit();

@@ -6,4 +6,6 @@ public interface CommunityDetailCallback {
     void deletePost(int postId);
 
     void deleteReply(int replyId);
+
+    void updateLikeCount(int postId);
 }

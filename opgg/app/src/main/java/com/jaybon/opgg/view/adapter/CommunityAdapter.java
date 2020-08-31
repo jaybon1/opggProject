@@ -1,6 +1,7 @@
 package com.jaybon.opgg.view.adapter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +84,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     LayoutInflater.from(parent.getContext()), R.layout.community_item, parent, false
             );
 
-            return new MyViewHolder(communityItemBinding);
+            return new MyViewHolder(communityItemBinding, communityCallback);
         } else {
             CommunityFooterBinding communityFooterBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.getContext()), R.layout.community_footer, parent, false
@@ -108,10 +109,12 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((FooterViewHolder) holder).setPage(page);
             if(buttonType == 0){
                 ((FooterViewHolder) holder).communityFooterBinding.btnCommunityFooterPrev.setVisibility(View.GONE);
+                ((FooterViewHolder) holder).communityFooterBinding.btnCommunityFooterNext.setVisibility(View.VISIBLE);
             } else if(buttonType == 1){
                 ((FooterViewHolder) holder).communityFooterBinding.btnCommunityFooterPrev.setVisibility(View.VISIBLE);
                 ((FooterViewHolder) holder).communityFooterBinding.btnCommunityFooterNext.setVisibility(View.VISIBLE);
             } else if(buttonType == 2){
+                ((FooterViewHolder) holder).communityFooterBinding.btnCommunityFooterPrev.setVisibility(View.VISIBLE);
                 ((FooterViewHolder) holder).communityFooterBinding.btnCommunityFooterNext.setVisibility(View.GONE);
             }
         }
@@ -129,15 +132,17 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         // 규칙1 (xml이 들고있는 뷰)
         private CommunityItemBinding communityItemBinding;
+        private CommunityCallback communityCallback;
         private int page;
         private int position;
 
-        public MyViewHolder(@NonNull CommunityItemBinding communityItemBinding) {
+        public MyViewHolder(@NonNull CommunityItemBinding communityItemBinding, CommunityCallback communityCallback) {
 //            super(itemView);
 
             // 규칙2 뷰들을 변수에 연결
             super(communityItemBinding.getRoot());
             this.communityItemBinding = communityItemBinding;
+            this.communityCallback = communityCallback;
 
             setPage(0);
             setPosition(0);
@@ -149,6 +154,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             communityItemBinding.layoutCommunity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    communityCallback.updateViewCount(communityItemBinding.getCommunityDto().getPost().getId());
 
                     // 리사이클러뷰에서 액티비티 전환하기
                     Intent intent = new Intent(communityItemBinding.getRoot().getContext(), CommunityDetailActivity.class);

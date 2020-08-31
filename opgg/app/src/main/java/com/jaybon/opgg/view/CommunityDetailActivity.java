@@ -358,7 +358,7 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
         activityCommunityDetailBinding.pgCommunityDetailLoading.setVisibility(View.VISIBLE);
         communityDetailViewModel.deletePost(postId, jwtToken);
 
-    }
+}
 
     @Override
     public void deleteReply(int replyId) {
@@ -368,14 +368,35 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
     }
 
     @Override
+    public void updateLikeCount(int postId) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("com.jaybon.opgg.jwt", MODE_PRIVATE);    // test 이름의 기본모드 설정
+        // sharedPreferences의 viewedPages에 현재페이지가 없으면 저장
+        Log.d(TAG, "updateLikeCount: "+sharedPreferences.getString("likedPages",""));
+        Log.d(TAG, "updateLikeCount: "+postId+",");
+
+        if(sharedPreferences.getString("nickname","").equals("")){
+            Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+        } else if(!sharedPreferences.getString("likedPages","").contains(String.valueOf(postId))){
+            SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+            editor.putString("likedPages", sharedPreferences.getString("likedPages","")+postId+","); // key,value 형식으로 저장
+            editor.commit();
+            communityDetailViewModel.updateLikeCount(postId);
+        } else{
+            Toast.makeText(this, "이미 좋아요를 누른 페이지 입니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent(CommunityDetailActivity.this, MainActivity.class);
         intent.putExtra("frag", 1);
         intent.putExtra("page", getIntent().getIntExtra("page", 0));
         intent.putExtra("position", getIntent().getIntExtra("position", 0));
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         overridePendingTransition(0, android.R.anim.slide_out_right);
+        finish();
     }
 
     private void alert(String value) {

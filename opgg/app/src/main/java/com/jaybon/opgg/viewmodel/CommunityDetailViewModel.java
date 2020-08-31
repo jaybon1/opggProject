@@ -52,4 +52,10 @@ public class CommunityDetailViewModel extends AndroidViewModel {
 
     }
 
+    public void updateLikeCount(int postId) {
+
+        communityDetailRepository.updateLikeCount(postId);
+
+    }
+
 }

@@ -1,23 +1,29 @@
 package com.jaybon.opgg.view;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -35,6 +41,7 @@ import com.jaybon.opgg.model.dto.CommunityDto;
 import com.jaybon.opgg.model.dto.RespDto;
 import com.jaybon.opgg.view.adapter.CommunityAdapter;
 import com.jaybon.opgg.view.callback.CommunityCallback;
+import com.jaybon.opgg.view.callback.DialogCallback;
 import com.jaybon.opgg.viewmodel.CommunityViewModel;
 import com.kakao.auth.IApplicationConfig;
 import com.kakao.auth.KakaoAdapter;
@@ -48,6 +55,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
 public class CommunityFragment extends Fragment implements CommunityCallback {
 
@@ -218,7 +226,22 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
         this.page = page;
     }
 
-    private void initListener(){
+    @Override
+    public void updateViewCount(int postId) {
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.jaybon.opgg.jwt", getActivity().MODE_PRIVATE);    // test 이름의 기본모드 설정
+        // sharedPreferences의 viewedPages에 현재페이지가 없으면 저장
+        Log.d(TAG, "updateViewCount: " + sharedPreferences.getString("viewedPages", ""));
+        Log.d(TAG, "updateViewCount: " + postId + ",");
+        if (!sharedPreferences.getString("viewedPages", "").contains(String.valueOf(postId))) {
+            SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+            editor.putString("viewedPages", sharedPreferences.getString("viewedPages", "") + postId + ","); // key,value 형식으로 저장
+            editor.commit();
+            communityViewModel.updateViewCount(postId);
+        }
+    }
+
+    private void initListener() {
 
         // 네비게이션바 헤더 엑스버튼
         fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.iv_nav_header).setOnClickListener(new View.OnClickListener() {
@@ -232,18 +255,18 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
         fragmentCommunityBinding.navCommunity.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.bottom_nav_search_button:
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
-                        ((BottomNavigationView)getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_search_button);
+                        ((BottomNavigationView) getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_search_button);
                         break;
                     case R.id.bottom_nav_community_button:
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CommunityFragment()).commit();
-                        ((BottomNavigationView)getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_community_button);
+                        ((BottomNavigationView) getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_community_button);
                         break;
                     case R.id.bottom_nav_ranking_button:
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RankFragment()).commit();
-                        ((BottomNavigationView)getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_ranking_button);
+                        ((BottomNavigationView) getActivity().findViewById(R.id.bottom_nav_search)).setSelectedItemId(R.id.bottom_nav_ranking_button);
                         break;
                 }
                 return false;
@@ -264,6 +287,19 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
             @Override
             public void onClick(View v) {
 
+                if(fragmentCommunityBinding.etCommunitySearchInput.getText().toString() == null ||
+                        fragmentCommunityBinding.etCommunitySearchInput.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "검색어를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }else {
+                    // 키보드 숨기기
+                    InputMethodManager imm = (InputMethodManager)getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(fragmentCommunityBinding.etCommunitySearchInput.getWindowToken(), 0);
+                    communityViewModel.getPostByContent(fragmentCommunityBinding.etCommunitySearchInput.getText().toString());
+                    fragmentCommunityBinding.etCommunitySearchInput.setText("");
+
+                }
+
+
             }
         });
 
@@ -275,13 +311,19 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
 
     }
 
-    private void initWriteButton(){
+    public void getPostByContent(String content){
+
+        communityViewModel.getPostByContent(content);
+
+    }
+
+    private void initWriteButton() {
         // 글쓰기버튼
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.jaybon.opgg.jwt", getActivity().MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
-        String jwtToken = sharedPreferences.getString("jwtToken","");
+        String jwtToken = sharedPreferences.getString("jwtToken", "");
 
-        if(jwtToken.equals("")){
+        if (jwtToken.equals("")) {
 
             fragmentCommunityBinding.btnCommunityWrite.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -290,7 +332,7 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
                 }
             });
 
-        }else {
+        } else {
 
             fragmentCommunityBinding.btnCommunityWrite.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -303,26 +345,26 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
         }
     }
 
-    private void initLoginButton(){
+    private void initLoginButton() {
         // 네비게이션바 헤더 로그인버튼
         // SharedPreferences에 값이 없으면 로그인, 있으면 로그아웃
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.jaybon.opgg.jwt", getActivity().MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
-        String jwtToken = sharedPreferences.getString("jwtToken","");
+        String jwtToken = sharedPreferences.getString("jwtToken", "");
 
-        if(jwtToken.equals("")){
-            ((Button)fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header)).setText("로그인");
+        if (jwtToken.equals("")) {
+            ((Button) fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header)).setText("로그인");
             fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    intent.putExtra("activity","community");
+                    intent.putExtra("activity", "community");
                     intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     fragmentCommunityBinding.drawerLayoutCommunity.closeDrawer(Gravity.RIGHT);
                 }
             });
-        } else{
-            ((Button)fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header)).setText("로그아웃");
+        } else {
+            ((Button) fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header)).setText("로그아웃");
             fragmentCommunityBinding.navCommunity.getHeaderView(0).findViewById(R.id.btn_nav_header).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -374,11 +416,11 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
                                 return null;
                             }
                         });
-                    }catch (KakaoSDK.AlreadyInitializedException e){
+                    } catch (KakaoSDK.AlreadyInitializedException e) {
                         Log.d(TAG, "initKakaoLoginButton: 이미 초기화 되어있습니다.");
                     }
 
-                    if(UserManagement.getInstance() != null){
+                    if (UserManagement.getInstance() != null) {
                         // 카카오 로그아웃
                         UserManagement.getInstance()
                                 .requestLogout(new LogoutResponseCallback() {
@@ -390,9 +432,8 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
                     }
 
 
-
                     // SharedPreferences 내용삭제
-                    SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+                    SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
                     editor.putString("jwtToken", null); // key,value 형식으로 저장
                     editor.putString("userId", null); // key,value 형식으로 저장
                     editor.putString("nickname", null); // key,value 형식으로 저장
@@ -409,13 +450,13 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
         }
     }
 
-    private void alert(String value){
+    private void alert(String value) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(value);
         builder.setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if(value.equals("로그인이 필요합니다.")){
+                        if (value.equals("로그인이 필요합니다.")) {
 //                            finish();
                             Intent intent = new Intent(getContext(), LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -158,7 +158,7 @@ public class WriteActivity extends AppCompatActivity {
                                     if(writeType.equals("작성")){
                                         Intent intent = new Intent(WriteActivity.this, MainActivity.class);
                                         intent.putExtra("frag", 1);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                     } else if(writeType.equals("수정")){
                                         // 리사이클러뷰에서 액티비티 전환하기

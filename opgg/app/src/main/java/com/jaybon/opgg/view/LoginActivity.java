@@ -375,13 +375,13 @@ public class LoginActivity extends AppCompatActivity implements OAuthLoginCallba
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("frag", 1);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
 
                             } else if(getIntent().getStringExtra("activity").equals("community")){
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("frag", 1);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
 
                             } else if(getIntent().getStringExtra("activity").equals("communityDetail")){
