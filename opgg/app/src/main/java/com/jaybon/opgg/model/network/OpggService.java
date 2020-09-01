@@ -50,7 +50,7 @@ public interface OpggService {
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // 회원가입
-    @POST("user/join")
+    @POST("join")
     Call<RespDto<String>> join(@Body JoinDto joinDto);
 
     // 로그인
