@@ -309,49 +309,7 @@ public class LoginActivity extends AppCompatActivity implements OAuthLoginCallba
 
             googleLoginRepository.serverLogin(LoginActivity.this, account);
 
-//            GoogleLoginDto googleLoginDto = GoogleLoginDto.builder()
-//                    .googleId(account.getId())
-//                    .email(account.getEmail())
-//                    .name(account.getFamilyName()+" "+account.getGivenName())
-//                    .build();
-//
-//            Retrofit opggRetrofit = OpggRetrofitHelper.getRetrofit();
-//            OpggService opggService = opggRetrofit.create(OpggService.class);
-//            Call<RespDto<TokenDto>> call = opggService.googleLogin(googleLoginDto);
-//
-//            call.enqueue(new Callback<RespDto<TokenDto>>() {
-//                @Override
-//                public void onResponse(Call<RespDto<TokenDto>> call, Response<RespDto<TokenDto>> response) {
-//                    if (response.body().getStatusCode() == 200) {
-//
-//                        SharedPreferences sharedPreferences = getSharedPreferences("com.jaybon.opgg.jwt", MODE_PRIVATE);    // test 이름의 기본모드 설정
-//                        SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
-//                        editor.putString("jwtToken", response.body().getData().getJwtToken()); // key,value 형식으로 저장
-//                        editor.putString("userId", String.valueOf(response.body().getData().getUserId())); // key,value 형식으로 저장
-//                        editor.putString("nickname", response.body().getData().getNickname()); // key,value 형식으로 저장
-//
-//                        editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
-//
-//                        alert("로그인에 성공하였습니다.");
-//                        activityLoginBinding.pgLoginLoading.setVisibility(View.GONE);
-//                    } else {
-//                        alert(response.body().getMessage());
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<RespDto<TokenDto>> call, Throwable t) {
-//                    alert("통신에 실패하였습니다.");
-//                    activityLoginBinding.pgLoginLoading.setVisibility(View.GONE);
-//                }
-//            });
-
-//            // Signed in successfully, show authenticated UI.
-//            Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
-//            startActivity(intent);
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
 
         }
     }
