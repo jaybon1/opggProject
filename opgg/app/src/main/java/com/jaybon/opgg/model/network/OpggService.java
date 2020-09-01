@@ -30,27 +30,27 @@ import retrofit2.http.Path;
 public interface OpggService {
 
     // rankingDto 가져오기 아이디 검색
-    @GET("test/ranking/name/{summonerName}")
+    @GET("api/ranking/name/{summonerName}")
     Call<RespDto<List<RankingDto>>> getRankingBySummonerName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // rankingDto 가져오기
-    @GET("test/ranking/page/{page}")
+    @GET("api/ranking/page/{page}")
     Call<RespDto<List<RankingDto>>> getRankingByPage(@Path(value = "page", encoded = true) long page);
 
     // detailDto 가져오기
-    @GET("test/detail/gameid/{gameId}")
+    @GET("api/detail/gameid/{gameId}")
     Call<RespDto<DetailDto>> getDetailByGameId(@Path(value = "gameId", encoded = true) long gameId);
 
     // infoDto 가져오기
-    @GET("test/info/name/{summonerName}")
+    @GET("api/info/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> getInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // infoDto 가져오기
-    @GET("test/info/update/name/{summonerName}")
+    @GET("api/info/update/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // 회원가입
-    @POST("test/join")
+    @POST("user/join")
     Call<RespDto<String>> join(@Body JoinDto joinDto);
 
     // 로그인
