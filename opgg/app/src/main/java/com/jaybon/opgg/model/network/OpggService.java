@@ -50,7 +50,7 @@ public interface OpggService {
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // 회원가입
-    @POST("user/join")
+    @POST("join")
     Call<RespDto<String>> join(@Body JoinDto joinDto);
 
     // 로그인
@@ -99,11 +99,11 @@ public interface OpggService {
 
     //글 뷰카운트 올리기
     @PUT("post/update/view/{postId}")
-    Call<RespDto<String>> updateViewCount(@Path(value = "postId", encoded = true) int postId);
+    Call<RespDto<String>> updateViewCount(@Path(value = "postId", encoded = true) int postId, @Header("Authorization") String bearerToken);
 
     //글 좋아요 올리기
     @PUT("post/update/like/{postId}")
-    Call<RespDto<CommunityDto>> updateLikeCount(@Path(value = "postId", encoded = true) int postId);
+    Call<RespDto<CommunityDto>> updateLikeCount(@Path(value = "postId", encoded = true) int postId, @Header("Authorization") String bearerToken);
 
 }
 

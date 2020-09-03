@@ -73,6 +73,10 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
     // 뷰모델
     private CommunityViewModel communityViewModel;
 
+    private SharedPreferences sharedPreferences;
+
+    private String jwtToken;
+
     // 페이지
     private int page;
     private int position;
@@ -103,6 +107,9 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        sharedPreferences = getActivity().getSharedPreferences("com.jaybon.opgg.jwt", getActivity().MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        jwtToken = sharedPreferences.getString("jwtToken", "");
 
         // 리스트 초기화
         communityDtos = new ArrayList<>();
@@ -237,7 +244,7 @@ public class CommunityFragment extends Fragment implements CommunityCallback {
             SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
             editor.putString("viewedPages", sharedPreferences.getString("viewedPages", "") + postId + ","); // key,value 형식으로 저장
             editor.commit();
-            communityViewModel.updateViewCount(postId);
+            communityViewModel.updateViewCount(postId, jwtToken);
         }
     }
 

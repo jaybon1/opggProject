@@ -91,11 +91,11 @@ public class CommunityRepository {
         });
     }
 
-    public void updateViewCount(int postId) {
+    public void updateViewCount(int postId, String jwtToken) {
 
         // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<RespDto<String>> call = opggService.updateViewCount(postId);
+        Call<RespDto<String>> call = opggService.updateViewCount(postId, jwtToken);
 
         call.enqueue(new Callback<RespDto<String>>() {
             @Override

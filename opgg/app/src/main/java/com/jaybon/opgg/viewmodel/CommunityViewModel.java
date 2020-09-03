@@ -37,9 +37,9 @@ public class CommunityViewModel extends AndroidViewModel {
         return liveRespDto;
     }
 
-    public void updateViewCount(int postId) {
+    public void updateViewCount(int postId, String jwtToken) {
 
-        communityRepository.updateViewCount(postId);
+        communityRepository.updateViewCount(postId, jwtToken);
 
     }
 

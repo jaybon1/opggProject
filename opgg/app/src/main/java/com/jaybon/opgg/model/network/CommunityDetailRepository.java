@@ -201,11 +201,11 @@ public class CommunityDetailRepository {
         });
     }
 
-    public void updateLikeCount(int postId) {
+    public void updateLikeCount(int postId, String jwtToken) {
 
         // 레트로핏 비동기
         OpggService opggService = opggRetrofit.create(OpggService.class);
-        Call<RespDto<CommunityDto>> call = opggService.updateLikeCount(postId);
+        Call<RespDto<CommunityDto>> call = opggService.updateLikeCount(postId, "Bearer "+jwtToken);
 
         call.enqueue(new Callback<RespDto<CommunityDto>>() {
             @Override

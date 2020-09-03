@@ -381,7 +381,7 @@ public class CommunityDetailActivity extends AppCompatActivity implements Commun
             SharedPreferences.Editor editor = sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
             editor.putString("likedPages", sharedPreferences.getString("likedPages","")+postId+","); // key,value 형식으로 저장
             editor.commit();
-            communityDetailViewModel.updateLikeCount(postId);
+            communityDetailViewModel.updateLikeCount(postId, jwtToken);
         } else{
             Toast.makeText(this, "이미 좋아요를 누른 페이지 입니다.", Toast.LENGTH_SHORT).show();
         }

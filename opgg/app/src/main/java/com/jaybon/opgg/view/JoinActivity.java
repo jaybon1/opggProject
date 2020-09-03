@@ -68,7 +68,6 @@ public class JoinActivity extends AppCompatActivity {
 
                     call.enqueue(new Callback<RespDto<String>>() {
 
-
                         @Override
                         public void onResponse(Call<RespDto<String>> call, Response<RespDto<String>> response) {
                             if (response.body().getStatusCode() == 200) {
