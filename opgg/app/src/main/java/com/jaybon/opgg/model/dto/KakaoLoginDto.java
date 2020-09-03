@@ -17,3 +17,4 @@ public class KakaoLoginDto {
     public String email;
 
 }
+
