@@ -12,8 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.temp.GoogleSecondActivity"></activity>
-        <activity android:name=".view.temp.GoogleOauthActivity" />
         <activity
             android:name=".view.WriteActivity"
             android:windowSoftInputMode="adjustResize" />
