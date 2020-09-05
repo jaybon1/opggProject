@@ -29,24 +29,24 @@ import retrofit2.http.Path;
 
 public interface OpggService {
 
-    // rankingDto 가져오기 아이디 검색
+    // rankingDto 가져오기 아이디로 검색
     @GET("api/ranking/name/{summonerName}")
     Call<RespDto<List<RankingDto>>> getRankingBySummonerName(@Path(value = "summonerName", encoded = true) String summonerName);
 
-    // rankingDto 가져오기
+    // rankingDto 가져오기 페이지로 검색
     @GET("api/ranking/page/{page}")
     Call<RespDto<List<RankingDto>>> getRankingByPage(@Path(value = "page", encoded = true) long page);
 
-    // detailDto 가져오기
+    // detailDto 가져오기 게임아이디로 검색
     @GET("api/detail/gameid/{gameId}")
     Call<RespDto<DetailDto>> getDetailByGameId(@Path(value = "gameId", encoded = true) long gameId);
 
-    // infoDto 가져오기
+    // infoDto 가져오기 아이디로 검색
     @GET("api/info/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> getInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
-    // infoDto 가져오기
-    @GET("api/info/update/name/{summonerName}")
+    // infoDto 가져오기 전적갱신
+    @PUT("api/info/update/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // 회원가입
