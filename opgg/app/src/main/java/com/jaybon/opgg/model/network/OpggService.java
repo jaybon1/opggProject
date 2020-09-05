@@ -46,7 +46,7 @@ public interface OpggService {
     Call<RespDto<List<InfoDto>>> getInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // infoDto 가져오기 전적갱신
-    @PUT("api/info/update/name/{summonerName}")
+    @POST("api/info/update/name/{summonerName}")
     Call<RespDto<List<InfoDto>>> updateInfoByName(@Path(value = "summonerName", encoded = true) String summonerName);
 
     // 회원가입
