@@ -15,8 +15,6 @@ public class XmlAdapter {
     public static String solo = "솔랭";
     public static String flex = "자유 5:5 랭크";
 
-
-
     // 조건에 맟춰서 승 패 데이터
     public static String win = "승";
     public static String lose = "패";

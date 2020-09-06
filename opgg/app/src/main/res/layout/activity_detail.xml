@@ -278,7 +278,7 @@
                 android:layout_marginEnd="5dp"
                 android:gravity="center_vertical"
                 android:hint="0"
-                android:text="@{String.valueOf(detailDto.winTeam.dragonkils)}"
+                android:text="@{String.valueOf(detailDto.winTeam.dragonkills)}"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_detail_win_team_tower"
@@ -440,6 +440,7 @@
                 android:gravity="center_vertical"
                 android:hint="0"
                 android:textSize="15dp"
+                android:text="@{String.valueOf(detailDto.loseTeam.baronKills)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_detail_lose_team_dragon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -463,6 +464,7 @@
                 android:gravity="center_vertical"
                 android:hint="0"
                 android:textSize="15dp"
+                android:text="@{String.valueOf(detailDto.winTeam.dragonkills)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_detail_lose_team_tower"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -486,6 +488,7 @@
                 android:gravity="center_vertical"
                 android:hint="0"
                 android:textSize="15dp"
+                android:text="@{String.valueOf(detailDto.winTeam.towerKills)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

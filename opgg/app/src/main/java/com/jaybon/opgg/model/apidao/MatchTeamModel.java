@@ -19,5 +19,5 @@ public class MatchTeamModel {
     private String win;
     private long towerKills;
     private long baronKills;
-    private long dragonkils;
+    private long dragonkills;
 }
