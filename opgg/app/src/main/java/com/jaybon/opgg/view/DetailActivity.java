@@ -146,14 +146,14 @@ public class DetailActivity extends AppCompatActivity implements DetailCallback 
                         activityDetailBinding.layoutDetailLoseTeamHeader.setBackgroundResource(R.color.blueTeam);
 
                         activityDetailBinding.ivDetailWinKnife.setImageResource(R.drawable.red_knife);
-                        activityDetailBinding.ivDetailWinTeamBaron.setImageResource(R.drawable.red_baron);
-                        activityDetailBinding.ivDetailWinTeamDragon.setImageResource(R.drawable.red_dragon);
-                        activityDetailBinding.ivDetailWinTeamTower.setImageResource(R.drawable.red_tower);
+                        activityDetailBinding.ivDetailWinTeamBaron.setImageResource(R.drawable.icon_baron_r);
+                        activityDetailBinding.ivDetailWinTeamDragon.setImageResource(R.drawable.icon_dragon_r);
+                        activityDetailBinding.ivDetailWinTeamTower.setImageResource(R.drawable.icon_tower_r);
 
                         activityDetailBinding.ivDetailLoseKnife.setImageResource(R.drawable.blue_knife);
-                        activityDetailBinding.ivDetailLoseTeamBaron.setImageResource(R.drawable.blue_baron);
-                        activityDetailBinding.ivDetailLoseTeamDragon.setImageResource(R.drawable.blue_dragon);
-                        activityDetailBinding.ivDetailLoseTeamTower.setImageResource(R.drawable.blue_tower);
+                        activityDetailBinding.ivDetailLoseTeamBaron.setImageResource(R.drawable.icon_baron_b);
+                        activityDetailBinding.ivDetailLoseTeamDragon.setImageResource(R.drawable.icon_dragon_b);
+                        activityDetailBinding.ivDetailLoseTeamTower.setImageResource(R.drawable.icon_tower_b);
 
                     } else{
                         winTeamName = "(블루)";
@@ -162,14 +162,14 @@ public class DetailActivity extends AppCompatActivity implements DetailCallback 
                         activityDetailBinding.layoutDetailLoseTeamHeader.setBackgroundResource(R.color.redTeam);
 
                         activityDetailBinding.ivDetailWinKnife.setImageResource(R.drawable.blue_knife);
-                        activityDetailBinding.ivDetailWinTeamBaron.setImageResource(R.drawable.blue_baron);
-                        activityDetailBinding.ivDetailWinTeamDragon.setImageResource(R.drawable.blue_dragon);
-                        activityDetailBinding.ivDetailWinTeamTower.setImageResource(R.drawable.blue_tower);
+                        activityDetailBinding.ivDetailWinTeamBaron.setImageResource(R.drawable.icon_baron_b);
+                        activityDetailBinding.ivDetailWinTeamDragon.setImageResource(R.drawable.icon_dragon_b);
+                        activityDetailBinding.ivDetailWinTeamTower.setImageResource(R.drawable.icon_tower_b);
 
                         activityDetailBinding.ivDetailLoseKnife.setImageResource(R.drawable.red_knife);
-                        activityDetailBinding.ivDetailLoseTeamBaron.setImageResource(R.drawable.red_baron);
-                        activityDetailBinding.ivDetailLoseTeamDragon.setImageResource(R.drawable.red_dragon);
-                        activityDetailBinding.ivDetailLoseTeamTower.setImageResource(R.drawable.red_tower);
+                        activityDetailBinding.ivDetailLoseTeamBaron.setImageResource(R.drawable.icon_baron_r);
+                        activityDetailBinding.ivDetailLoseTeamDragon.setImageResource(R.drawable.icon_dragon_r);
+                        activityDetailBinding.ivDetailLoseTeamTower.setImageResource(R.drawable.icon_tower_r);
 
                     }
 

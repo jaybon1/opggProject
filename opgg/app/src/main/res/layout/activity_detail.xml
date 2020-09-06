@@ -238,14 +238,14 @@
 
             <ImageView
                 android:id="@+id/iv_detail_win_team_baron"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView26"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lol_baron_b" />
+                app:srcCompat="@drawable/icon_baron_b" />
 
             <TextView
                 android:id="@+id/textView26"
@@ -262,14 +262,14 @@
 
             <ImageView
                 android:id="@+id/iv_detail_win_team_dragon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lol_dragon_b" />
+                app:srcCompat="@drawable/icon_dragon_b" />
 
             <TextView
                 android:id="@+id/textView22"
@@ -286,14 +286,14 @@
 
             <ImageView
                 android:id="@+id/iv_detail_win_team_tower"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView18"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lol_tower_b" />
+                app:srcCompat="@drawable/icon_tower_b" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -423,14 +423,14 @@
 
             <ImageView
                 android:id="@+id/iv_detail_lose_team_baron"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView31"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lol_baron_r" />
+                app:srcCompat="@drawable/icon_baron_r" />
 
             <TextView
                 android:id="@+id/textView31"
@@ -447,14 +447,14 @@
 
             <ImageView
                 android:id="@+id/iv_detail_lose_team_dragon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView29"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lol_dragon_r" />
+                app:srcCompat="@drawable/icon_dragon_r" />
 
             <TextView
                 android:id="@+id/textView29"
@@ -464,21 +464,21 @@
                 android:gravity="center_vertical"
                 android:hint="0"
                 android:textSize="15dp"
-                android:text="@{String.valueOf(detailDto.winTeam.dragonKills)}"
+                android:text="@{String.valueOf(detailDto.loseTeam.dragonKills)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_detail_lose_team_tower"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_detail_lose_team_tower"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView28"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/lol_tower_r" />
+                app:srcCompat="@drawable/icon_tower_r" />
 
             <TextView
                 android:id="@+id/textView28"
@@ -488,7 +488,7 @@
                 android:gravity="center_vertical"
                 android:hint="0"
                 android:textSize="15dp"
-                android:text="@{String.valueOf(detailDto.winTeam.towerKills)}"
+                android:text="@{String.valueOf(detailDto.loseTeam.towerKills)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
