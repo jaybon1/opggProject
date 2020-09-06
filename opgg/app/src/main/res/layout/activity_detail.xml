@@ -278,7 +278,7 @@
                 android:layout_marginEnd="5dp"
                 android:gravity="center_vertical"
                 android:hint="0"
-                android:text="@{String.valueOf(detailDto.winTeam.dragonkills)}"
+                android:text="@{String.valueOf(detailDto.winTeam.dragonKills)}"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_detail_win_team_tower"
@@ -464,7 +464,7 @@
                 android:gravity="center_vertical"
                 android:hint="0"
                 android:textSize="15dp"
-                android:text="@{String.valueOf(detailDto.winTeam.dragonkills)}"
+                android:text="@{String.valueOf(detailDto.winTeam.dragonKills)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_detail_lose_team_tower"
                 app:layout_constraintTop_toTopOf="parent" />
