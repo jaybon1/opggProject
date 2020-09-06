@@ -53,11 +53,11 @@ https://youtu.be/uPcLr8jvrek
 
 
 
-## 서버
-
-Spring Boot
+## Spring Boot 서버
 
 https://github.com/bk6717/opgg
+
+
 
 ## React 웹페이지
 
