@@ -255,7 +255,7 @@ public class XmlAdapter {
         } else if (champId == 222) {
             champName = "Jinx";
         } else if (champId == 145) {
-            champName = "KaiSa";
+            champName = "Kaisa";
         } else if (champId == 429) {
             champName = "Kalista";
         } else if (champId == 43) {
@@ -419,7 +419,7 @@ public class XmlAdapter {
         } else if (champId == 45) {
             champName = "Veigar";
         } else if (champId == 161) {
-            champName = "VelKoz";
+            champName = "Velkoz";
         } else if (champId == 254) {
             champName = "Vi";
         } else if (champId == 112) {
