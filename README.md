@@ -5,6 +5,14 @@
 ![메인페이지](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAdn7L%2FbtqHXC3R25X%2FAxJ8MV8ckXS4jFdkYS6UXk%2Fimg.png)
 
 
+## 프로젝트 개요
+
+>-OP.GG는 월간 4500만명의 이용자가 사용하는 게임 전적 검색 사이트입니다. `https://www.op.gg`<br>
+>-본 프로젝트는 OP.GG 의 어플리케이션과 웹을 클론 코딩하였습니다.<br>
+>-리그오브레전드 게임 유저의 데이터를 API를 통해 조회하고 실제 경기 승, 패 상세내용을 제공하고 있습니다.<br>
+>` Riot API: https://developer.riotgames.com` <br>
+>-커뮤니티 서비스를 제공하고 있습니다.<br>
+
 
 ## 패턴
 
