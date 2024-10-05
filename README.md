@@ -48,13 +48,6 @@ MVVM 패턴
 8. 글쓰기 / 게시글 검색 / 글삭제 / 글수정 / 댓글쓰기 / 댓글삭제 
 
 
-
-## 프레젠테이션
-
-https://docs.google.com/presentation/d/18THVKIPVGr88FUk_v3LMFCRaCgsmMGnlvAfA4YdHrwc/edit?usp=sharing
-
-
-
 ## 영상
 
 https://youtu.be/uPcLr8jvrek
